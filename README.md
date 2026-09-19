@@ -10,7 +10,7 @@ Historic District, Dayton, Ohio, plus 61 undated-to-2003 streetscape views. Phot
 captioned with a span of house numbers are attached to every address in the span,
 so the collection resolves to 1,112 address-photo links.
 
-- **Map** of the district with a pin per address, sized by photo count, framed automatically on the photographed addresses
+- **Map** of the district with a pin per address, its area graduated by photo count (square-root scaled, capped at 16 so one outlier does not flatten the rest) against a small legend; framed automatically on the photographed addresses
 - **Sidebar** of address tiles grouped by street, collapsed by default so the whole district scans in one screen; each tile shows a cover photo, year range, and photo count
 - **Streetscapes** appear as their own group in the sidebar, alongside the streets
 - **Year filter** in two interchangeable forms, switched by the toggle at the right of the year row: multi-select chips, or a timeline slider that snaps to the years the collection actually holds. The timeline stays live inside the photo viewer, where years the open address has nothing from are dimmed
@@ -134,6 +134,24 @@ block. That is a large manual step, and re-uploading any photo breaks its link.
 
 Use this path only if an outside host is ruled out. GitHub Pages is simpler and
 keeps the photos in version control.
+
+## Tile covers and shared wide shots
+
+A photo captioned with a span covers a row of buildings and is attached to every
+address in it, which made the sidebar repetitive: filtering to 1974 once put the
+same wide shot on ten tiles out of 37.
+
+Two things address that, neither of which changes what a photo is attached to:
+
+- **Cover choice prefers the narrowest span.** An address with its own photo shows
+  that instead of the row shot. Distinct covers at 1974 went from 15 to 21, and
+  across the whole set from 207 to 220.
+- **A cover still shared by more than one visible tile is badged** with its span,
+  e.g. `▭ 429–443`, so the repeat reads as one wide shot covering several
+  addresses. Unfiltered, only 38 of 241 tiles carry a badge.
+
+The viewer and the photo strip are untouched: every address still shows every photo
+it is attached to, in chronological order.
 
 ## Descriptions
 

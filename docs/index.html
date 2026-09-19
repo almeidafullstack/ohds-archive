@@ -235,6 +235,14 @@
   .tile-body { padding: 6px 8px 7px; display: flex; flex-direction: column; gap: 1px; }
   .tile-addr { font-size: .8rem; font-weight: 600; line-height: 1.2; }
   .tile-meta { font-size: .66rem; color: var(--ink-soft); }
+  /* Marks a cover that is one wide shot shared by several addresses, so the
+     repeated thumbnail reads as deliberate rather than broken. */
+  .tile-span {
+    position: absolute; top: 5px; left: 5px;
+    background: rgba(28,28,28,.72); color: #f3e6bd;
+    font-size: .6rem; font-weight: 600; letter-spacing: .02em;
+    border-radius: var(--pill); padding: 1px 6px;
+  }
   .tile-count {
     position: absolute; top: 5px; right: 5px;
     background: rgba(28,28,28,.82); color: #fff;
@@ -289,7 +297,6 @@
     fill: var(--dark); stroke: #fff; stroke-width: 1.5;
     vector-effect: non-scaling-stroke; cursor: pointer;
   }
-  .svgmap-pin.big { fill: var(--accent-d); }
   .svgmap-pin-g:hover .svgmap-pin { fill: var(--accent); }
   .svgmap-pin.active { fill: var(--accent); stroke: var(--dark); stroke-width: 2; }
 
@@ -348,6 +355,16 @@
   }
   .svgmap-zoom button:hover { background: var(--surface); }
   .svgmap-zoom button + button { border-top: 1px solid var(--line); }
+
+  .svgmap-legend {
+    position: absolute; top: 12px; left: 52px; z-index: 400;
+    display: flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,.88); border: 1px solid var(--line);
+    border-radius: var(--pill); padding: 4px 11px 4px 8px;
+    font-size: .66rem; color: var(--ink-soft); white-space: nowrap;
+  }
+  .svgmap-legend svg { display: block; }
+  .svgmap-legend circle { fill: var(--dark); stroke: #fff; stroke-width: 1.5; }
 
   .svgmap-attrib {
     position: absolute; bottom: 0; right: 0; z-index: 400;
@@ -452,7 +469,9 @@
     #list-close { display: block; }
     #mobile-list-toggle { display: block; }
     body.list-open #mobile-list-toggle { display: none; }
-    body.list-open .svgmap-zoom, body.list-open .svgmap-attrib { display: none; }
+    body.list-open .svgmap-zoom, body.list-open .svgmap-attrib,
+    body.list-open .svgmap-legend { display: none; }
+    .svgmap-legend { font-size: .62rem; padding: 3px 9px 3px 6px; gap: 5px; }
     .lb-header { padding: 11px 50px 9px 14px; }
     .lb-header h2 { font-size: 1rem; }
     .lb-nav { width: 36px; height: 36px; font-size: 1.4rem; }
@@ -548,6 +567,22 @@ const webpPath = p => relPath(p).replace(/\.jpe?g$/i, '.webp');
 const thumbSrc = p => THUMB_URL + encodeURI(webpPath(p));
 const viewSrc  = p => VIEW_URL  + encodeURI(webpPath(p));
 const fullSrc  = p => FULL_URL  + encodeURI(webpPath(p));
+
+// A photo captioned "429-443 E. Sixth St" covers a whole row of buildings, so it
+// gets attached to every address in that span. That makes it a poor tile cover:
+// filter to 1974 and ten tiles front the same wide shot. Prefer the narrowest span
+// available, and fall back to the wide one only when it is genuinely all there is.
+const SPAN_RE = /^\s*(\d+)\s*-\s*(\d+)\s/;
+function photoSpan(p) {
+  const m = SPAN_RE.exec((p.clean_file || p.file).split('/').pop());
+  return m ? { lo: Math.min(+m[1], +m[2]), hi: Math.max(+m[1], +m[2]) } : null;
+}
+const spanWidth = p => { const s = photoSpan(p); return s ? s.hi - s.lo : 0; };
+
+function coverPhoto(photos) {
+  if (!photos.length) return null;
+  return photos.reduce((best, p) => spanWidth(p) < spanWidth(best) ? p : best, photos[0]);
+}
 
 const yearsOf = photos => [...new Set(photos.map(p => p.year).filter(Boolean))].sort();
 function yearRange(photos) {
@@ -778,6 +813,14 @@ function renderSidebar(addresses) {
   const grouped = {};
   addresses.forEach(a => (grouped[a.street] ||= []).push(a));
 
+  // Count how many visible tiles would end up on each cover, so only genuinely
+  // repeated ones get labelled.
+  const coverUse = new Map();
+  addresses.forEach(a => {
+    const c = coverPhoto(visiblePhotos(a));
+    if (c) coverUse.set(c.clean_file, (coverUse.get(c.clean_file) || 0) + 1);
+  });
+
   const frag = document.createDocumentFragment();
 
   Object.keys(grouped).sort().forEach(street => {
@@ -788,15 +831,22 @@ function renderSidebar(addresses) {
       title: street,
       meta: `${entries.length} addr · ${n} photos`,
       open: forceOpen || openGroups.has(street),
-      tiles: entries.map(entry => makeTile({
-        key: entry.address,
-        cover: visiblePhotos(entry)[0],
-        title: entry.address,
-        meta: yearRange(visiblePhotos(entry)),
-        count: visiblePhotos(entry).length,
-        active: entry.address === activeAddress,
-        onClick: () => selectAddress(entry),
-      })),
+      tiles: entries.map(entry => {
+        const shown = visiblePhotos(entry);
+        const cover = coverPhoto(shown);
+        const sp = cover && photoSpan(cover);
+        const shared = cover && coverUse.get(cover.clean_file) > 1;
+        return makeTile({
+          key: entry.address,
+          cover,
+          title: entry.address,
+          meta: yearRange(shown),
+          count: shown.length,
+          span: shared && sp ? `${sp.lo}–${sp.hi}` : null,
+          active: entry.address === activeAddress,
+          onClick: () => selectAddress(entry),
+        });
+      }),
     }));
   });
 
@@ -858,7 +908,7 @@ function makeGroup({ key, title, meta, open, tiles, scenes = false }) {
   return group;
 }
 
-function makeTile({ key, cover, title, meta, count, active, onClick }) {
+function makeTile({ key, cover, title, meta, count, span = null, active, onClick }) {
   const tile = document.createElement('button');
   tile.type = 'button';
   tile.className = 'tile' + (active ? ' active' : '');
@@ -867,6 +917,7 @@ function makeTile({ key, cover, title, meta, count, active, onClick }) {
     ${cover
       ? `<img class="tile-img" src="${thumbSrc(cover)}" alt="" loading="lazy" decoding="async">`
       : `<div class="tile-img none">no photo</div>`}
+    ${span ? `<span class="tile-span" title="One wide shot covering ${span}">▭ ${span}</span>` : ''}
     ${count != null ? `<span class="tile-count">${count}</span>` : ''}
     <span class="tile-body">
       <span class="tile-addr">${title}</span>
@@ -896,7 +947,7 @@ function placePins(addresses) {
     if (!entry.lat || !entry.lon) return;
     const shown = visiblePhotos(entry);
     MAP.addPin(entry.address, entry.lat, entry.lon, {
-      big: shown.length > 5,
+      weight: shown.length,
       data: entry,
       onClick: rec => { setActive(entry.address); MAP.openPopup(rec, buildPopup(entry)); },
     });
@@ -907,7 +958,8 @@ function placePins(addresses) {
 function buildPopup(entry) {
   const shown = visiblePhotos(entry);
   const div = document.createElement('div');
-  const cover = shown[0];
+  const cover = coverPhoto(shown);
+  const coverIdx = Math.max(0, shown.indexOf(cover));
   const desc = (entry.description || '').trim();
 
   div.innerHTML = `
@@ -920,13 +972,13 @@ function buildPopup(entry) {
       <button class="popup-btn">View all photos</button>
     </div>`;
 
-  let previewIndex = 0;
+  let previewIndex = coverIdx;
   const gallery = div.querySelector('.popup-gallery');
   if (gallery) {
     shown.forEach((p, i) => {
       const b = document.createElement('button');
       b.type = 'button';
-      b.className = 'popup-gthumb' + (i === 0 ? ' current' : '');
+      b.className = 'popup-gthumb' + (i === coverIdx ? ' current' : '');
       b.title = p.year || 'undated';
       b.innerHTML = `<img src="${thumbSrc(p)}" alt="" loading="lazy"><span>${p.year || '—'}</span>`;
       b.addEventListener('click', ev => {

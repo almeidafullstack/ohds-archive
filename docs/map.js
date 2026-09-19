@@ -11,6 +11,9 @@
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
+// Pin sizing, in screen pixels before the zoom counter-scale.
+const PIN_MIN = 3.4, PIN_MAX = 9.2, PIN_CAP = 16;
+
 function createMap(container, basemap, opts = {}) {
   const [S, W, N, E] = basemap.bbox;
   const WORLD_W = basemap.width, WORLD_H = basemap.height;
@@ -43,6 +46,14 @@ function createMap(container, basemap, opts = {}) {
     <div class="svgmap-zoom">
       <button class="svgmap-zoom-in"  aria-label="Zoom in">+</button>
       <button class="svgmap-zoom-out" aria-label="Zoom out">−</button>
+    </div>
+    <div class="svgmap-legend" aria-hidden="true">
+      <svg width="56" height="24" viewBox="0 0 56 24">
+        <circle cx="7"  cy="12" r="${PIN_MIN.toFixed(1)}"></circle>
+        <circle cx="26" cy="12" r="${(PIN_MIN + (PIN_MAX - PIN_MIN) * Math.sqrt(6 / PIN_CAP)).toFixed(1)}"></circle>
+        <circle cx="47" cy="12" r="${PIN_MAX.toFixed(1)}"></circle>
+      </svg>
+      <span>photos per address</span>
     </div>
     <div class="svgmap-attrib">${basemap.attribution}</div>`;
 
@@ -113,11 +124,10 @@ function createMap(container, basemap, opts = {}) {
     // Counter-scale anything that must keep a constant screen size.
     container.style.setProperty('--k', k);
     // Pin radius is a screen measurement, so it has to undo the world scale.
-    const pr = 5.5 / k;
     for (const p of pins.values()) {
-      const r = p.big ? pr * 1.3 : pr;
+      const r = pinRadius(p.weight) / k;
       p.el.setAttribute('r', r);
-      p.hit.setAttribute('r', Math.max(r * 2.1, 11 / k));   // comfortable tap target
+      p.hit.setAttribute('r', Math.max(r * 1.9, 11 / k));   // comfortable tap target
     }
     for (const { el, rank } of labelEls) {
       el.style.display = (rank === 1 || k > (rank === 2 ? 1.6 : 3.2)) ? '' : 'none';
@@ -240,7 +250,16 @@ function createMap(container, basemap, opts = {}) {
     closePopup();
   }
 
-  function addPin(key, lat, lon, { big = false, data = null, onClick } = {}) {
+  // Area grows with the photo count rather than flipping at a threshold, so a
+  // well-documented address reads as bigger without inventing a category. Square
+  // root keeps area (not radius) proportional; the cap stops one outlier address
+  // from flattening everything else.
+  function pinRadius(weight) {
+    const n = Math.max(1, Math.min(weight || 1, PIN_CAP));
+    return PIN_MIN + (PIN_MAX - PIN_MIN) * Math.sqrt(n / PIN_CAP);
+  }
+
+  function addPin(key, lat, lon, { weight = 1, data = null, onClick } = {}) {
     const [wx, wy] = project(lat, lon);
     const g = document.createElementNS(SVG_NS, 'g');
     g.setAttribute('class', 'svgmap-pin-g');
@@ -248,14 +267,14 @@ function createMap(container, basemap, opts = {}) {
     hit.setAttribute('class', 'svgmap-hit');
     hit.setAttribute('cx', wx); hit.setAttribute('cy', wy);
     const el = document.createElementNS(SVG_NS, 'circle');
-    el.setAttribute('class', 'svgmap-pin' + (big ? ' big' : ''));
+    el.setAttribute('class', 'svgmap-pin');
     el.setAttribute('cx', wx); el.setAttribute('cy', wy);
     g.append(hit, el);
 
-    const rec = { g, el, hit, wx, wy, data, big };
-    const r0 = (big ? 1.3 : 1) * 5.5 / k;
+    const rec = { g, el, hit, wx, wy, data, weight };
+    const r0 = pinRadius(weight) / k;
     el.setAttribute('r', r0);
-    hit.setAttribute('r', Math.max(r0 * 2.1, 11 / k));
+    hit.setAttribute('r', Math.max(r0 * 1.9, 11 / k));
 
     g.addEventListener('click', ev => {
       ev.stopPropagation();
@@ -335,6 +354,7 @@ function createMap(container, basemap, opts = {}) {
     project, addPin, clearPins, setPinState, pinsBounds,
     openPopup, closePopup, drawPolygon, fitWorldRect,
     pinFor(key) { return pins.get(key) || null; },
+    pinRadius,
     openPopupFor(key, node) {
       const rec = pins.get(key);
       if (rec) openPopup(rec, node);
