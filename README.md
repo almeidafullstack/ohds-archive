@@ -146,12 +146,23 @@ Two things address that, neither of which changes what a photo is attached to:
 - **Cover choice prefers the narrowest span.** An address with its own photo shows
   that instead of the row shot. Distinct covers at 1974 went from 15 to 21, and
   across the whole set from 207 to 220.
-- **A cover still shared by more than one visible tile is badged** with its span,
-  e.g. `▭ 429–443`, so the repeat reads as one wide shot covering several
-  addresses. Unfiltered, only 38 of 241 tiles carry a badge.
+- **Addresses left sharing a cover are folded into one cluster tile**, labelled with
+  the span the photo claims and the number of addresses under it. Clicking it
+  expands in place: the cluster head becomes a slim bar and the real address tiles
+  appear beneath, each behaving exactly as a standalone tile does.
 
-The viewer and the photo strip are untouched: every address still shows every photo
-it is attached to, in chronological order.
+Clustering is by cover, not by adjacency, because a filter can leave gaps in which
+addresses of a span are on screen and neighbour-only grouping would still show the
+same photo twice in one street.
+
+The result is no duplicate image anywhere on screen, in any filter state: 1974 goes
+from 37 tiles showing 15 distinct photos to 21 tiles showing 21, and the unfiltered
+sidebar from 241 tiles to 281 visible elements across 302 addresses with zero repeats.
+
+Nothing is hidden permanently. Selecting an address from the map, the search box, or
+a deep link opens its cluster first, so every address stays reachable. The viewer and
+the photo strip are untouched: every address still shows every photo it is attached
+to, in chronological order.
 
 ## Descriptions
 

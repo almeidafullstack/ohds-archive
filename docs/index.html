@@ -235,6 +235,31 @@
   .tile-body { padding: 6px 8px 7px; display: flex; flex-direction: column; gap: 1px; }
   .tile-addr { font-size: .8rem; font-weight: 600; line-height: 1.2; }
   .tile-meta { font-size: .66rem; color: var(--ink-soft); }
+  /* display:contents lets the cluster's head and its member tiles sit directly in
+     the parent grid, so nothing has to re-flow when one expands. */
+  .cluster { display: contents; }
+  .cluster.collapsed .tile.member { display: none; }
+
+  .cluster-head { position: relative; }
+  /* Collapsed, it reads as a stack of cards to signal there is more underneath. */
+  .cluster.collapsed .cluster-head { box-shadow: 3px 3px 0 -1px var(--panel), 4px 4px 0 0 var(--line); }
+  .cluster.collapsed .cluster-head:hover { box-shadow: 3px 3px 0 -1px var(--panel), 4px 4px 0 0 var(--ink-soft), var(--shadow); }
+
+  .cluster-cta {
+    display: block; margin-top: 3px;
+    font-size: .64rem; font-weight: 600; color: var(--accent-d);
+  }
+  /* Expanded, the head steps out of the way: a full-width bar above its members. */
+  .cluster:not(.collapsed) .cluster-head {
+    grid-column: 1 / -1;
+    flex-direction: row; align-items: center; gap: 8px;
+    background: var(--surface); border-style: dashed;
+  }
+  .cluster:not(.collapsed) .cluster-head .tile-img,
+  .cluster:not(.collapsed) .cluster-head .tile-span { display: none; }
+  .cluster:not(.collapsed) .cluster-head .tile-body { flex-direction: row; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .cluster:not(.collapsed) .cluster-head .cluster-cta { margin-top: 0; margin-left: auto; }
+
   /* Marks a cover that is one wide shot shared by several addresses, so the
      repeated thumbnail reads as deliberate rather than broken. */
   .tile-span {
@@ -831,22 +856,7 @@ function renderSidebar(addresses) {
       title: street,
       meta: `${entries.length} addr · ${n} photos`,
       open: forceOpen || openGroups.has(street),
-      tiles: entries.map(entry => {
-        const shown = visiblePhotos(entry);
-        const cover = coverPhoto(shown);
-        const sp = cover && photoSpan(cover);
-        const shared = cover && coverUse.get(cover.clean_file) > 1;
-        return makeTile({
-          key: entry.address,
-          cover,
-          title: entry.address,
-          meta: yearRange(shown),
-          count: shown.length,
-          span: shared && sp ? `${sp.lo}–${sp.hi}` : null,
-          active: entry.address === activeAddress,
-          onClick: () => selectAddress(entry),
-        });
-      }),
+      tiles: buildStreetTiles(entries, coverUse),
     }));
   });
 
@@ -877,6 +887,90 @@ function renderSidebar(addresses) {
   }
 
   list.appendChild(frag);
+}
+
+// Consecutive addresses whose cover resolves to the same photo are folded into one
+// cluster tile. Nothing is removed: the cluster expands in place to the real tiles,
+// and selecting an address from the map or a deep link opens its cluster first.
+function buildStreetTiles(entries, coverUse) {
+  // Group by cover rather than by adjacency: the addresses a wide shot covers are
+  // not always contiguous once a filter is applied, and leaving the gaps out would
+  // still show the same photo twice in one street.
+  const runs = new Map();          // cover file -> entries, in first-seen order
+  const order = [];
+  entries.forEach(entry => {
+    const cover = coverPhoto(visiblePhotos(entry));
+    const key = cover ? cover.clean_file : '\u0000none:' + entry.address;
+    if (!runs.has(key)) { runs.set(key, { cover, list: [] }); order.push(key); }
+    runs.get(key).list.push(entry);
+  });
+
+  return order.map(key => {
+    const { cover, list } = runs.get(key);
+    return list.length > 1 ? makeCluster(list, cover) : makeAddressTile(list[0], coverUse);
+  });
+}
+
+function makeAddressTile(entry, coverUse) {
+  const shown = visiblePhotos(entry);
+  const cover = coverPhoto(shown);
+  const sp = cover && photoSpan(cover);
+  const shared = cover && coverUse.get(cover.clean_file) > 1;
+  return makeTile({
+    key: entry.address,
+    cover,
+    title: entry.address,
+    meta: yearRange(shown),
+    count: shown.length,
+    span: shared && sp ? `${sp.lo}–${sp.hi}` : null,
+    active: entry.address === activeAddress,
+    onClick: () => selectAddress(entry),
+  });
+}
+
+const houseNo = a => { const m = /^(\d+)/.exec(a); return m ? m[1] : a; };
+
+function makeCluster(run, cover) {
+  const wrap = document.createElement('div');
+  wrap.className = 'cluster collapsed';
+
+  const street = run[0].street;
+  // Prefer the span the photo itself claims; it is the truthful extent of the shot
+  // even when the filter leaves gaps in which of those addresses are on screen.
+  const sp = cover && photoSpan(cover);
+  const nums = run.map(e => +houseNo(e.address)).sort((a, b) => a - b);
+  const lo = sp ? Math.min(sp.lo, nums[0]) : nums[0];
+  const hi = sp ? Math.max(sp.hi, nums[nums.length - 1]) : nums[nums.length - 1];
+  const label = `${lo}–${hi} ${street}`;
+  const allShown = run.flatMap(visiblePhotos);
+
+  const head = document.createElement('button');
+  head.type = 'button';
+  head.className = 'tile cluster-head';
+  head.setAttribute('aria-expanded', 'false');
+  head.innerHTML = `
+    ${cover ? `<img class="tile-img" src="${thumbSrc(cover)}" alt="" loading="lazy" decoding="async">` : ''}
+    <span class="tile-span">▭ one shared view</span>
+    <span class="tile-body">
+      <span class="tile-addr">${label}</span>
+      <span class="tile-meta">${run.length} addresses · ${yearRange(allShown)}</span>
+      <span class="cluster-cta">Show ${run.length} addresses</span>
+    </span>`;
+
+  const members = run.map(entry => {
+    const t = makeAddressTile(entry, new Map());   // members never re-badge as shared
+    t.classList.add('member');
+    return t;
+  });
+
+  head.addEventListener('click', () => {
+    const open = wrap.classList.toggle('collapsed') === false;
+    head.setAttribute('aria-expanded', String(open));
+    head.querySelector('.cluster-cta').textContent = open ? 'Hide' : `Show ${run.length} addresses`;
+  });
+
+  wrap.append(head, ...members);
+  return wrap;
 }
 
 function makeGroup({ key, title, meta, open, tiles, scenes = false }) {
@@ -1010,6 +1104,13 @@ function setActive(address) {
   const tile = document.querySelector('.tile.active');
   if (tile) {
     tile.closest('.street-group')?.classList.remove('collapsed');
+    const cluster = tile.closest('.cluster');
+    if (cluster && cluster.classList.contains('collapsed')) {
+      cluster.classList.remove('collapsed');
+      const head = cluster.querySelector('.cluster-head');
+      head.setAttribute('aria-expanded', 'true');
+      head.querySelector('.cluster-cta').textContent = 'Hide';
+    }
     tile.scrollIntoView({ block: 'nearest' });
   }
   MAP.setPinState(address, 'active');
