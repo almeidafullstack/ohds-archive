@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oregon Historic District — Photo Archives</title>
+<meta name="description" content="Browse the Oregon Historic District photo archive by address, street, and year. Dayton, Ohio.">
+
+<!-- No external resources. Fonts, map, and data are all served from this folder. -->
+<link rel="stylesheet" href="./fonts.css">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #e0e0e0;
+    --surface:  #f4f4f3;
+    --panel:    #ffffff;
+    --ink:      #383838;
+    --ink-soft: #6b6b6b;
+    --line:     #d2d2d0;
+    --accent:   #ffc700;
+    --accent-d: #d9a800;
+    --dark:     #1c1c1c;
+    --radius:   4px;
+    --pill:     999px;
+    --serif:    'Young Serif', Georgia, serif;
+    --sans:     'Bitter', Georgia, serif;
+    --shadow:   0 1px 3px rgba(0,0,0,.10), 0 6px 20px rgba(0,0,0,.06);
+    --sidebar-w: 310px;
+
+    /* Basemap palette */
+    --map-bg:    #eceae4;
+    --map-block: #f7f6f2;
+    --map-bldg:  #d5d1c7;
+    --map-water: #bfd4dd;
+    --map-green: #d8e3cf;
+    --map-road:  #ffffff;
+    --map-case:  #cdcac2;
+    --map-rail:  #b4b1aa;
+  }
+
+  html, body { height: 100%; }
+  body {
+    font-family: var(--sans);
+    font-size: 15px;
+    background: var(--bg);
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  button { font-family: inherit; color: inherit; cursor: pointer; border: none; background: none; }
+  :focus-visible { outline: 2px solid var(--accent-d); outline-offset: 2px; }
+
+  /* ── Toolbar ──────────────────────────────────────── */
+  .toolbar {
+    flex-shrink: 0;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .toolbar-row { display: flex; gap: 9px; align-items: center; }
+
+  .brandline {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    letter-spacing: -.01em;
+    white-space: nowrap;
+    margin-right: 2px;
+  }
+  .brandline span { color: var(--ink-soft); font-family: var(--sans); font-size: .72rem; font-weight: 400; letter-spacing: .02em; display: block; margin-top: 1px; }
+
+  .search-box { position: relative; flex: 1; min-width: 120px; }
+  #search-input {
+    width: 100%;
+    padding: 8px 30px 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--pill);
+    font-size: .86rem;
+    font-family: var(--sans);
+    background: var(--surface);
+    outline: none;
+    color: var(--ink);
+  }
+  #search-input:focus { border-color: var(--ink); background: #fff; }
+  #search-clear {
+    position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    font-size: 1.05rem; line-height: 1; color: var(--ink-soft); padding: 2px 4px; display: none;
+  }
+  #search-input:not(:placeholder-shown) ~ #search-clear { display: block; }
+
+  .chiprow { display: flex; gap: 5px; align-items: center; overflow-x: auto; scrollbar-width: thin; padding-bottom: 1px; }
+  .chiprow::-webkit-scrollbar { height: 4px; }
+  .chiprow::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+  .chip-label {
+    font-size: .68rem; text-transform: uppercase; letter-spacing: .09em;
+    color: var(--ink-soft); font-weight: 600; white-space: nowrap; padding-right: 3px;
+  }
+  .chip {
+    font-size: .76rem; padding: 4px 11px; border-radius: var(--pill);
+    border: 1px solid var(--line); background: var(--surface);
+    white-space: nowrap; transition: background .12s, border-color .12s; font-weight: 500;
+  }
+  .chip:hover { border-color: var(--ink-soft); }
+  .chip.on { background: var(--accent); border-color: var(--accent); color: var(--dark); font-weight: 600; }
+  .chip-reset { font-size: .74rem; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; padding: 4px 2px; }
+  .chip-reset:hover { color: var(--ink); }
+
+  .mode-toggle { display: flex; border: 1px solid var(--line); border-radius: var(--pill); overflow: hidden; flex-shrink: 0; }
+  .mode-toggle button { font-size: .76rem; padding: 5px 13px; background: var(--surface); font-weight: 500; }
+  .mode-toggle button.on { background: var(--dark); color: #fff; font-weight: 600; }
+
+  /* ── Layout ───────────────────────────────────────── */
+  .layout { display: flex; flex: 1; overflow: hidden; position: relative; }
+
+  #sidebar {
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    background: var(--panel);
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .sidebar-meta {
+    padding: 8px 14px; font-size: .73rem; color: var(--ink-soft);
+    border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;
+  }
+  .sidebar-meta-right { display: flex; align-items: center; gap: 12px; }
+  #list-close { display: none; }
+  .linkbtn { font-size: .72rem; color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+  .linkbtn:hover { color: var(--accent-d); }
+
+  #addr-list { overflow-y: auto; flex: 1; overscroll-behavior: contain; }
+  #addr-list::-webkit-scrollbar { width: 8px; }
+  #addr-list::-webkit-scrollbar-thumb { background: var(--line); border-radius: 8px; }
+
+  .street-group { border-bottom: 1px solid var(--line); }
+  .street-header {
+    padding: 9px 14px; display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; user-select: none; background: var(--panel); transition: background .12s;
+  }
+  .street-header:hover { background: var(--surface); }
+  .street-header-left { display: flex; align-items: center; gap: 7px; min-width: 0; }
+  .street-chevron { font-size: .6rem; color: var(--ink-soft); transition: transform .16s; }
+  .street-group.collapsed .street-chevron { transform: rotate(-90deg); }
+  .street-name { font-family: var(--serif); font-size: .92rem; }
+  .street-total { font-size: .68rem; color: var(--ink-soft); }
+  .street-photo-count { font-size: .68rem; color: var(--ink-soft); white-space: nowrap; }
+  .street-group.collapsed .street-addresses { display: none; }
+  .street-addresses { background: var(--surface); }
+
+  .addr-item {
+    padding: 7px 14px 7px 26px;
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    cursor: pointer; font-size: .84rem; border-left: 3px solid transparent;
+  }
+  .addr-item:hover { background: #ebebe9; }
+  .addr-item.active { background: #fff8dd; border-left-color: var(--accent); font-weight: 600; }
+  .addr-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .addr-meta { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .addr-years { font-size: .64rem; color: var(--ink-soft); }
+  .addr-count { font-size: .68rem; background: var(--line); color: var(--ink); border-radius: var(--pill); padding: 1px 7px; font-weight: 600; }
+  .addr-item.active .addr-count { background: var(--accent); }
+
+  .empty-note { padding: 24px 16px; text-align: center; color: var(--ink-soft); font-size: .82rem; line-height: 1.6; }
+
+  /* ── SVG map ──────────────────────────────────────── */
+  #map { flex: 1; position: relative; overflow: hidden; background: var(--map-bg); }
+  .svgmap { touch-action: none; }
+  .svgmap-canvas { display: block; cursor: grab; background: var(--map-bg); }
+  .svgmap-canvas:active { cursor: grabbing; }
+
+  .lyr path { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .lyr-green  .body { fill: var(--map-green); stroke: none; }
+  .lyr-water  .body { fill: var(--map-water); stroke: none; }
+  .lyr-building .body { fill: var(--map-bldg); stroke: #c6c1b5; stroke-width: .6; }
+  .lyr-rail .casing { stroke: var(--map-rail); stroke-width: 2.4; }
+  .lyr-rail .body   { stroke: #fff; stroke-width: 1.1; stroke-dasharray: 5 5; }
+  .lyr-path .casing { stroke: none; }
+  .lyr-path .body   { stroke: #cfccc4; stroke-width: 1; stroke-dasharray: 3 3; }
+  .lyr-road-service .casing { stroke: var(--map-case); stroke-width: 3; }
+  .lyr-road-service .body   { stroke: var(--map-road); stroke-width: 2; }
+  .lyr-road-minor .casing   { stroke: var(--map-case); stroke-width: 6; }
+  .lyr-road-minor .body     { stroke: var(--map-road); stroke-width: 4.5; }
+  .lyr-road-arterial .casing{ stroke: #c3bfb6; stroke-width: 8; }
+  .lyr-road-arterial .body  { stroke: #fffdf6; stroke-width: 6.5; }
+  .lyr-road-major .casing   { stroke: #c8b98f; stroke-width: 9.5; }
+  .lyr-road-major .body     { stroke: #fdf3d6; stroke-width: 8; }
+
+  .svgmap-label {
+    font-family: var(--sans); font-weight: 500;
+    fill: #7d7a72; paint-order: stroke; stroke: var(--map-bg); stroke-width: calc(3px / var(--k));
+    text-anchor: middle; dominant-baseline: middle; pointer-events: none;
+    font-size: calc(10px / var(--k));
+  }
+  .svgmap-label.r1 { fill: #6f6a5c; font-weight: 600; font-size: calc(11px / var(--k)); }
+
+  .district-boundary {
+    fill: #1c1c1c; fill-opacity: .035;
+    stroke: #1c1c1c; stroke-opacity: .5; stroke-width: 1.5;
+    stroke-dasharray: 6 5; vector-effect: non-scaling-stroke; pointer-events: none;
+  }
+
+  .svgmap-pin {
+    fill: var(--dark); stroke: #fff; stroke-width: 1.5;
+    vector-effect: non-scaling-stroke; cursor: pointer;
+  }
+  .svgmap-pin.big { fill: var(--accent-d); }
+  .svgmap-pin:hover { fill: var(--accent); }
+  .svgmap-pin.active { fill: var(--accent); stroke: var(--dark); stroke-width: 2; }
+
+  .svgmap-popup {
+    position: absolute; z-index: 500;
+    transform: translate(-50%, calc(-100% - 12px));
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow);
+    width: 208px; overflow: hidden;
+  }
+  .svgmap-popup::after {
+    content: ''; position: absolute; left: 50%; bottom: -6px; transform: translateX(-50%) rotate(45deg);
+    width: 10px; height: 10px; background: var(--panel);
+    border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .popup-thumb { width: 100%; height: 118px; object-fit: cover; display: block; cursor: pointer; background: var(--surface); }
+  .popup-body { padding: 9px 11px 11px; }
+  .popup-body h3 { font-family: var(--serif); font-size: .95rem; font-weight: 400; margin-bottom: 2px; }
+  .popup-body p { font-size: .72rem; color: var(--ink-soft); margin-bottom: 8px; }
+  .popup-btn { display: block; width: 100%; padding: 7px; background: var(--accent); color: var(--dark); border-radius: var(--pill); font-size: .78rem; font-weight: 600; text-align: center; }
+  .popup-btn:hover { background: var(--accent-d); }
+
+  .svgmap-zoom {
+    position: absolute; top: 12px; left: 12px; z-index: 400;
+    display: flex; flex-direction: column; border-radius: var(--radius); overflow: hidden;
+    border: 1px solid var(--line); box-shadow: var(--shadow);
+  }
+  .svgmap-zoom button {
+    width: 30px; height: 30px; background: var(--panel); font-size: 1.05rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .svgmap-zoom button:hover { background: var(--surface); }
+  .svgmap-zoom button + button { border-top: 1px solid var(--line); }
+
+  .svgmap-attrib {
+    position: absolute; bottom: 0; right: 0; z-index: 400;
+    background: rgba(255,255,255,.82); color: var(--ink-soft);
+    font-size: .64rem; padding: 2px 7px; border-top-left-radius: var(--radius);
+  }
+
+  .map-fab {
+    position: absolute; z-index: 600;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--pill); padding: 7px 14px;
+    font-size: .78rem; font-weight: 600; box-shadow: var(--shadow);
+  }
+  .map-fab:hover { background: var(--surface); }
+  #reset-view { bottom: 26px; right: 14px; }
+  #mobile-list-toggle { display: none; bottom: 26px; left: 14px; }
+
+  /* ── Streetscapes ─────────────────────────────────── */
+  #scenes-view { display: none; flex: 1; overflow-y: auto; padding: 16px; background: var(--bg); }
+  body.scenes-mode #scenes-view { display: block; }
+  body.scenes-mode #sidebar, body.scenes-mode #map,
+  body.scenes-mode #reset-view, body.scenes-mode #mobile-list-toggle { display: none; }
+  .scene-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 14px; }
+  .scene-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: transform .12s, box-shadow .12s; }
+  .scene-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .scene-card img { width: 100%; height: 148px; object-fit: cover; display: block; background: var(--surface); }
+  .scene-cap { padding: 8px 10px; font-size: .76rem; line-height: 1.35; }
+  .scene-year { font-size: .66rem; color: var(--ink-soft); margin-top: 3px; text-transform: uppercase; letter-spacing: .06em; }
+
+  /* ── Lightbox ─────────────────────────────────────── */
+  #lightbox { display: none; position: fixed; inset: 0; z-index: 4000; background: #141414; flex-direction: column; }
+  #lightbox.open { display: flex; }
+  .lb-header {
+    padding: 13px 58px 11px 20px; color: #fff; flex-shrink: 0;
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+  .lb-header h2 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; }
+  .lb-header p { font-size: .76rem; color: #a8a8a8; }
+  #lb-close { position: absolute; top: 10px; right: 14px; font-size: 1.7rem; line-height: 1; color: #fff; opacity: .75; padding: 4px 10px; z-index: 10; }
+  #lb-close:hover { opacity: 1; }
+
+  .lb-stage { flex: 1; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 12px; min-height: 0; }
+  #lb-img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 6px 34px rgba(0,0,0,.6); }
+  .lb-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    font-size: 1.7rem; color: #fff; background: rgba(0,0,0,.45); border-radius: 50%;
+    width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; transition: background .12s;
+  }
+  .lb-nav:hover { background: var(--accent); color: var(--dark); }
+  #lb-prev { left: 14px; } #lb-next { right: 14px; }
+
+  .main-pane { display: contents; }
+  #main-tag { display: none; }
+  .lb-stage.compare { gap: 10px; padding: 12px; }
+  .lb-stage.compare .main-pane {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    flex: 1 1 0; min-width: 0; min-height: 0; height: 100%; gap: 6px;
+  }
+  .lb-stage.compare .main-pane #lb-img { min-height: 0; flex: 0 1 auto; max-width: 100%; max-height: none; }
+  .lb-stage.compare #main-tag { display: block; }
+  .cmp-pane { display: none; flex-direction: column; align-items: center; justify-content: center; flex: 1 1 0; min-width: 0; min-height: 0; height: 100%; gap: 6px; }
+  .lb-stage.compare .cmp-pane { display: flex; }
+  .cmp-pane img { min-height: 0; flex: 0 1 auto; max-width: 100%; object-fit: contain; box-shadow: 0 6px 34px rgba(0,0,0,.6); }
+  .cmp-tag { font-size: .7rem; color: var(--accent); text-transform: uppercase; letter-spacing: .1em; font-weight: 600; }
+
+  .lb-footer {
+    flex-shrink: 0; padding: 9px 20px; color: #c4c4c4; font-size: .76rem;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    border-top: 1px solid rgba(255,255,255,.1);
+  }
+  .lb-caption { flex: 1; min-width: 140px; color: #e4e4e4; }
+  .lb-action { font-size: .73rem; padding: 4px 12px; border-radius: var(--pill); border: 1px solid rgba(255,255,255,.28); color: #fff; white-space: nowrap; text-decoration: none; }
+  .lb-action:hover { background: rgba(255,255,255,.14); }
+  .lb-action.on { background: var(--accent); color: var(--dark); border-color: var(--accent); font-weight: 600; }
+
+  .lb-thumbs { flex-shrink: 0; display: flex; gap: 7px; padding: 9px 14px; overflow-x: auto; background: rgba(0,0,0,.4); }
+  .lb-thumbs::-webkit-scrollbar { height: 6px; }
+  .lb-thumbs::-webkit-scrollbar-thumb { background: #555; border-radius: 6px; }
+  .lb-thumb {
+    height: 54px; width: 76px; object-fit: cover; flex-shrink: 0;
+    border: 2px solid transparent; border-radius: 3px; cursor: pointer;
+    opacity: .5; transition: opacity .12s; background: #333;
+  }
+  .lb-thumb:hover { opacity: .85; }
+  .lb-thumb.active { border-color: var(--accent); opacity: 1; }
+  .lb-thumb.cmp-pick { border-color: #6ec1ff; opacity: 1; }
+
+  /* ── Mobile ───────────────────────────────────────── */
+  @media (max-width: 760px) {
+    .brandline { display: none; }
+    :root { --sidebar-w: 100%; }
+    #sidebar {
+      position: absolute; inset: 0; z-index: 1200;
+      border-right: none; transform: translateX(-100%); transition: transform .22s ease;
+    }
+    body.list-open #sidebar { transform: translateX(0); }
+    #list-close { display: block; }
+    #mobile-list-toggle { display: block; }
+    body.list-open #mobile-list-toggle { display: none; }
+    body.list-open .svgmap-zoom, body.list-open .svgmap-attrib { display: none; }
+    .lb-header { padding: 11px 50px 9px 14px; }
+    .lb-header h2 { font-size: 1rem; }
+    .lb-nav { width: 36px; height: 36px; font-size: 1.4rem; }
+    #lb-prev { left: 6px; } #lb-next { right: 6px; }
+    .lb-stage.compare { flex-direction: column; }
+    .lb-stage.compare .main-pane, .lb-stage.compare .cmp-pane { flex: 1 1 0; max-width: 100%; min-height: 0; }
+    .scene-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+    .scene-card img { height: 112px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="toolbar-row">
+    <div class="brandline">Photo Archives<span>Oregon Historic District · Dayton, Ohio</span></div>
+    <div class="search-box">
+      <input id="search-input" type="text" placeholder="Search an address or street…" autocomplete="off" aria-label="Search address or street">
+      <button id="search-clear" aria-label="Clear search">×</button>
+    </div>
+    <div class="mode-toggle" role="tablist">
+      <button id="mode-map" class="on" role="tab" aria-selected="true">Map</button>
+      <button id="mode-scenes" role="tab" aria-selected="false">Streetscapes</button>
+    </div>
+  </div>
+  <div class="chiprow" id="year-chips"><span class="chip-label">Year</span></div>
+</div>
+
+<div class="layout">
+  <div id="sidebar">
+    <div class="sidebar-meta">
+      <span id="sidebar-count"></span>
+      <span class="sidebar-meta-right">
+        <button class="linkbtn" id="expand-all-btn">Expand all</button>
+        <button class="linkbtn" id="list-close" aria-label="Close list">Close ✕</button>
+      </span>
+    </div>
+    <div id="addr-list"></div>
+  </div>
+  <div id="map"></div>
+  <button class="map-fab" id="reset-view">Reset view</button>
+  <button class="map-fab" id="mobile-list-toggle">☰ List</button>
+  <div id="scenes-view"><div class="scene-grid" id="scene-grid"></div></div>
+</div>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button id="lb-close" aria-label="Close">×</button>
+  <div class="lb-header">
+    <h2 id="lb-title"></h2>
+    <p id="lb-subtitle"></p>
+  </div>
+  <div class="lb-stage" id="lb-stage">
+    <button class="lb-nav" id="lb-prev" aria-label="Previous photo">‹</button>
+    <div class="main-pane" id="main-pane">
+      <img id="lb-img" src="" alt="">
+      <div class="cmp-tag" id="main-tag"></div>
+    </div>
+    <div class="cmp-pane" id="cmp-pane">
+      <img id="cmp-img" src="" alt="">
+      <div class="cmp-tag" id="cmp-tag"></div>
+    </div>
+    <button class="lb-nav" id="lb-next" aria-label="Next photo">›</button>
+  </div>
+  <div class="lb-footer">
+    <span class="lb-caption" id="lb-caption"></span>
+    <span id="lb-counter"></span>
+    <button class="lb-action" id="lb-compare">Compare years</button>
+    <a class="lb-action" id="lb-full" target="_blank" rel="noopener">Full resolution ↗</a>
+  </div>
+  <div class="lb-thumbs" id="lb-thumbs"></div>
+</div>
+
+<script src="./map.js"></script>
+<script>
+// ── Config ───────────────────────────────────────────────────────────────────
+const BUILD = '2026-09-19a';   // bump when data.json or basemap.json changes
+const THUMB_URL = './thumbs/';
+const VIEW_URL  = './view/';
+const FULL_URL  = './view/';   // originals stay offline; see README
+
+const DISTRICT_BOUNDARY = [
+  [39.7567803, -84.1877067], [39.7552889, -84.1880046], [39.7544779, -84.1884901],
+  [39.7526828, -84.1879968], [39.7530334, -84.1847218], [39.7533345, -84.1814362],
+  [39.7542334, -84.1761951], [39.7558479, -84.1767363], [39.7575119, -84.1771918],
+  [39.7631203, -84.1787841], [39.7567803, -84.1877067]
+];
+
+// ── Path helpers ─────────────────────────────────────────────────────────────
+const relPath  = p => p.clean_file || p.file;
+const webpPath = p => relPath(p).replace(/\.jpe?g$/i, '.webp');
+const thumbSrc = p => THUMB_URL + encodeURI(webpPath(p));
+const viewSrc  = p => VIEW_URL  + encodeURI(webpPath(p));
+const fullSrc  = p => FULL_URL  + encodeURI(webpPath(p));
+
+const yearsOf = photos => [...new Set(photos.map(p => p.year).filter(Boolean))].sort();
+function yearRange(photos) {
+  const y = yearsOf(photos);
+  if (!y.length) return 'undated';
+  return y.length === 1 ? y[0] : `${y[0]}–${y[y.length - 1]}`;
+}
+
+// ── State ────────────────────────────────────────────────────────────────────
+let MAP = null;
+let ALL_ADDRESSES = [], ALL_SCENES = [];
+let activeAddress = null, activeYears = new Set(), searchTerm = '', sceneMode = false;
+let HOME_RECT = null;
+
+// ── Load ─────────────────────────────────────────────────────────────────────
+async function loadData() {
+  const [basemap, data] = await Promise.all([
+    fetch('./basemap.json?v=' + BUILD).then(r => r.json()),
+    fetch('./data.json?v=' + BUILD).then(r => r.json()),
+  ]);
+
+  MAP = createMap(document.getElementById('map'), basemap);
+  MAP.drawPolygon(DISTRICT_BOUNDARY, 'district-boundary');
+
+  ALL_ADDRESSES = data.addresses;
+  ALL_SCENES = data.scenes || [];
+
+  buildYearChips();
+  applyFilters();
+
+  // Frame on the photographed addresses, which is tighter than the whole basemap.
+  HOME_RECT = MAP.pinsBounds();
+  MAP.fitWorldRect(HOME_RECT, 30);
+
+  restoreFromHash();
+}
+
+// ── Filtering ────────────────────────────────────────────────────────────────
+function matchesFilters(entry) {
+  if (searchTerm) {
+    const hay = (entry.address + ' ' + entry.street).toLowerCase();
+    if (!hay.includes(searchTerm)) return false;
+  }
+  if (activeYears.size) {
+    const has = entry.photos.some(p => activeYears.has(p.year) || (activeYears.has('undated') && !p.year));
+    if (!has) return false;
+  }
+  return true;
+}
+function visiblePhotos(entry) {
+  if (!activeYears.size) return entry.photos;
+  return entry.photos.filter(p => activeYears.has(p.year) || (activeYears.has('undated') && !p.year));
+}
+function applyFilters() {
+  const filtered = ALL_ADDRESSES.filter(matchesFilters);
+  renderSidebar(filtered);
+  placePins(filtered);
+  renderScenes();
+}
+
+// ── Year chips ───────────────────────────────────────────────────────────────
+function buildYearChips() {
+  const row = document.getElementById('year-chips');
+  const counts = {};
+  ALL_ADDRESSES.forEach(a => a.photos.forEach(p => { const k = p.year || 'undated'; counts[k] = (counts[k] || 0) + 1; }));
+  ALL_SCENES.forEach(s => { const k = s.year || 'undated'; counts[k] = (counts[k] || 0) + 1; });
+
+  const keys = Object.keys(counts).filter(k => k !== 'undated').sort();
+  if (counts.undated) keys.push('undated');
+
+  keys.forEach(k => {
+    const b = document.createElement('button');
+    b.className = 'chip';
+    b.dataset.year = k;
+    b.textContent = k === 'undated' ? `Undated (${counts[k]})` : `${k} (${counts[k]})`;
+    b.addEventListener('click', () => {
+      b.classList.toggle('on');
+      activeYears.has(k) ? activeYears.delete(k) : activeYears.add(k);
+      updateResetChip();
+      applyFilters();
+    });
+    row.appendChild(b);
+  });
+
+  const reset = document.createElement('button');
+  reset.className = 'chip-reset';
+  reset.id = 'chip-reset';
+  reset.textContent = 'Clear';
+  reset.style.display = 'none';
+  reset.addEventListener('click', () => {
+    activeYears.clear();
+    document.querySelectorAll('.chip[data-year]').forEach(c => c.classList.remove('on'));
+    updateResetChip();
+    applyFilters();
+  });
+  row.appendChild(reset);
+}
+function updateResetChip() {
+  document.getElementById('chip-reset').style.display = activeYears.size ? 'block' : 'none';
+}
+
+// ── Sidebar ──────────────────────────────────────────────────────────────────
+function renderSidebar(addresses) {
+  const list = document.getElementById('addr-list');
+  const countEl = document.getElementById('sidebar-count');
+  list.innerHTML = '';
+
+  const totalPhotos = addresses.reduce((s, a) => s + visiblePhotos(a).length, 0);
+  countEl.textContent = `${addresses.length} address${addresses.length !== 1 ? 'es' : ''} · ${totalPhotos} photo${totalPhotos !== 1 ? 's' : ''}`;
+
+  if (!addresses.length) {
+    list.innerHTML = '<div class="empty-note">No addresses match this filter.<br>Try clearing the year filter or the search box.</div>';
+    return;
+  }
+
+  const grouped = {};
+  addresses.forEach(a => (grouped[a.street] ||= []).push(a));
+  const streets = Object.keys(grouped).sort();
+  const openByDefault = !!searchTerm || activeYears.size > 0 || streets.length === 1;
+
+  streets.forEach(street => {
+    const entries = grouped[street];
+    const streetPhotos = entries.reduce((s, a) => s + visiblePhotos(a).length, 0);
+
+    const group = document.createElement('div');
+    group.className = 'street-group' + (openByDefault ? '' : ' collapsed');
+    group.dataset.street = street;
+
+    const header = document.createElement('div');
+    header.className = 'street-header';
+    header.innerHTML = `
+      <div class="street-header-left">
+        <span class="street-chevron">▾</span>
+        <span class="street-name">${street}</span>
+        <span class="street-total">${entries.length}</span>
+      </div>
+      <span class="street-photo-count">${streetPhotos} photos</span>`;
+    header.addEventListener('click', () => { group.classList.toggle('collapsed'); updateExpandBtn(); });
+
+    const addrContainer = document.createElement('div');
+    addrContainer.className = 'street-addresses';
+
+    entries.forEach(entry => {
+      const shown = visiblePhotos(entry);
+      const item = document.createElement('div');
+      item.className = 'addr-item' + (entry.address === activeAddress ? ' active' : '');
+      item.dataset.address = entry.address;
+      item.innerHTML = `
+        <span class="addr-name">${entry.address}</span>
+        <span class="addr-meta">
+          <span class="addr-years">${yearRange(shown)}</span>
+          <span class="addr-count">${shown.length}</span>
+        </span>`;
+      item.addEventListener('click', () => selectAddress(entry));
+      addrContainer.appendChild(item);
+    });
+
+    group.append(header, addrContainer);
+    list.appendChild(group);
+  });
+  updateExpandBtn();
+}
+
+function updateExpandBtn() {
+  const groups = document.querySelectorAll('.street-group');
+  const anyCollapsed = [...groups].some(g => g.classList.contains('collapsed'));
+  document.getElementById('expand-all-btn').textContent = anyCollapsed ? 'Expand all' : 'Collapse all';
+}
+document.getElementById('expand-all-btn').addEventListener('click', () => {
+  const groups = document.querySelectorAll('.street-group');
+  const anyCollapsed = [...groups].some(g => g.classList.contains('collapsed'));
+  groups.forEach(g => g.classList.toggle('collapsed', !anyCollapsed));
+  updateExpandBtn();
+});
+
+// ── Pins ─────────────────────────────────────────────────────────────────────
+function placePins(addresses) {
+  MAP.clearPins();
+  addresses.forEach(entry => {
+    if (!entry.lat || !entry.lon) return;
+    const shown = visiblePhotos(entry);
+    MAP.addPin(entry.address, entry.lat, entry.lon, {
+      big: shown.length > 5,
+      data: entry,
+      onClick: rec => {
+        setActive(entry.address);
+        MAP.openPopup(rec, buildPopup(entry));
+      },
+    });
+  });
+  if (activeAddress) MAP.setPinState(activeAddress, 'active');
+}
+
+function buildPopup(entry) {
+  const shown = visiblePhotos(entry);
+  const div = document.createElement('div');
+  const first = shown[0];
+  div.innerHTML = `
+    ${first ? `<img class="popup-thumb" src="${thumbSrc(first)}" alt="${entry.address}" loading="lazy">` : ''}
+    <div class="popup-body">
+      <h3>${entry.address}</h3>
+      <p>${shown.length} photo${shown.length !== 1 ? 's' : ''} · ${yearRange(shown)}</p>
+      <button class="popup-btn">View photos</button>
+    </div>`;
+  div.querySelector('.popup-btn').addEventListener('click', () => openLightbox(entry));
+  if (first) div.querySelector('.popup-thumb').addEventListener('click', () => openLightbox(entry));
+  return div;
+}
+
+// ── Selection ────────────────────────────────────────────────────────────────
+function setActive(address) {
+  activeAddress = address;
+  document.querySelectorAll('.addr-item').forEach(el => el.classList.toggle('active', el.dataset.address === address));
+  const active = document.querySelector('.addr-item.active');
+  if (active) {
+    active.closest('.street-group')?.classList.remove('collapsed');
+    active.scrollIntoView({ block: 'nearest' });
+    updateExpandBtn();
+  }
+  MAP.setPinState(address, 'active');
+}
+
+function selectAddress(entry) {
+  setActive(entry.address);
+  document.body.classList.remove('list-open');
+  if (entry.lat && entry.lon) {
+    MAP.flyToLatLon(entry.lat, entry.lon, Math.max(MAP.zoom, 6));
+    setTimeout(() => MAP.openPopupFor(entry.address, buildPopup(entry)), 440);
+  } else {
+    openLightbox(entry);
+  }
+}
+
+// ── Search ───────────────────────────────────────────────────────────────────
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', function () {
+  searchTerm = this.value.toLowerCase().trim();
+  applyFilters();
+});
+document.getElementById('search-clear').addEventListener('click', () => {
+  searchInput.value = ''; searchTerm = ''; applyFilters(); searchInput.focus();
+});
+
+// ── Mode toggle ──────────────────────────────────────────────────────────────
+function setMode(scenes) {
+  sceneMode = scenes;
+  document.body.classList.toggle('scenes-mode', scenes);
+  document.getElementById('mode-map').classList.toggle('on', !scenes);
+  document.getElementById('mode-scenes').classList.toggle('on', scenes);
+  document.getElementById('mode-map').setAttribute('aria-selected', String(!scenes));
+  document.getElementById('mode-scenes').setAttribute('aria-selected', String(scenes));
+  if (!scenes) setTimeout(() => MAP.invalidate(), 60);
+}
+document.getElementById('mode-map').addEventListener('click', () => setMode(false));
+document.getElementById('mode-scenes').addEventListener('click', () => setMode(true));
+
+// ── Streetscapes ─────────────────────────────────────────────────────────────
+function sceneAsPhoto(s) {
+  return { clean_file: s.clean_file || ('_scenes/' + s.original), file: s.file, year: s.year, caption: s.caption };
+}
+function filteredScenes() {
+  return ALL_SCENES.filter(s => {
+    if (activeYears.size && !(activeYears.has(s.year) || (activeYears.has('undated') && !s.year))) return false;
+    if (searchTerm && !s.caption.toLowerCase().includes(searchTerm)) return false;
+    return true;
+  });
+}
+function renderScenes() {
+  const grid = document.getElementById('scene-grid');
+  const scenes = filteredScenes();
+  grid.innerHTML = '';
+  if (!scenes.length) {
+    grid.innerHTML = '<div class="empty-note">No streetscapes match this filter.</div>';
+    return;
+  }
+  scenes.forEach((s, i) => {
+    const card = document.createElement('div');
+    card.className = 'scene-card';
+    card.innerHTML = `
+      <img src="${thumbSrc(sceneAsPhoto(s))}" alt="${s.caption}" loading="lazy">
+      <div class="scene-cap">${s.caption}<div class="scene-year">${s.year || 'Undated'}</div></div>`;
+    card.addEventListener('click', () => openViewer({
+      title: 'Streetscapes',
+      photos: scenes.map(sceneAsPhoto),
+      startIndex: i,
+      subtitle: `${scenes.length} view${scenes.length !== 1 ? 's' : ''} · Oregon Historic District`,
+    }));
+    grid.appendChild(card);
+  });
+}
+
+// ── Lightbox ─────────────────────────────────────────────────────────────────
+let lbPhotos = [], lbIndex = 0, compareMode = false, comparePick = null;
+
+function openLightbox(entry, startIndex = 0) {
+  const shown = visiblePhotos(entry);
+  openViewer({
+    title: entry.address,
+    photos: shown,
+    startIndex,
+    subtitle: `${shown.length} photo${shown.length !== 1 ? 's' : ''} · ${yearRange(shown)} · ${entry.street}`,
+    canCompare: yearsOf(shown).length > 1,
+  });
+  location.hash = 'a=' + encodeURIComponent(entry.address);
+}
+
+function openViewer({ title, photos, startIndex = 0, subtitle = '', canCompare = false }) {
+  if (!photos.length) return;
+  lbPhotos = photos; lbIndex = startIndex;
+  compareMode = false; comparePick = null;
+  document.getElementById('lb-title').textContent = title;
+  document.getElementById('lb-subtitle').textContent = subtitle;
+  const cmpBtn = document.getElementById('lb-compare');
+  cmpBtn.style.display = canCompare ? 'block' : 'none';
+  cmpBtn.classList.remove('on');
+  cmpBtn.textContent = 'Compare years';
+  document.getElementById('lb-stage').classList.remove('compare');
+  buildThumbs();
+  showPhoto(lbIndex);
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function buildThumbs() {
+  const c = document.getElementById('lb-thumbs');
+  c.innerHTML = '';
+  lbPhotos.forEach((p, i) => {
+    const img = document.createElement('img');
+    img.className = 'lb-thumb' + (i === lbIndex ? ' active' : '');
+    img.src = thumbSrc(p);
+    img.loading = 'lazy';
+    img.title = p.year || 'undated';
+    img.addEventListener('click', () => compareMode ? setComparePick(i) : showPhoto(i));
+    c.appendChild(img);
+  });
+}
+
+function showPhoto(index) {
+  lbIndex = index;
+  const p = lbPhotos[index];
+  const img = document.getElementById('lb-img');
+  img.src = viewSrc(p);
+  img.alt = p.caption || `${document.getElementById('lb-title').textContent} ${p.year || ''}`.trim();
+  document.getElementById('lb-counter').textContent = `${index + 1} / ${lbPhotos.length}`;
+  document.getElementById('lb-caption').textContent =
+    (p.caption || p.original || '').replace(/\.jpe?g$/i, '') + (p.year ? '' : '  (undated)');
+  document.getElementById('lb-full').href = fullSrc(p);
+  document.getElementById('main-tag').textContent = p.year || 'undated';
+  document.querySelectorAll('.lb-thumb').forEach((el, i) => el.classList.toggle('active', i === index));
+  document.querySelector('.lb-thumb.active')?.scrollIntoView({ inline: 'nearest', block: 'nearest' });
+  if (compareMode) updateComparePane();
+  [index - 1, index + 1].forEach(i => { if (lbPhotos[i]) new Image().src = viewSrc(lbPhotos[i]); });
+}
+
+function setComparePick(i) {
+  comparePick = i;
+  updateComparePane();
+}
+function updateComparePane() {
+  if (comparePick == null) {
+    const cur = lbPhotos[lbIndex].year;
+    let best = null, bestGap = -1;
+    lbPhotos.forEach((p, i) => {
+      if (i === lbIndex || !p.year || !cur) return;
+      const gap = Math.abs(+p.year - +cur);
+      if (gap > bestGap) { bestGap = gap; best = i; }
+    });
+    comparePick = best != null ? best : (lbIndex + 1) % lbPhotos.length;
+  }
+  const p = lbPhotos[comparePick];
+  document.getElementById('cmp-img').src = viewSrc(p);
+  document.getElementById('cmp-tag').textContent = p.year || 'undated';
+  document.querySelectorAll('.lb-thumb').forEach((el, n) => el.classList.toggle('cmp-pick', n === comparePick));
+}
+document.getElementById('lb-compare').addEventListener('click', function () {
+  compareMode = !compareMode;
+  this.classList.toggle('on', compareMode);
+  this.textContent = compareMode ? 'Pick from strip ↓' : 'Compare years';
+  document.getElementById('lb-stage').classList.toggle('compare', compareMode);
+  if (compareMode) updateComparePane();
+  else { comparePick = null; document.querySelectorAll('.lb-thumb').forEach(el => el.classList.remove('cmp-pick')); }
+});
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+}
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+document.getElementById('lb-prev').addEventListener('click', () => showPhoto((lbIndex - 1 + lbPhotos.length) % lbPhotos.length));
+document.getElementById('lb-next').addEventListener('click', () => showPhoto((lbIndex + 1) % lbPhotos.length));
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target.id === 'lightbox' || e.target.id === 'lb-stage') closeLightbox();
+});
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowRight') showPhoto((lbIndex + 1) % lbPhotos.length);
+  if (e.key === 'ArrowLeft') showPhoto((lbIndex - 1 + lbPhotos.length) % lbPhotos.length);
+});
+
+// ── Map controls ─────────────────────────────────────────────────────────────
+document.getElementById('reset-view').addEventListener('click', () => {
+  activeAddress = null;
+  document.querySelectorAll('.addr-item').forEach(el => el.classList.remove('active'));
+  MAP.setPinState(null, null);
+  MAP.closePopup();
+  MAP.fitWorldRect(HOME_RECT || MAP.pinsBounds(), 30, true);
+});
+document.getElementById('mobile-list-toggle').addEventListener('click', () => document.body.classList.add('list-open'));
+document.getElementById('list-close').addEventListener('click', () => document.body.classList.remove('list-open'));
+
+// ── Deep link ────────────────────────────────────────────────────────────────
+function restoreFromHash() {
+  const m = /a=([^&]+)/.exec(location.hash);
+  if (!m) return;
+  const addr = decodeURIComponent(m[1]);
+  const entry = ALL_ADDRESSES.find(a => a.address === addr);
+  if (entry) { setActive(addr); openLightbox(entry); }
+}
+
+loadData();
+</script>
+</body>
+</html>
