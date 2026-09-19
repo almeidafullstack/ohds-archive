@@ -94,7 +94,9 @@
   }
   #search-input:not(:placeholder-shown) ~ #search-clear { display: block; }
 
-  .chiprow { display: flex; gap: 5px; align-items: center; overflow-x: auto; scrollbar-width: thin; padding-bottom: 1px; }
+  /* The chips scroll; the label and the mode toggle stay pinned either side. */
+  .year-row { display: flex; gap: 8px; align-items: center; min-width: 0; }
+  .chiprow { display: flex; gap: 5px; align-items: center; overflow-x: auto; scrollbar-width: thin; padding-bottom: 1px; flex: 1; min-width: 0; }
   .chiprow::-webkit-scrollbar { height: 4px; }
   .chiprow::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
   .chip-label {
@@ -111,9 +113,49 @@
   .chip-reset { font-size: .74rem; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; padding: 4px 2px; }
   .chip-reset:hover { color: var(--ink); }
 
-  .mode-toggle { display: flex; border: 1px solid var(--line); border-radius: var(--pill); overflow: hidden; flex-shrink: 0; }
-  .mode-toggle button { font-size: .76rem; padding: 5px 13px; background: var(--surface); font-weight: 500; }
-  .mode-toggle button.on { background: var(--dark); color: #fff; font-weight: 600; }
+  .year-mode {
+    flex-shrink: 0;
+    font-size: .7rem; color: var(--ink-soft);
+    border: 1px solid var(--line); border-radius: var(--pill);
+    padding: 3px 10px; white-space: nowrap; background: var(--surface);
+  }
+  .year-mode:hover { border-color: var(--ink-soft); color: var(--ink); }
+
+  /* ── Timeline ─────────────────────────────────────── */
+  .timeline { display: none; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+  body.timeline-mode #year-chips { display: none; }
+  body.timeline-mode #timeline-main { display: flex; }
+  #timeline-lb { display: flex; }
+
+  .tl-track {
+    position: relative; flex: 1; height: 26px; cursor: pointer;
+    touch-action: none; min-width: 120px;
+  }
+  .tl-rail {
+    position: absolute; left: 0; right: 0; top: 11px; height: 3px;
+    background: var(--line); border-radius: 2px;
+  }
+  .tl-fill {
+    position: absolute; left: 0; top: 11px; height: 3px;
+    background: var(--accent); border-radius: 2px;
+  }
+  .tl-tick {
+    position: absolute; top: 7px; width: 2px; height: 11px;
+    background: #c3bfb6; transform: translateX(-1px); border-radius: 1px;
+  }
+  .tl-tick.has { background: var(--ink-soft); }
+  .tl-tick.dim { opacity: .3; }
+  .tl-handle {
+    position: absolute; top: 4px; width: 17px; height: 17px;
+    background: var(--panel); border: 2px solid var(--dark); border-radius: 50%;
+    transform: translateX(-8.5px); box-shadow: var(--shadow); pointer-events: none;
+  }
+  .tl-label {
+    font-size: .74rem; font-weight: 600; min-width: 68px; text-align: right;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .tl-count { font-size: .66rem; color: var(--ink-soft); min-width: 58px; flex-shrink: 0; }
+
 
   /* ── Layout ───────────────────────────────────────── */
   .layout { display: flex; flex: 1; overflow: hidden; position: relative; }
@@ -139,15 +181,28 @@
   #addr-list::-webkit-scrollbar { width: 8px; }
   #addr-list::-webkit-scrollbar-thumb { background: var(--line); border-radius: 8px; }
 
-  /* Street heading: a sticky label, no longer a collapse control */
+  /* Street heading doubles as the collapse control; groups start closed so the
+     whole district is scannable in one screen. */
+  .street-group { border-bottom: 1px solid var(--line); }
   .street-head {
     position: sticky; top: 0; z-index: 2;
-    padding: 9px 14px 6px;
-    background: linear-gradient(var(--panel) 72%, rgba(255,255,255,0));
-    display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
+    width: 100%; padding: 10px 14px;
+    background: var(--panel);
+    border: none; text-align: left; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    transition: background .12s;
   }
+  .street-head:hover { background: var(--surface); }
+  .street-head-left { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .street-chevron {
+    font-size: .58rem; color: var(--ink-soft); flex-shrink: 0;
+    transition: transform .16s;
+  }
+  .street-group.collapsed .street-chevron { transform: rotate(-90deg); }
+  .street-group.collapsed .tile-grid { display: none; }
   .street-name { font-family: var(--serif); font-size: .95rem; }
   .street-photo-count { font-size: .68rem; color: var(--ink-soft); white-space: nowrap; }
+  .street-group.scenes .street-name::before { content: '◈ '; color: var(--accent-d); }
 
   .tile-grid {
     display: grid;
@@ -243,17 +298,42 @@
     transform: translate(-50%, calc(-100% - 12px));
     background: var(--panel); border: 1px solid var(--line);
     border-radius: var(--radius); box-shadow: var(--shadow);
-    width: 208px; overflow: hidden;
+    width: 268px; overflow: hidden;
   }
   .svgmap-popup::after {
     content: ''; position: absolute; left: 50%; bottom: -6px; transform: translateX(-50%) rotate(45deg);
     width: 10px; height: 10px; background: var(--panel);
     border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
   }
-  .popup-thumb { width: 100%; height: 118px; object-fit: cover; display: block; cursor: pointer; background: var(--surface); }
+  .popup-thumb { width: 100%; height: 132px; object-fit: cover; display: block; cursor: pointer; background: var(--surface); }
   .popup-body { padding: 9px 11px 11px; }
   .popup-body h3 { font-family: var(--serif); font-size: .95rem; font-weight: 400; margin-bottom: 2px; }
-  .popup-body p { font-size: .72rem; color: var(--ink-soft); margin-bottom: 8px; }
+  .popup-meta { font-size: .72rem; color: var(--ink-soft); margin-bottom: 8px; }
+  .popup-desc {
+    font-size: .74rem; line-height: 1.45; color: var(--ink);
+    margin-bottom: 9px; padding-left: 8px; border-left: 2px solid var(--accent);
+  }
+
+  /* Gallery strip inside the popup */
+  .popup-gallery {
+    display: flex; gap: 5px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 9px;
+    scrollbar-width: thin;
+  }
+  .popup-gallery::-webkit-scrollbar { height: 5px; }
+  .popup-gallery::-webkit-scrollbar-thumb { background: var(--line); border-radius: 5px; }
+  .popup-gallery::-webkit-scrollbar-track { background: transparent; }
+  .popup-gthumb {
+    position: relative; flex: 0 0 auto; width: 58px; cursor: pointer;
+    border: 1px solid var(--line); border-radius: 3px; overflow: hidden; background: var(--surface);
+    padding: 0; display: block;
+  }
+  .popup-gthumb img { width: 100%; height: 42px; object-fit: cover; display: block; }
+  .popup-gthumb span {
+    display: block; font-size: .58rem; color: var(--ink-soft);
+    text-align: center; padding: 1px 0 2px; letter-spacing: .02em;
+  }
+  .popup-gthumb:hover { border-color: var(--accent-d); }
+  .popup-gthumb.current { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
   .popup-btn { display: block; width: 100%; padding: 7px; background: var(--accent); color: var(--dark); border-radius: var(--pill); font-size: .78rem; font-weight: 600; text-align: center; }
   .popup-btn:hover { background: var(--accent-d); }
 
@@ -285,18 +365,6 @@
   #reset-view { bottom: 26px; right: 14px; }
   #mobile-list-toggle { display: none; bottom: 26px; left: 14px; }
 
-  /* ── Streetscapes ─────────────────────────────────── */
-  #scenes-view { display: none; flex: 1; overflow-y: auto; padding: 16px; background: var(--bg); }
-  body.scenes-mode #scenes-view { display: block; }
-  body.scenes-mode #sidebar, body.scenes-mode #map,
-  body.scenes-mode #reset-view, body.scenes-mode #mobile-list-toggle { display: none; }
-  .scene-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 14px; }
-  .scene-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: transform .12s, box-shadow .12s; }
-  .scene-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-  .scene-card img { width: 100%; height: 148px; object-fit: cover; display: block; background: var(--surface); }
-  .scene-cap { padding: 8px 10px; font-size: .76rem; line-height: 1.35; }
-  .scene-year { font-size: .66rem; color: var(--ink-soft); margin-top: 3px; text-transform: uppercase; letter-spacing: .06em; }
-
   /* ── Lightbox ─────────────────────────────────────── */
   #lightbox { display: none; position: fixed; inset: 0; z-index: 4000; background: #141414; flex-direction: column; }
   #lightbox.open { display: flex; }
@@ -307,6 +375,22 @@
   }
   .lb-header h2 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; }
   .lb-header p { font-size: .76rem; color: #a8a8a8; }
+  .lb-desc {
+    flex-basis: 100%; font-size: .78rem; line-height: 1.5; color: #d8d8d8;
+    padding-left: 9px; border-left: 2px solid var(--accent); margin-top: 7px; max-width: 70ch;
+  }
+  .lb-timeline {
+    flex-shrink: 0; padding: 7px 20px 9px;
+    border-top: 1px solid rgba(255,255,255,.1);
+    background: rgba(0,0,0,.25);
+  }
+  .lb-timeline .timeline { display: flex; }
+  .lb-timeline .tl-rail { background: #4a4a4a; }
+  .lb-timeline .tl-tick { background: #6d6d6d; }
+  .lb-timeline .tl-tick.has { background: #b9b9b9; }
+  .lb-timeline .tl-handle { background: #1c1c1c; border-color: var(--accent); }
+  .lb-timeline .tl-label { color: #f0f0f0; }
+  .lb-timeline .tl-count { color: #9a9a9a; }
   #lb-close { position: absolute; top: 10px; right: 14px; font-size: 1.7rem; line-height: 1; color: #fff; opacity: .75; padding: 4px 10px; z-index: 10; }
   #lb-close:hover { opacity: 1; }
 
@@ -375,9 +459,9 @@
     #lb-prev { left: 6px; } #lb-next { right: 6px; }
     .lb-stage.compare { flex-direction: column; }
     .lb-stage.compare .main-pane, .lb-stage.compare .cmp-pane { flex: 1 1 0; max-width: 100%; min-height: 0; }
-    .scene-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
     .tile-grid { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); }
-    .scene-card img { height: 112px; }
+    body.timeline-mode .year-row { flex-wrap: wrap; row-gap: 4px; }
+    body.timeline-mode #timeline-main { order: 3; flex-basis: 100%; }
   }
 </style>
 </head>
@@ -390,12 +474,13 @@
       <input id="search-input" type="text" placeholder="Search an address or street…" autocomplete="off" aria-label="Search address or street">
       <button id="search-clear" aria-label="Clear search">×</button>
     </div>
-    <div class="mode-toggle" role="tablist">
-      <button id="mode-map" class="on" role="tab" aria-selected="true">Map</button>
-      <button id="mode-scenes" role="tab" aria-selected="false">Streetscapes</button>
-    </div>
   </div>
-  <div class="chiprow" id="year-chips"><span class="chip-label">Year</span></div>
+  <div class="year-row">
+    <span class="chip-label">Year</span>
+    <div class="chiprow" id="year-chips"></div>
+    <div class="timeline" id="timeline-main"></div>
+    <button class="year-mode" id="year-mode">Timeline ▸</button>
+  </div>
 </div>
 
 <div class="layout">
@@ -411,7 +496,6 @@
   <div id="map"></div>
   <button class="map-fab" id="reset-view">Reset view</button>
   <button class="map-fab" id="mobile-list-toggle">☰ List</button>
-  <div id="scenes-view"><div class="scene-grid" id="scene-grid"></div></div>
 </div>
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
@@ -419,6 +503,7 @@
   <div class="lb-header">
     <h2 id="lb-title"></h2>
     <p id="lb-subtitle"></p>
+    <p class="lb-desc" id="lb-desc" hidden></p>
   </div>
   <div class="lb-stage" id="lb-stage">
     <button class="lb-nav" id="lb-prev" aria-label="Previous photo">‹</button>
@@ -439,6 +524,7 @@
     <a class="lb-action" id="lb-full" target="_blank" rel="noopener">Full resolution ↗</a>
   </div>
   <div class="lb-thumbs" id="lb-thumbs"></div>
+  <div class="lb-timeline"><div class="timeline" id="timeline-lb"></div></div>
 </div>
 
 <script src="./map.js"></script>
@@ -473,7 +559,8 @@ function yearRange(photos) {
 // ── State ────────────────────────────────────────────────────────────────────
 let MAP = null;
 let ALL_ADDRESSES = [], ALL_SCENES = [];
-let activeAddress = null, activeYears = new Set(), searchTerm = '', sceneMode = false;
+let activeAddress = null, activeYears = new Set(), searchTerm = '';
+let lbEntry = null;   // the address or scene set the viewer is showing
 let HOME_RECT = null;
 
 // ── Load ─────────────────────────────────────────────────────────────────────
@@ -489,7 +576,7 @@ async function loadData() {
   ALL_ADDRESSES = data.addresses;
   ALL_SCENES = data.scenes || [];
 
-  buildYearChips();
+  buildYearControl();
   applyFilters();
 
   // Frame on the photographed addresses, which is tighter than the whole basemap.
@@ -519,29 +606,37 @@ function applyFilters() {
   const filtered = ALL_ADDRESSES.filter(matchesFilters);
   renderSidebar(filtered);
   placePins(filtered);
-  renderScenes();
+  refreshOpenViewer();
 }
 
-// ── Year chips ───────────────────────────────────────────────────────────────
-function buildYearChips() {
-  const row = document.getElementById('year-chips');
-  const counts = {};
-  ALL_ADDRESSES.forEach(a => a.photos.forEach(p => { const k = p.year || 'undated'; counts[k] = (counts[k] || 0) + 1; }));
-  ALL_SCENES.forEach(s => { const k = s.year || 'undated'; counts[k] = (counts[k] || 0) + 1; });
+// ── Year control: chips and timeline over one shared state ───────────────────
+// activeYears is the single source of truth. Chips toggle many; the timeline
+// picks one. Both views re-sync from the set, so switching modes never lies.
+let ALL_YEARS = [], YEAR_COUNTS = {}, TL_STOPS = [];
 
-  const keys = Object.keys(counts).filter(k => k !== 'undated').sort();
-  if (counts.undated) keys.push('undated');
+function buildYearControl() {
+  const row = document.getElementById('year-chips');
+  YEAR_COUNTS = {};
+  ALL_ADDRESSES.forEach(a => a.photos.forEach(p => {
+    const k = p.year || 'undated'; YEAR_COUNTS[k] = (YEAR_COUNTS[k] || 0) + 1;
+  }));
+  ALL_SCENES.forEach(s => { const k = s.year || 'undated'; YEAR_COUNTS[k] = (YEAR_COUNTS[k] || 0) + 1; });
+
+  ALL_YEARS = Object.keys(YEAR_COUNTS).filter(k => k !== 'undated').sort();
+  TL_STOPS = ['all', ...ALL_YEARS];
+  if (YEAR_COUNTS.undated) TL_STOPS.push('undated');
+
+  const keys = [...ALL_YEARS];
+  if (YEAR_COUNTS.undated) keys.push('undated');
 
   keys.forEach(k => {
     const b = document.createElement('button');
     b.className = 'chip';
     b.dataset.year = k;
-    b.textContent = k === 'undated' ? `Undated (${counts[k]})` : `${k} (${counts[k]})`;
+    b.textContent = k === 'undated' ? `Undated (${YEAR_COUNTS[k]})` : `${k} (${YEAR_COUNTS[k]})`;
     b.addEventListener('click', () => {
-      b.classList.toggle('on');
       activeYears.has(k) ? activeYears.delete(k) : activeYears.add(k);
-      updateResetChip();
-      applyFilters();
+      syncYearUI(); applyFilters();
     });
     row.appendChild(b);
   });
@@ -550,73 +645,248 @@ function buildYearChips() {
   reset.className = 'chip-reset';
   reset.id = 'chip-reset';
   reset.textContent = 'Clear';
-  reset.style.display = 'none';
-  reset.addEventListener('click', () => {
-    activeYears.clear();
-    document.querySelectorAll('.chip[data-year]').forEach(c => c.classList.remove('on'));
-    updateResetChip();
-    applyFilters();
-  });
+  reset.addEventListener('click', () => { activeYears.clear(); syncYearUI(); applyFilters(); });
   row.appendChild(reset);
+
+  buildTimeline(document.getElementById('timeline-main'));
+  buildTimeline(document.getElementById('timeline-lb'));
+
+  const modeBtn = document.getElementById('year-mode');
+  modeBtn.addEventListener('click', () => {
+    const on = document.body.classList.toggle('timeline-mode');
+    modeBtn.textContent = on ? 'Year chips ▸' : 'Timeline ▸';
+    syncYearUI();
+  });
+
+  syncYearUI();
 }
-function updateResetChip() {
-  document.getElementById('chip-reset').style.display = activeYears.size ? 'block' : 'none';
+
+function buildTimeline(host) {
+  host.innerHTML = `
+    <div class="tl-track" role="slider" tabindex="0" aria-label="Filter by year"
+         aria-valuemin="0" aria-valuemax="${TL_STOPS.length - 1}">
+      <div class="tl-rail"></div><div class="tl-fill"></div>
+      <div class="tl-ticks"></div><div class="tl-handle"></div>
+    </div>
+    <span class="tl-label"></span>
+    <span class="tl-count"></span>`;
+
+  const track = host.querySelector('.tl-track');
+  const ticks = host.querySelector('.tl-ticks');
+  TL_STOPS.forEach((stop, i) => {
+    const t = document.createElement('div');
+    t.className = 'tl-tick' + (stop === 'all' ? '' : ' has');
+    t.style.left = pctFor(i) + '%';
+    t.dataset.stop = stop;
+    ticks.appendChild(t);
+  });
+
+  const pick = clientX => {
+    const r = track.getBoundingClientRect();
+    const frac = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    setYearStop(TL_STOPS[Math.round(frac * (TL_STOPS.length - 1))]);
+  };
+  let sliding = false;
+  track.addEventListener('pointerdown', e => {
+    sliding = true; track.setPointerCapture(e.pointerId); pick(e.clientX);
+  });
+  track.addEventListener('pointermove', e => { if (sliding) pick(e.clientX); });
+  track.addEventListener('pointerup', () => { sliding = false; });
+  track.addEventListener('pointercancel', () => { sliding = false; });
+  track.addEventListener('keydown', e => {
+    const i = currentStopIndex();
+    if (e.key === 'ArrowRight') { setYearStop(TL_STOPS[Math.min(TL_STOPS.length - 1, i + 1)]); e.preventDefault(); }
+    if (e.key === 'ArrowLeft')  { setYearStop(TL_STOPS[Math.max(0, i - 1)]); e.preventDefault(); }
+  });
+}
+
+const pctFor = i => (TL_STOPS.length < 2 ? 0 : (i / (TL_STOPS.length - 1)) * 100);
+
+function currentStopIndex() {
+  if (activeYears.size !== 1) return 0;
+  const only = [...activeYears][0];
+  const i = TL_STOPS.indexOf(only);
+  return i < 0 ? 0 : i;
+}
+
+function setYearStop(stop) {
+  activeYears.clear();
+  if (stop && stop !== 'all') activeYears.add(stop);
+  syncYearUI();
+  applyFilters();
+}
+
+// Redraw every year control from activeYears.
+function syncYearUI() {
+  document.querySelectorAll('.chip[data-year]').forEach(c =>
+    c.classList.toggle('on', activeYears.has(c.dataset.year)));
+  const reset = document.getElementById('chip-reset');
+  if (reset) reset.style.display = activeYears.size ? 'block' : 'none';
+
+  const i = currentStopIndex();
+  const stop = TL_STOPS[i];
+  const multi = activeYears.size > 1;
+
+  // While the viewer is open, dim the years this address has nothing from.
+  const present = lbYears();
+
+  document.querySelectorAll('.timeline').forEach(host => {
+    const isLb = host.id === 'timeline-lb';
+    host.querySelector('.tl-handle').style.left = pctFor(i) + '%';
+    host.querySelector('.tl-fill').style.width = pctFor(i) + '%';
+    host.querySelector('.tl-track').setAttribute('aria-valuenow', i);
+    host.querySelector('.tl-track').setAttribute('aria-valuetext',
+      multi ? `${activeYears.size} years selected` : (stop === 'all' ? 'All years' : stop));
+    host.querySelectorAll('.tl-tick').forEach(t =>
+      t.classList.toggle('dim', isLb && present && t.dataset.stop !== 'all' && !present.has(t.dataset.stop)));
+    host.querySelector('.tl-label').textContent =
+      multi ? `${activeYears.size} years` : (stop === 'all' ? 'All years' : (stop === 'undated' ? 'Undated' : stop));
+    host.querySelector('.tl-count').textContent =
+      multi || stop === 'all' ? '' : `${YEAR_COUNTS[stop] || 0} photos`;
+  });
+}
+
+// Years available for whatever the viewer currently shows, or null when closed.
+function lbYears() {
+  if (!lbEntry) return null;
+  const src = lbEntry.photos || [];
+  const set = new Set(src.map(p => p.year).filter(Boolean));
+  if (src.some(p => !p.year)) set.add('undated');
+  return set;
 }
 
 // ── Sidebar ──────────────────────────────────────────────────────────────────
+const openGroups = new Set();          // streets the user has opened, by name
+
 function renderSidebar(addresses) {
   const list = document.getElementById('addr-list');
   const countEl = document.getElementById('sidebar-count');
   list.innerHTML = '';
 
+  const scenes = filteredScenes();
   const totalPhotos = addresses.reduce((s, a) => s + visiblePhotos(a).length, 0);
-  countEl.textContent = `${addresses.length} address${addresses.length !== 1 ? 'es' : ''} · ${totalPhotos} photo${totalPhotos !== 1 ? 's' : ''}`;
+  countEl.textContent =
+    `${addresses.length} address${addresses.length !== 1 ? 'es' : ''} · ${totalPhotos} photo${totalPhotos !== 1 ? 's' : ''}`;
 
-  if (!addresses.length) {
-    list.innerHTML = '<div class="empty-note">No addresses match this filter.<br>Try clearing the year filter or the search box.</div>';
+  if (!addresses.length && !scenes.length) {
+    list.innerHTML = '<div class="empty-note">Nothing matches this filter.<br>Try another year or clear the search box.</div>';
     return;
   }
 
+  // A search or year filter is a request to see inside, so groups open then.
+  const forceOpen = !!searchTerm || activeYears.size > 0;
   const grouped = {};
   addresses.forEach(a => (grouped[a.street] ||= []).push(a));
 
   const frag = document.createDocumentFragment();
+
   Object.keys(grouped).sort().forEach(street => {
     const entries = grouped[street];
-    const streetPhotos = entries.reduce((s, a) => s + visiblePhotos(a).length, 0);
-
-    const head = document.createElement('div');
-    head.className = 'street-head';
-    head.innerHTML = `<span class="street-name">${street}</span>
-      <span class="street-photo-count">${entries.length} addr · ${streetPhotos} photos</span>`;
-    frag.appendChild(head);
-
-    const grid = document.createElement('div');
-    grid.className = 'tile-grid';
-
-    entries.forEach(entry => {
-      const shown = visiblePhotos(entry);
-      const cover = shown[0];
-      const tile = document.createElement('button');
-      tile.type = 'button';
-      tile.className = 'tile' + (entry.address === activeAddress ? ' active' : '');
-      tile.dataset.address = entry.address;
-      tile.innerHTML = `
-        ${cover
-          ? `<img class="tile-img" src="${thumbSrc(cover)}" alt="" loading="lazy" decoding="async">`
-          : `<div class="tile-img none">no photo</div>`}
-        <span class="tile-count">${shown.length}</span>
-        <span class="tile-body">
-          <span class="tile-addr">${entry.address}</span>
-          <span class="tile-meta">${yearRange(shown)}</span>
-        </span>`;
-      tile.addEventListener('click', () => selectAddress(entry));
-      grid.appendChild(tile);
-    });
-
-    frag.appendChild(grid);
+    const n = entries.reduce((s, a) => s + visiblePhotos(a).length, 0);
+    frag.appendChild(makeGroup({
+      key: street,
+      title: street,
+      meta: `${entries.length} addr · ${n} photos`,
+      open: forceOpen || openGroups.has(street),
+      tiles: entries.map(entry => makeTile({
+        key: entry.address,
+        cover: visiblePhotos(entry)[0],
+        title: entry.address,
+        meta: yearRange(visiblePhotos(entry)),
+        count: visiblePhotos(entry).length,
+        active: entry.address === activeAddress,
+        onClick: () => selectAddress(entry),
+      })),
+    }));
   });
+
+  // Streetscapes are not tied to an address, so they get their own group rather
+  // than the separate tab this used to need.
+  if (scenes.length) {
+    frag.appendChild(makeGroup({
+      key: '__scenes',
+      title: 'Streetscapes',
+      meta: `${scenes.length} view${scenes.length !== 1 ? 's' : ''}`,
+      open: forceOpen || openGroups.has('__scenes'),
+      scenes: true,
+      tiles: scenes.map((sc, i) => makeTile({
+        key: 'scene:' + i,
+        cover: sceneAsPhoto(sc),
+        title: sc.caption,
+        meta: sc.year || 'Undated',
+        active: false,
+        onClick: () => openViewer({
+          title: 'Streetscapes',
+          entry: { photos: scenes.map(sceneAsPhoto), description: sc.description || '' },
+          photos: scenes.map(sceneAsPhoto),
+          startIndex: i,
+          subtitle: `${scenes.length} view${scenes.length !== 1 ? 's' : ''} · Oregon Historic District`,
+        }),
+      })),
+    }));
+  }
+
   list.appendChild(frag);
+}
+
+function makeGroup({ key, title, meta, open, tiles, scenes = false }) {
+  const group = document.createElement('div');
+  group.className = 'street-group' + (open ? '' : ' collapsed') + (scenes ? ' scenes' : '');
+  group.dataset.street = key;
+
+  const head = document.createElement('button');
+  head.type = 'button';
+  head.className = 'street-head';
+  head.setAttribute('aria-expanded', String(!!open));
+  head.innerHTML = `
+    <span class="street-head-left">
+      <span class="street-chevron">▼</span>
+      <span class="street-name">${title}</span>
+    </span>
+    <span class="street-photo-count">${meta}</span>`;
+  head.addEventListener('click', () => {
+    const nowClosed = group.classList.toggle('collapsed');
+    nowClosed ? openGroups.delete(key) : openGroups.add(key);
+    head.setAttribute('aria-expanded', String(!nowClosed));
+  });
+
+  const grid = document.createElement('div');
+  grid.className = 'tile-grid';
+  tiles.forEach(t => grid.appendChild(t));
+
+  group.append(head, grid);
+  return group;
+}
+
+function makeTile({ key, cover, title, meta, count, active, onClick }) {
+  const tile = document.createElement('button');
+  tile.type = 'button';
+  tile.className = 'tile' + (active ? ' active' : '');
+  tile.dataset.address = key;
+  tile.innerHTML = `
+    ${cover
+      ? `<img class="tile-img" src="${thumbSrc(cover)}" alt="" loading="lazy" decoding="async">`
+      : `<div class="tile-img none">no photo</div>`}
+    ${count != null ? `<span class="tile-count">${count}</span>` : ''}
+    <span class="tile-body">
+      <span class="tile-addr">${title}</span>
+      <span class="tile-meta">${meta}</span>
+    </span>`;
+  tile.addEventListener('click', onClick);
+  return tile;
+}
+
+// ── Streetscapes data ────────────────────────────────────────────────────────
+function sceneAsPhoto(s) {
+  return { clean_file: s.clean_file || ('_scenes/' + s.original), file: s.file,
+           year: s.year, caption: s.caption };
+}
+function filteredScenes() {
+  return ALL_SCENES.filter(s => {
+    if (activeYears.size && !(activeYears.has(s.year) || (activeYears.has('undated') && !s.year))) return false;
+    if (searchTerm && !s.caption.toLowerCase().includes(searchTerm)) return false;
+    return true;
+  });
 }
 
 // ── Pins ─────────────────────────────────────────────────────────────────────
@@ -628,10 +898,7 @@ function placePins(addresses) {
     MAP.addPin(entry.address, entry.lat, entry.lon, {
       big: shown.length > 5,
       data: entry,
-      onClick: rec => {
-        setActive(entry.address);
-        MAP.openPopup(rec, buildPopup(entry));
-      },
+      onClick: rec => { setActive(entry.address); MAP.openPopup(rec, buildPopup(entry)); },
     });
   });
   if (activeAddress) MAP.setPinState(activeAddress, 'active');
@@ -640,16 +907,47 @@ function placePins(addresses) {
 function buildPopup(entry) {
   const shown = visiblePhotos(entry);
   const div = document.createElement('div');
-  const first = shown[0];
+  const cover = shown[0];
+  const desc = (entry.description || '').trim();
+
   div.innerHTML = `
-    ${first ? `<img class="popup-thumb" src="${thumbSrc(first)}" alt="${entry.address}" loading="lazy">` : ''}
+    ${cover ? `<img class="popup-thumb" src="${thumbSrc(cover)}" alt="${entry.address}" loading="lazy">` : ''}
     <div class="popup-body">
       <h3>${entry.address}</h3>
-      <p>${shown.length} photo${shown.length !== 1 ? 's' : ''} · ${yearRange(shown)}</p>
-      <button class="popup-btn">View photos</button>
+      <div class="popup-meta">${shown.length} photo${shown.length !== 1 ? 's' : ''} · ${yearRange(shown)}</div>
+      ${desc ? `<div class="popup-desc">${desc}</div>` : ''}
+      ${shown.length > 1 ? '<div class="popup-gallery"></div>' : ''}
+      <button class="popup-btn">View all photos</button>
     </div>`;
+
+  let previewIndex = 0;
+  const gallery = div.querySelector('.popup-gallery');
+  if (gallery) {
+    shown.forEach((p, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'popup-gthumb' + (i === 0 ? ' current' : '');
+      b.title = p.year || 'undated';
+      b.innerHTML = `<img src="${thumbSrc(p)}" alt="" loading="lazy"><span>${p.year || '—'}</span>`;
+      b.addEventListener('click', ev => {
+        ev.stopPropagation();
+        previewIndex = i;
+        const big = div.querySelector('.popup-thumb');
+        if (big) big.src = thumbSrc(p);
+        div.querySelector('.popup-meta').textContent =
+          `${p.year || 'undated'} · photo ${i + 1} of ${shown.length}`;
+        gallery.querySelectorAll('.popup-gthumb').forEach((el, n) => el.classList.toggle('current', n === i));
+      });
+      gallery.appendChild(b);
+    });
+  }
+
   div.querySelector('.popup-btn').addEventListener('click', () => openLightbox(entry));
-  if (first) div.querySelector('.popup-thumb').addEventListener('click', () => openLightbox(entry));
+  const big = div.querySelector('.popup-thumb');
+  if (big) {
+    big.title = 'Open this photo';
+    big.addEventListener('click', () => openLightbox(entry, previewIndex));
+  }
   return div;
 }
 
@@ -657,7 +955,11 @@ function buildPopup(entry) {
 function setActive(address) {
   activeAddress = address;
   document.querySelectorAll('.tile').forEach(el => el.classList.toggle('active', el.dataset.address === address));
-  document.querySelector('.tile.active')?.scrollIntoView({ block: 'nearest' });
+  const tile = document.querySelector('.tile.active');
+  if (tile) {
+    tile.closest('.street-group')?.classList.remove('collapsed');
+    tile.scrollIntoView({ block: 'nearest' });
+  }
   MAP.setPinState(address, 'active');
 }
 
@@ -682,54 +984,6 @@ document.getElementById('search-clear').addEventListener('click', () => {
   searchInput.value = ''; searchTerm = ''; applyFilters(); searchInput.focus();
 });
 
-// ── Mode toggle ──────────────────────────────────────────────────────────────
-function setMode(scenes) {
-  sceneMode = scenes;
-  document.body.classList.toggle('scenes-mode', scenes);
-  document.getElementById('mode-map').classList.toggle('on', !scenes);
-  document.getElementById('mode-scenes').classList.toggle('on', scenes);
-  document.getElementById('mode-map').setAttribute('aria-selected', String(!scenes));
-  document.getElementById('mode-scenes').setAttribute('aria-selected', String(scenes));
-  if (!scenes) setTimeout(() => MAP.invalidate(), 60);
-}
-document.getElementById('mode-map').addEventListener('click', () => setMode(false));
-document.getElementById('mode-scenes').addEventListener('click', () => setMode(true));
-
-// ── Streetscapes ─────────────────────────────────────────────────────────────
-function sceneAsPhoto(s) {
-  return { clean_file: s.clean_file || ('_scenes/' + s.original), file: s.file, year: s.year, caption: s.caption };
-}
-function filteredScenes() {
-  return ALL_SCENES.filter(s => {
-    if (activeYears.size && !(activeYears.has(s.year) || (activeYears.has('undated') && !s.year))) return false;
-    if (searchTerm && !s.caption.toLowerCase().includes(searchTerm)) return false;
-    return true;
-  });
-}
-function renderScenes() {
-  const grid = document.getElementById('scene-grid');
-  const scenes = filteredScenes();
-  grid.innerHTML = '';
-  if (!scenes.length) {
-    grid.innerHTML = '<div class="empty-note">No streetscapes match this filter.</div>';
-    return;
-  }
-  scenes.forEach((s, i) => {
-    const card = document.createElement('div');
-    card.className = 'scene-card';
-    card.innerHTML = `
-      <img src="${thumbSrc(sceneAsPhoto(s))}" alt="${s.caption}" loading="lazy">
-      <div class="scene-cap">${s.caption}<div class="scene-year">${s.year || 'Undated'}</div></div>`;
-    card.addEventListener('click', () => openViewer({
-      title: 'Streetscapes',
-      photos: scenes.map(sceneAsPhoto),
-      startIndex: i,
-      subtitle: `${scenes.length} view${scenes.length !== 1 ? 's' : ''} · Oregon Historic District`,
-    }));
-    grid.appendChild(card);
-  });
-}
-
 // ── Lightbox ─────────────────────────────────────────────────────────────────
 let lbPhotos = [], lbIndex = 0, compareMode = false, comparePick = null;
 
@@ -737,6 +991,7 @@ function openLightbox(entry, startIndex = 0) {
   const shown = visiblePhotos(entry);
   openViewer({
     title: entry.address,
+    entry,
     photos: shown,
     startIndex,
     subtitle: `${shown.length} photo${shown.length !== 1 ? 's' : ''} · ${yearRange(shown)} · ${entry.street}`,
@@ -745,12 +1000,54 @@ function openLightbox(entry, startIndex = 0) {
   location.hash = 'a=' + encodeURIComponent(entry.address);
 }
 
-function openViewer({ title, photos, startIndex = 0, subtitle = '', canCompare = false }) {
+// The year control stays live while the viewer is open, so re-run the open entry
+// through the current filter instead of closing on the user.
+function refreshOpenViewer() {
+  if (!lbEntry) return;
+  if (lbEntry.address) {
+    const shown = visiblePhotos(lbEntry);
+    if (!shown.length) { showViewerEmpty(); return; }
+    openViewer({
+      title: lbEntry.address,
+      entry: lbEntry,
+      photos: shown,
+      startIndex: 0,
+      subtitle: `${shown.length} photo${shown.length !== 1 ? 's' : ''} · ${yearRange(shown)} · ${lbEntry.street}`,
+      canCompare: yearsOf(shown).length > 1,
+    });
+  } else {
+    const scenes = filteredScenes();
+    if (!scenes.length) { showViewerEmpty(); return; }
+    openViewer({
+      title: 'Streetscapes',
+      entry: { photos: scenes.map(sceneAsPhoto), description: '' },
+      photos: scenes.map(sceneAsPhoto),
+      startIndex: 0,
+      subtitle: `${scenes.length} view${scenes.length !== 1 ? 's' : ''} · Oregon Historic District`,
+    });
+  }
+}
+
+function showViewerEmpty() {
+  document.getElementById('lb-img').removeAttribute('src');
+  document.getElementById('lb-thumbs').innerHTML = '';
+  document.getElementById('lb-counter').textContent = '';
+  document.getElementById('lb-caption').textContent = 'Nothing here from the selected year.';
+  document.getElementById('lb-compare').style.display = 'none';
+  document.getElementById('lb-stage').classList.remove('compare');
+}
+
+function openViewer({ title, entry = null, photos, startIndex = 0, subtitle = '', canCompare = false }) {
   if (!photos.length) return;
-  lbPhotos = photos; lbIndex = startIndex;
+  lbPhotos = photos; lbIndex = startIndex; lbEntry = entry;
   compareMode = false; comparePick = null;
   document.getElementById('lb-title').textContent = title;
   document.getElementById('lb-subtitle').textContent = subtitle;
+
+  const descEl = document.getElementById('lb-desc');
+  const desc = ((entry && entry.description) || '').trim();
+  descEl.textContent = desc;
+  descEl.hidden = !desc;
   const cmpBtn = document.getElementById('lb-compare');
   cmpBtn.style.display = canCompare ? 'block' : 'none';
   cmpBtn.classList.remove('on');
@@ -759,6 +1056,7 @@ function openViewer({ title, photos, startIndex = 0, subtitle = '', canCompare =
   buildThumbs();
   showPhoto(lbIndex);
   document.getElementById('lightbox').classList.add('open');
+  syncYearUI();            // dims the years this entry has nothing from
 }
 
 function buildThumbs() {
@@ -823,6 +1121,8 @@ document.getElementById('lb-compare').addEventListener('click', function () {
 
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
+  lbEntry = null;
+  syncYearUI();
   if (location.hash) history.replaceState(null, '', location.pathname + location.search);
 }
 document.getElementById('lb-close').addEventListener('click', closeLightbox);

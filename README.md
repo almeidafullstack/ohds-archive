@@ -11,12 +11,13 @@ captioned with a span of house numbers are attached to every address in the span
 so the collection resolves to 1,112 address-photo links.
 
 - **Map** of the district with a pin per address, sized by photo count, framed automatically on the photographed addresses
-- **Sidebar** of address tiles grouped under sticky street headings, each tile showing a cover photo, year range, and photo count
-- **Year filter** across all 11 years in the collection, including an Undated bucket; filters the sidebar, the pins, and the streetscapes together
+- **Sidebar** of address tiles grouped by street, collapsed by default so the whole district scans in one screen; each tile shows a cover photo, year range, and photo count
+- **Streetscapes** appear as their own group in the sidebar, alongside the streets
+- **Year filter** in two interchangeable forms, switched by the toggle at the right of the year row: multi-select chips, or a timeline slider that snaps to the years the collection actually holds. The timeline stays live inside the photo viewer, where years the open address has nothing from are dimmed
 - **Search** across address and street
+- **Map popups** carrying a cover image, a scrollable thumbnail gallery of everything at that address, an optional description, and a link into the full viewer
 - **Lightbox** with a thumbnail strip, keyboard navigation, and neighbor preloading
 - **Compare years** side by side for the 118 addresses photographed in more than one year; it defaults to the widest time gap available and any second photo can be picked from the strip
-- **Streetscapes** gallery for the 61 photos that belong to a block rather than an address
 - **Deep links** via `#a=<address>` so a specific address can be shared
 - Responsive down to phone width, where the sidebar becomes a drawer and Compare stacks vertically
 
@@ -133,6 +134,20 @@ block. That is a large manual step, and re-uploading any photo breaks its link.
 
 Use this path only if an outside host is ruled out. GitHub Pages is simpler and
 keeps the photos in version control.
+
+## Descriptions
+
+Every address in `docs/data.json` carries a `description` field, empty for now:
+
+```json
+{ "address": "22 Brown St", "street": "Brown St", "lat": 39.75, "lon": -84.18,
+  "description": "", "photos": [ ... ] }
+```
+
+Fill it in and the text appears in two places with no other change: in the map popup
+for that address, and under the title in the photo viewer. Empty descriptions render
+nothing at all, so partial coverage is fine. Bump `BUILD` in `docs/index.html` after
+editing so browsers refetch the data.
 
 ## Range-labelled photos
 

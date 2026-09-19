@@ -54,8 +54,13 @@ def compact_data(d):
     scenes = [[s['caption'], fid(s['clean_file']),
                yi[s['year']] if s['year'] else -1] for s in d['scenes']]
 
+    # Descriptions are blank today, so only carry the ones that have text.
+    desc = {str(i): a['description'].strip()
+            for i, a in enumerate(d['addresses'])
+            if (a.get('description') or '').strip()}
+
     return {'streets': streets, 'years': years, 'files': files,
-            'addr': addr, 'scenes': scenes}
+            'addr': addr, 'scenes': scenes, 'desc': desc}
 
 
 def compact_basemap(b):
@@ -185,12 +190,13 @@ function expandData(c) {
              original: path.split('/').pop() };
   };
   return {
-    addresses: c.addr.map(([address, s, lat, lon, ph]) => ({
+    addresses: c.addr.map(([address, s, lat, lon, ph], i) => ({
       address, street: c.streets[s], lat, lon, photos: ph.map(photo),
+      description: (c.desc && c.desc[i]) || '',
     })),
     scenes: c.scenes.map(([caption, f, y]) => ({
       caption, clean_file: c.files[f], file: c.files[f].split('/').pop(),
-      original: c.files[f].split('/').pop(), year: yr(y),
+      original: c.files[f].split('/').pop(), year: yr(y), description: '',
     })),
   };
 }
