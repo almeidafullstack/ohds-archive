@@ -103,15 +103,10 @@ under `thumbs/_scenes/` and `view/_scenes/` return 404.
 
 ## Squarespace embed
 
-Add a Code Block on the target page and paste:
+Full instructions, the ready-to-paste snippet, and the troubleshooting notes are in
+[EMBED.md](EMBED.md). The short version: add a Code Block on the target page and
+paste an iframe.
 
-```html
-<iframe
-  src="https://YOUR-STAGING-URL/index.html"
-  title="Oregon Historic District Photo Archives"
-  style="display:block;width:100%;height:720px;border:0;"
-  loading="lazy"></iframe>
-```
 
 Iframes in code blocks need a Core plan or higher. GitHub Pages sets no
 `X-Frame-Options`, so framing works with no configuration.
