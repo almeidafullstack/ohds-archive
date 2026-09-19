@@ -298,18 +298,18 @@
      "clean_file": "Brown St/26 Brown St - 1998.jpg"
     },
     {
-     "file": "26-brown-st-1.jpg",
-     "original": "26 Brown St. (1)-1.jpg",
-     "year": null,
-     "street": "Brown St",
-     "clean_file": "Brown St/26 Brown St.jpg"
-    },
-    {
      "file": "26-brown-st-2.jpg",
      "original": "26 Brown St. (2)-1.jpg",
      "year": null,
      "street": "Brown St",
      "clean_file": "Brown St/26 Brown St - 2.jpg"
+    },
+    {
+     "file": "26-brown-st-1.jpg",
+     "original": "26 Brown St. (1)-1.jpg",
+     "year": null,
+     "street": "Brown St",
+     "clean_file": "Brown St/26 Brown St.jpg"
     }
    ],
    "lat": 39.7564209,
@@ -390,18 +390,18 @@
      "clean_file": "Brown St/27 Brown St - 2.jpg"
     },
     {
-     "file": "27-brown-st-bob-mclaughlin.jpg",
-     "original": "27 Brown St., Bob McLaughlin-1.jpg",
-     "year": null,
-     "street": "Brown St",
-     "clean_file": "Brown St/27 Brown St.jpg"
-    },
-    {
      "file": "27-brown-st-rear.jpg",
      "original": "27 Brown St., rear-1.jpg",
      "year": null,
      "street": "Brown St",
      "clean_file": "Brown St/27 Brown St - rear.jpg"
+    },
+    {
+     "file": "27-brown-st-bob-mclaughlin.jpg",
+     "original": "27 Brown St., Bob McLaughlin-1.jpg",
+     "year": null,
+     "street": "Brown St",
+     "clean_file": "Brown St/27 Brown St.jpg"
     }
    ],
    "lat": 39.7564463,
@@ -419,18 +419,18 @@
      "clean_file": "Brown St/22-34 Brown St - 1974.jpg"
     },
     {
-     "file": "29-brown-st-2-1974.jpg",
-     "original": "29 Brown St., 2 1974-1.jpg",
-     "year": "1974",
-     "street": "Brown St",
-     "clean_file": "Brown St/29 Brown St - 1974.jpg"
-    },
-    {
      "file": "29-brown-st-3-1974.jpg",
      "original": "29 Brown St., 3 1974-1.jpg",
      "year": "1974",
      "street": "Brown St",
      "clean_file": "Brown St/29 Brown St - 1974 - 2.jpg"
+    },
+    {
+     "file": "29-brown-st-2-1974.jpg",
+     "original": "29 Brown St., 2 1974-1.jpg",
+     "year": "1974",
+     "street": "Brown St",
+     "clean_file": "Brown St/29 Brown St - 1974.jpg"
     },
     {
      "file": "29-brown-st-1983-1.jpg",
@@ -461,18 +461,18 @@
      "clean_file": "Brown St/29 Brown St - 1988 - 2.jpg"
     },
     {
-     "file": "29-brown-st-1-1998.jpg",
-     "original": "29 Brown St., 1, 1998.jpg",
-     "year": "1998",
-     "street": "Brown St",
-     "clean_file": "Brown St/29 Brown St - 1998.jpg"
-    },
-    {
      "file": "29-brown-st-2-1998.jpg",
      "original": "29 Brown St., 2, 1998.jpg",
      "year": "1998",
      "street": "Brown St",
      "clean_file": "Brown St/29 Brown St - 1998 - 2.jpg"
+    },
+    {
+     "file": "29-brown-st-1-1998.jpg",
+     "original": "29 Brown St., 1, 1998.jpg",
+     "year": "1998",
+     "street": "Brown St",
+     "clean_file": "Brown St/29 Brown St - 1998.jpg"
     },
     {
      "file": "29-brown-st-1.jpg",
@@ -518,13 +518,6 @@
      "clean_file": "Brown St/30-34 Brown St - 1975.jpg"
     },
     {
-     "file": "30-34-brown-st-1983.jpg",
-     "original": "30-34 Brown St., 1983.jpg",
-     "year": "1983",
-     "street": "Brown St",
-     "clean_file": "Brown St/30-34 Brown St - 1983.jpg"
-    },
-    {
      "file": "30-brown-st-1983.jpg",
      "original": "30 Brown St., 1983.jpg",
      "year": "1983",
@@ -532,11 +525,11 @@
      "clean_file": "Brown St/30 Brown St - 1983.jpg"
     },
     {
-     "file": "30-34-brown-st-rear-1988.jpg",
-     "original": "30-34 Brown St., rear, 1988.jpg",
-     "year": "1988",
+     "file": "30-34-brown-st-1983.jpg",
+     "original": "30-34 Brown St., 1983.jpg",
+     "year": "1983",
      "street": "Brown St",
-     "clean_file": "Brown St/30-34 Brown St - 1988.jpg"
+     "clean_file": "Brown St/30-34 Brown St - 1983.jpg"
     },
     {
      "file": "30-brown-st-1988.jpg",
@@ -544,6 +537,13 @@
      "year": "1988",
      "street": "Brown St",
      "clean_file": "Brown St/30 Brown St - 1988.jpg"
+    },
+    {
+     "file": "30-34-brown-st-rear-1988.jpg",
+     "original": "30-34 Brown St., rear, 1988.jpg",
+     "year": "1988",
+     "street": "Brown St",
+     "clean_file": "Brown St/30-34 Brown St - 1988.jpg"
     },
     {
      "file": "30-b-rown-st-1998.jpg",
@@ -975,18 +975,18 @@
      "clean_file": "Brown St/117 Brown St - 1973 - s.jpg"
     },
     {
-     "file": "117-brown-st-1-1974.jpg",
-     "original": "117 Brown St., 1, 1974-1.jpg",
-     "year": "1974",
-     "street": "Brown St",
-     "clean_file": "Brown St/117 Brown St - 1974.jpg"
-    },
-    {
      "file": "117-brown-st-2-1974.jpg",
      "original": "117 Brown St., 2, 1974-1.jpg",
      "year": "1974",
      "street": "Brown St",
      "clean_file": "Brown St/117 Brown St - 1974 - 2.jpg"
+    },
+    {
+     "file": "117-brown-st-1-1974.jpg",
+     "original": "117 Brown St., 1, 1974-1.jpg",
+     "year": "1974",
+     "street": "Brown St",
+     "clean_file": "Brown St/117 Brown St - 1974.jpg"
     },
     {
      "file": "115-117-brown-st-1983.jpg",
@@ -1585,6 +1585,13 @@
    "street": "Brown St",
    "photos": [
     {
+     "file": "212-216-brown-st-1983.jpg",
+     "original": "212-216 Brown St - 1983.jpg",
+     "year": "1983",
+     "street": "Brown St",
+     "clean_file": "Brown St/212-216 Brown St - 1983.jpg"
+    },
+    {
      "file": "216-218-brown-st-1988.jpg",
      "original": "216-218 Brown St., 1988.jpg",
      "year": "1988",
@@ -1612,6 +1619,13 @@
      "year": "1988",
      "street": "Brown St",
      "clean_file": "Brown St/216-218 Brown St - 1988.jpg"
+    },
+    {
+     "file": "218-220-brown-st-1988.jpg",
+     "original": "218-220 Brown St - 1988.jpg",
+     "year": "1988",
+     "street": "Brown St",
+     "clean_file": "Brown St/218-220 Brown St - 1988.jpg"
     },
     {
      "file": "216-218-brown-st-1998.jpg",
@@ -1687,11 +1701,11 @@
    "street": "Cass St",
    "photos": [
     {
-     "file": "5-cass-st-1973-n.jpg",
-     "original": "5 Cass St., 1973 n.jpg",
+     "file": "5-cass-st-july-12-1973-s-1.jpg",
+     "original": "5 Cass St., July 12, 1973 s 1.jpg",
      "year": "1973",
      "street": "Cass St",
-     "clean_file": "Cass St/5 Cass St - 1973 - n.jpg"
+     "clean_file": "Cass St/5 Cass St - 1973 - 1.jpg"
     },
     {
      "file": "5-cass-st-july-12-1973-n-2.jpg",
@@ -1715,18 +1729,11 @@
      "clean_file": "Cass St/5 Cass St - 1973 - 4.jpg"
     },
     {
-     "file": "5-cass-st-july-12-1973-s-1.jpg",
-     "original": "5 Cass St., July 12, 1973 s 1.jpg",
+     "file": "5-cass-st-1973-n.jpg",
+     "original": "5 Cass St., 1973 n.jpg",
      "year": "1973",
      "street": "Cass St",
-     "clean_file": "Cass St/5 Cass St - 1973 - 1.jpg"
-    },
-    {
-     "file": "5-cass-st-c-1974.jpg",
-     "original": "5 Cass St. c, 1974-1.jpg",
-     "year": "1974",
-     "street": "Cass St",
-     "clean_file": "Cass St/5 Cass St - 1974.jpg"
+     "clean_file": "Cass St/5 Cass St - 1973 - n.jpg"
     },
     {
      "file": "5-cass-st-d-1974.jpg",
@@ -1741,6 +1748,13 @@
      "year": "1974",
      "street": "Cass St",
      "clean_file": "Cass St/5 Cass St - 1974 - 3.jpg"
+    },
+    {
+     "file": "5-cass-st-c-1974.jpg",
+     "original": "5 Cass St. c, 1974-1.jpg",
+     "year": "1974",
+     "street": "Cass St",
+     "clean_file": "Cass St/5 Cass St - 1974.jpg"
     },
     {
      "file": "5-cass-st-1983-1.jpg",
@@ -1764,18 +1778,18 @@
      "clean_file": "Cass St/5 Cass St - 1988 - 2.jpg"
     },
     {
-     "file": "5-cass-st-1988.jpg",
-     "original": "5 Cass St., 1988.jpg",
-     "year": "1988",
-     "street": "Cass St",
-     "clean_file": "Cass St/5 Cass St - 1988.jpg"
-    },
-    {
      "file": "5-cass-st-rear-1988.jpg",
      "original": "5 Cass St., rear,1988.jpg",
      "year": "1988",
      "street": "Cass St",
      "clean_file": "Cass St/5 Cass St - 1988 - 3.jpg"
+    },
+    {
+     "file": "5-cass-st-1988.jpg",
+     "original": "5 Cass St., 1988.jpg",
+     "year": "1988",
+     "street": "Cass St",
+     "clean_file": "Cass St/5 Cass St - 1988.jpg"
     },
     {
      "file": "5-cass-st-1998-2.jpg",
@@ -1797,6 +1811,20 @@
      "year": "1998",
      "street": "Cass St",
      "clean_file": "Cass St/5 Cass St - 1998.jpg"
+    },
+    {
+     "file": "5-cass-st-nov-20-2003.jpg",
+     "original": "5 Cass St., Nov. 20, 2003.JPG",
+     "year": "2003",
+     "street": "Cass St",
+     "clean_file": "Cass St/5 Cass St - 2003 - 2.jpg"
+    },
+    {
+     "file": "5-cass-st-nov-20-2003-a.jpg",
+     "original": "5 Cass St., Nov. 20, 2003 a.JPG",
+     "year": "2003",
+     "street": "Cass St",
+     "clean_file": "Cass St/5 Cass St - 2003 - a - 2.jpg"
     },
     {
      "file": "5-cass-st-nov-17-2003-a.jpg",
@@ -1827,18 +1855,32 @@
      "clean_file": "Cass St/5 Cass St - 2003.jpg"
     },
     {
-     "file": "5-cass-st-nov-20-2003-a.jpg",
-     "original": "5 Cass St., Nov. 20, 2003 a.JPG",
-     "year": "2003",
+     "file": "5-cass-st-j.jpg",
+     "original": "5 Cass St. j-1.jpg",
+     "year": null,
      "street": "Cass St",
-     "clean_file": "Cass St/5 Cass St - 2003 - a - 2.jpg"
+     "clean_file": "Cass St/5 Cass St - 2.jpg"
     },
     {
-     "file": "5-cass-st-nov-20-2003.jpg",
-     "original": "5 Cass St., Nov. 20, 2003.JPG",
-     "year": "2003",
+     "file": "5-cass-st-k.jpg",
+     "original": "5 Cass St. k-1.jpg",
+     "year": null,
      "street": "Cass St",
-     "clean_file": "Cass St/5 Cass St - 2003 - 2.jpg"
+     "clean_file": "Cass St/5 Cass St - 3.jpg"
+    },
+    {
+     "file": "5-cass-st-l.jpg",
+     "original": "5 Cass St. l-1.jpg",
+     "year": null,
+     "street": "Cass St",
+     "clean_file": "Cass St/5 Cass St - 4.jpg"
+    },
+    {
+     "file": "5-cass-st-m.jpg",
+     "original": "5 Cass St. m-1.jpg",
+     "year": null,
+     "street": "Cass St",
+     "clean_file": "Cass St/5 Cass St - 5.jpg"
     },
     {
      "file": "5-cass-st-a.jpg",
@@ -1876,46 +1918,18 @@
      "clean_file": "Cass St/5 Cass St - h.jpg"
     },
     {
-     "file": "5-cass-st-i.jpg",
-     "original": "5 Cass St. i-1.jpg",
-     "year": null,
-     "street": "Cass St",
-     "clean_file": "Cass St/5 Cass St.jpg"
-    },
-    {
-     "file": "5-cass-st-j.jpg",
-     "original": "5 Cass St. j-1.jpg",
-     "year": null,
-     "street": "Cass St",
-     "clean_file": "Cass St/5 Cass St - 2.jpg"
-    },
-    {
-     "file": "5-cass-st-k.jpg",
-     "original": "5 Cass St. k-1.jpg",
-     "year": null,
-     "street": "Cass St",
-     "clean_file": "Cass St/5 Cass St - 3.jpg"
-    },
-    {
-     "file": "5-cass-st-l.jpg",
-     "original": "5 Cass St. l-1.jpg",
-     "year": null,
-     "street": "Cass St",
-     "clean_file": "Cass St/5 Cass St - 4.jpg"
-    },
-    {
-     "file": "5-cass-st-m.jpg",
-     "original": "5 Cass St. m-1.jpg",
-     "year": null,
-     "street": "Cass St",
-     "clean_file": "Cass St/5 Cass St - 5.jpg"
-    },
-    {
      "file": "5-cass-st-n.jpg",
      "original": "5 Cass St. n-1.jpg",
      "year": null,
      "street": "Cass St",
      "clean_file": "Cass St/5 Cass St - n.jpg"
+    },
+    {
+     "file": "5-cass-st-i.jpg",
+     "original": "5 Cass St. i-1.jpg",
+     "year": null,
+     "street": "Cass St",
+     "clean_file": "Cass St/5 Cass St.jpg"
     }
    ],
    "lat": 39.7553208,
@@ -1961,6 +1975,20 @@
      "clean_file": "Cass St/11 Cass St - 1998.jpg"
     },
     {
+     "file": "11-cass-st-nov-20-2003.jpg",
+     "original": "11 Cass St., Nov. 20, 2003.JPG",
+     "year": "2003",
+     "street": "Cass St",
+     "clean_file": "Cass St/11 Cass St - 2003 - 2.jpg"
+    },
+    {
+     "file": "11-cass-st-nov-20-2003-a.jpg",
+     "original": "11 Cass St., Nov. 20, 2003 a.JPG",
+     "year": "2003",
+     "street": "Cass St",
+     "clean_file": "Cass St/11 Cass St - 2003 - a - 2.jpg"
+    },
+    {
      "file": "11-cass-st-nov-17-2003-a.jpg",
      "original": "11 Cass St., Nov. 17, 2003 a.JPG",
      "year": "2003",
@@ -1980,20 +2008,6 @@
      "year": "2003",
      "street": "Cass St",
      "clean_file": "Cass St/11 Cass St - 2003.jpg"
-    },
-    {
-     "file": "11-cass-st-nov-20-2003-a.jpg",
-     "original": "11 Cass St., Nov. 20, 2003 a.JPG",
-     "year": "2003",
-     "street": "Cass St",
-     "clean_file": "Cass St/11 Cass St - 2003 - a - 2.jpg"
-    },
-    {
-     "file": "11-cass-st-nov-20-2003.jpg",
-     "original": "11 Cass St., Nov. 20, 2003.JPG",
-     "year": "2003",
-     "street": "Cass St",
-     "clean_file": "Cass St/11 Cass St - 2003 - 2.jpg"
     },
     {
      "file": "11-cass-st.jpg",
@@ -2039,25 +2053,11 @@
      "clean_file": "Cass St/107 Cass St - 1998.jpg"
     },
     {
-     "file": "107-113-cass-st-nov-3-2003-a.jpg",
-     "original": "107-113 Cass St., Nov. 3, 2003 a.JPG",
+     "file": "107-cass-st-nov-3-2003.jpg",
+     "original": "107 Cass St., Nov. 3, 2003.JPG",
      "year": "2003",
      "street": "Cass St",
-     "clean_file": "Cass St/107-113 Cass St - 2003 - a.jpg"
-    },
-    {
-     "file": "107-113-cass-st-nov-3-2003.jpg",
-     "original": "107-113 Cass St., Nov. 3, 2003.JPG",
-     "year": "2003",
-     "street": "Cass St",
-     "clean_file": "Cass St/107-113 Cass St - 2003.jpg"
-    },
-    {
-     "file": "107-cass-st-nov-20-2003.jpg",
-     "original": "107 Cass St., Nov. 20, 2003.JPG",
-     "year": "2003",
-     "street": "Cass St",
-     "clean_file": "Cass St/107 Cass St - 2003.jpg"
+     "clean_file": "Cass St/107 Cass St - 2003 - 2.jpg"
     },
     {
      "file": "107-cass-st-nov-3-2003-a.jpg",
@@ -2074,11 +2074,25 @@
      "clean_file": "Cass St/107 Cass St - 2003 - b.jpg"
     },
     {
-     "file": "107-cass-st-nov-3-2003.jpg",
-     "original": "107 Cass St., Nov. 3, 2003.JPG",
+     "file": "107-cass-st-nov-20-2003.jpg",
+     "original": "107 Cass St., Nov. 20, 2003.JPG",
      "year": "2003",
      "street": "Cass St",
-     "clean_file": "Cass St/107 Cass St - 2003 - 2.jpg"
+     "clean_file": "Cass St/107 Cass St - 2003.jpg"
+    },
+    {
+     "file": "107-113-cass-st-nov-3-2003-a.jpg",
+     "original": "107-113 Cass St., Nov. 3, 2003 a.JPG",
+     "year": "2003",
+     "street": "Cass St",
+     "clean_file": "Cass St/107-113 Cass St - 2003 - a.jpg"
+    },
+    {
+     "file": "107-113-cass-st-nov-3-2003.jpg",
+     "original": "107-113 Cass St., Nov. 3, 2003.JPG",
+     "year": "2003",
+     "street": "Cass St",
+     "clean_file": "Cass St/107-113 Cass St - 2003.jpg"
     }
    ],
    "lat": 39.7554587,
@@ -2138,18 +2152,18 @@
      "clean_file": "Cass St/107-113 Cass St - 2003.jpg"
     },
     {
-     "file": "113-cass-st-nov-20-2003.jpg",
-     "original": "113 Cass St., Nov. 20, 2003.JPG",
-     "year": "2003",
-     "street": "Cass St",
-     "clean_file": "Cass St/113 Cass St - 2003.jpg"
-    },
-    {
      "file": "113-cass-st-nov-3-2003.jpg",
      "original": "113 Cass St., Nov. 3, 2003.JPG",
      "year": "2003",
      "street": "Cass St",
      "clean_file": "Cass St/113 Cass St - 2003 - 2.jpg"
+    },
+    {
+     "file": "113-cass-st-nov-20-2003.jpg",
+     "original": "113 Cass St., Nov. 20, 2003.JPG",
+     "year": "2003",
+     "street": "Cass St",
+     "clean_file": "Cass St/113 Cass St - 2003.jpg"
     }
    ],
    "lat": 39.7554434,
@@ -2762,11 +2776,11 @@
    "street": "E. Fifth St",
    "photos": [
     {
-     "file": "318-e-fifth-st-nov-1-2003.jpg",
-     "original": "318 E. Fifth St., Nov. 1, 2003.JPG",
+     "file": "318-e-fifth-st-nov-23-2003.jpg",
+     "original": "318 E. Fifth St., Nov. 23, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/318 E. Fifth St - 2003.jpg"
+     "clean_file": "E. Fifth St/318 E. Fifth St - 2003 - 2.jpg"
     },
     {
      "file": "318-e-fifth-st-nov-23-2003-a.jpg",
@@ -2776,11 +2790,11 @@
      "clean_file": "E. Fifth St/318 E. Fifth St - 2003 - a.jpg"
     },
     {
-     "file": "318-e-fifth-st-nov-23-2003.jpg",
-     "original": "318 E. Fifth St., Nov. 23, 2003.JPG",
+     "file": "318-e-fifth-st-nov-1-2003.jpg",
+     "original": "318 E. Fifth St., Nov. 1, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/318 E. Fifth St - 2003 - 2.jpg"
+     "clean_file": "E. Fifth St/318 E. Fifth St - 2003.jpg"
     }
    ],
    "lat": 39.7571021,
@@ -2791,11 +2805,11 @@
    "street": "E. Fifth St",
    "photos": [
     {
-     "file": "329-337-e-fifth-st-nov-1-2003.jpg",
-     "original": "329-337 E. Fifth St., Nov. 1, 2003.JPG",
+     "file": "329-e-fifth-st-nov-1-2003.jpg",
+     "original": "329 E. Fifth St., Nov. 1, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/329-337 E. Fifth St - 2003.jpg"
+     "clean_file": "E. Fifth St/329 E. Fifth St - 2003.jpg"
     },
     {
      "file": "329-337-e-fifth-st-nov-23-2003.jpg",
@@ -2805,11 +2819,11 @@
      "clean_file": "E. Fifth St/329-337 E. Fifth St - 2003 - 2.jpg"
     },
     {
-     "file": "329-e-fifth-st-nov-1-2003.jpg",
-     "original": "329 E. Fifth St., Nov. 1, 2003.JPG",
+     "file": "329-337-e-fifth-st-nov-1-2003.jpg",
+     "original": "329-337 E. Fifth St., Nov. 1, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/329 E. Fifth St - 2003.jpg"
+     "clean_file": "E. Fifth St/329-337 E. Fifth St - 2003.jpg"
     }
    ],
    "lat": 39.7575179,
@@ -2820,13 +2834,6 @@
    "street": "E. Fifth St",
    "photos": [
     {
-     "file": "329-337-e-fifth-st-nov-1-2003.jpg",
-     "original": "329-337 E. Fifth St., Nov. 1, 2003.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/329-337 E. Fifth St - 2003.jpg"
-    },
-    {
      "file": "329-337-e-fifth-st-nov-23-2003.jpg",
      "original": "329-337 E. Fifth St., Nov. 23, 2003.JPG",
      "year": "2003",
@@ -2834,18 +2841,18 @@
      "clean_file": "E. Fifth St/329-337 E. Fifth St - 2003 - 2.jpg"
     },
     {
-     "file": "336-e-fifth-st-dec-6-2003.jpg",
-     "original": "336 E. Fifth St., Dec. 6, 2003.JPG",
+     "file": "329-337-e-fifth-st-nov-1-2003.jpg",
+     "original": "329-337 E. Fifth St., Nov. 1, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/336 E. Fifth St - 2003.jpg"
+     "clean_file": "E. Fifth St/329-337 E. Fifth St - 2003.jpg"
     },
     {
-     "file": "336-e-fifth-st-nov-2-2003-a.jpg",
-     "original": "336 E. Fifth St., Nov. 2 2003 a.JPG",
+     "file": "336-e-fifth-st-nov-23-2003.jpg",
+     "original": "336 E. Fifth St., Nov. 23, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/336 E. Fifth St - 2003 - a.jpg"
+     "clean_file": "E. Fifth St/336 E. Fifth St - 2003 - 2.jpg"
     },
     {
      "file": "336-e-fifth-st-nov-23-2003-a.jpg",
@@ -2855,11 +2862,18 @@
      "clean_file": "E. Fifth St/336 E. Fifth St - 2003 - a - 2.jpg"
     },
     {
-     "file": "336-e-fifth-st-nov-23-2003.jpg",
-     "original": "336 E. Fifth St., Nov. 23, 2003.JPG",
+     "file": "336-e-fifth-st-nov-2-2003-a.jpg",
+     "original": "336 E. Fifth St., Nov. 2 2003 a.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/336 E. Fifth St - 2003 - 2.jpg"
+     "clean_file": "E. Fifth St/336 E. Fifth St - 2003 - a.jpg"
+    },
+    {
+     "file": "336-e-fifth-st-dec-6-2003.jpg",
+     "original": "336 E. Fifth St., Dec. 6, 2003.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/336 E. Fifth St - 2003.jpg"
     }
    ],
    "lat": 39.7571559,
@@ -2877,11 +2891,11 @@
      "clean_file": "E. Fifth St/337-341 E. Fifth St - 2003.jpg"
     },
     {
-     "file": "341-e-fifth-st-nov-1-2003.jpg",
-     "original": "341 E. Fifth St., Nov. 1, 2003.JPG",
+     "file": "341-e-fifth-st-nov-23-2003.jpg",
+     "original": "341 E. Fifth St., Nov. 23, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/341 E. Fifth St - 2003.jpg"
+     "clean_file": "E. Fifth St/341 E. Fifth St - 2003 - 2.jpg"
     },
     {
      "file": "341-e-fifth-st-nov-23-2003-a.jpg",
@@ -2891,11 +2905,11 @@
      "clean_file": "E. Fifth St/341 E. Fifth St - 2003 - a.jpg"
     },
     {
-     "file": "341-e-fifth-st-nov-23-2003.jpg",
-     "original": "341 E. Fifth St., Nov. 23, 2003.JPG",
+     "file": "341-e-fifth-st-nov-1-2003.jpg",
+     "original": "341 E. Fifth St., Nov. 1, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/341 E. Fifth St - 2003 - 2.jpg"
+     "clean_file": "E. Fifth St/341 E. Fifth St - 2003.jpg"
     }
    ],
    "lat": 39.7571555,
@@ -2913,13 +2927,6 @@
      "clean_file": "E. Fifth St/400 E. Fifth St - 1975.jpg"
     },
     {
-     "file": "400-418-e-fifth-st-fire-dec-1977.jpg",
-     "original": "400-418 E. Fifth St. fire, Dec., 1977-1.jpg",
-     "year": "1977",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/400-418 E. Fifth St - 1977.jpg"
-    },
-    {
      "file": "400-e-fifth-st-after-fire-1977.jpg",
      "original": "400 E. Fifth St., after fire, 1977-1.jpg",
      "year": "1977",
@@ -2927,18 +2934,11 @@
      "clean_file": "E. Fifth St/400 E. Fifth St - 1977.jpg"
     },
     {
-     "file": "400-410-e-fifth-st-nov-23-2003-a.jpg",
-     "original": "400-410 E. Fifth St. Nov. 23, 2003  a.JPG",
-     "year": "2003",
+     "file": "400-418-e-fifth-st-fire-dec-1977.jpg",
+     "original": "400-418 E. Fifth St. fire, Dec., 1977-1.jpg",
+     "year": "1977",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/400-410 E. Fifth St - 2003 - a.jpg"
-    },
-    {
-     "file": "400-410-e-fifth-st-nov-23-2003.jpg",
-     "original": "400-410 E. Fifth St., Nov. 23, 2003.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/400-410 E. Fifth St - 2003.jpg"
+     "clean_file": "E. Fifth St/400-418 E. Fifth St - 1977.jpg"
     },
     {
      "file": "400-e-fifth-st-nov-2-2003-a.jpg",
@@ -2955,11 +2955,18 @@
      "clean_file": "E. Fifth St/400 E. Fifth St - 2003.jpg"
     },
     {
-     "file": "400-e-fifth-st-oregon-emporium-sign.jpg",
-     "original": "400 E. Fifth St., Oregon Emporium sign-1.jpg",
-     "year": null,
+     "file": "400-410-e-fifth-st-nov-23-2003-a.jpg",
+     "original": "400-410 E. Fifth St. Nov. 23, 2003  a.JPG",
+     "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/400 E. Fifth St.jpg"
+     "clean_file": "E. Fifth St/400-410 E. Fifth St - 2003 - a.jpg"
+    },
+    {
+     "file": "400-410-e-fifth-st-nov-23-2003.jpg",
+     "original": "400-410 E. Fifth St., Nov. 23, 2003.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/400-410 E. Fifth St - 2003.jpg"
     },
     {
      "file": "400-e-fifth-st.jpg",
@@ -2967,6 +2974,13 @@
      "year": null,
      "street": "E. Fifth St",
      "clean_file": "E. Fifth St/400 E. Fifth St - 2.jpg"
+    },
+    {
+     "file": "400-e-fifth-st-oregon-emporium-sign.jpg",
+     "original": "400 E. Fifth St., Oregon Emporium sign-1.jpg",
+     "year": null,
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/400 E. Fifth St.jpg"
     }
    ],
    "lat": 39.757138,
@@ -2998,25 +3012,11 @@
      "clean_file": "E. Fifth St/400-410 E. Fifth St - 2003.jpg"
     },
     {
-     "file": "401-419-e-fifth-st-oct-25-2003.jpg",
-     "original": "401-419 E. Fifth St., Oct. 25, 2003.JPG",
+     "file": "401-e-fifth-st-nov-23-2003.jpg",
+     "original": "401 E. Fifth St., Nov. 23, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/401-419 E. Fifth St - 2003.jpg"
-    },
-    {
-     "file": "401-e-fifth-st-nov-1-2003-a.jpg",
-     "original": "401 E. Fifth St., Nov. 1, 2003 a.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/401 E. Fifth St - 2003 - a.jpg"
-    },
-    {
-     "file": "401-e-fifth-st-nov-1-2003.jpg",
-     "original": "401 E. Fifth St., Nov. 1, 2003.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/401 E. Fifth St - 2003.jpg"
+     "clean_file": "E. Fifth St/401 E. Fifth St - 2003 - 2.jpg"
     },
     {
      "file": "401-e-fifth-st-nov-23-2003-a.jpg",
@@ -3026,6 +3026,13 @@
      "clean_file": "E. Fifth St/401 E. Fifth St - 2003 - a - 2.jpg"
     },
     {
+     "file": "401-e-fifth-st-nov-1-2003-a.jpg",
+     "original": "401 E. Fifth St., Nov. 1, 2003 a.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/401 E. Fifth St - 2003 - a.jpg"
+    },
+    {
      "file": "401-e-fifth-st-nov-23-2003-b.jpg",
      "original": "401 E. Fifth St., Nov. 23, 2003 b.JPG",
      "year": "2003",
@@ -3033,11 +3040,18 @@
      "clean_file": "E. Fifth St/401 E. Fifth St - 2003 - b.jpg"
     },
     {
-     "file": "401-e-fifth-st-nov-23-2003.jpg",
-     "original": "401 E. Fifth St., Nov. 23, 2003.JPG",
+     "file": "401-e-fifth-st-nov-1-2003.jpg",
+     "original": "401 E. Fifth St., Nov. 1, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/401 E. Fifth St - 2003 - 2.jpg"
+     "clean_file": "E. Fifth St/401 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "401-419-e-fifth-st-oct-25-2003.jpg",
+     "original": "401-419 E. Fifth St., Oct. 25, 2003.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/401-419 E. Fifth St - 2003.jpg"
     }
    ],
    "lat": 39.7574227,
@@ -3105,6 +3119,13 @@
      "clean_file": "E. Fifth St/401-419 E. Fifth St - 2003.jpg"
     },
     {
+     "file": "416-e-fifth-st-nov-23-2003.jpg",
+     "original": "416 E. Fifth St., Nov. 23, 2003.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/416 E. Fifth St - 2003.jpg"
+    },
+    {
      "file": "416-418-e-fifth-st-nov-23-2003-a.jpg",
      "original": "416-418 E. Fifth St., Nov. 23, 2003 a.JPG",
      "year": "2003",
@@ -3124,13 +3145,6 @@
      "year": "2003",
      "street": "E. Fifth St",
      "clean_file": "E. Fifth St/416-418 E. Fifth St - 2003.jpg"
-    },
-    {
-     "file": "416-e-fifth-st-nov-23-2003.jpg",
-     "original": "416 E. Fifth St., Nov. 23, 2003.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/416 E. Fifth St - 2003.jpg"
     }
    ],
    "lat": 39.7570987,
@@ -3183,20 +3197,6 @@
      "clean_file": "E. Fifth St/416-418 E. Fifth St - 2003.jpg"
     },
     {
-     "file": "417-423-e-fifth-st-nov-1-2003.jpg",
-     "original": "417-423 E. Fifth St., Nov. 1, 2003.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/417-423 E. Fifth St - 2003.jpg"
-    },
-    {
-     "file": "417-423-e-fifth-st-nov-23-2003.jpg",
-     "original": "417-423 E. Fifth St., Nov. 23, 2003.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/417-423 E. Fifth St - 2003 - 2.jpg"
-    },
-    {
      "file": "417-e-fifth-st-nov-23-2003-a.jpg",
      "original": "417 E. Fifth St., Nov. 23, 2003 a.JPG",
      "year": "2003",
@@ -3209,6 +3209,20 @@
      "year": "2003",
      "street": "E. Fifth St",
      "clean_file": "E. Fifth St/417 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "417-423-e-fifth-st-nov-23-2003.jpg",
+     "original": "417-423 E. Fifth St., Nov. 23, 2003.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/417-423 E. Fifth St - 2003 - 2.jpg"
+    },
+    {
+     "file": "417-423-e-fifth-st-nov-1-2003.jpg",
+     "original": "417-423 E. Fifth St., Nov. 1, 2003.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/417-423 E. Fifth St - 2003.jpg"
     }
    ],
    "lat": 39.757253,
@@ -3254,13 +3268,6 @@
      "clean_file": "E. Fifth St/416-418 E. Fifth St - 2003.jpg"
     },
     {
-     "file": "417-423-e-fifth-st-nov-1-2003.jpg",
-     "original": "417-423 E. Fifth St., Nov. 1, 2003.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/417-423 E. Fifth St - 2003.jpg"
-    },
-    {
      "file": "417-423-e-fifth-st-nov-23-2003.jpg",
      "original": "417-423 E. Fifth St., Nov. 23, 2003.JPG",
      "year": "2003",
@@ -3268,11 +3275,11 @@
      "clean_file": "E. Fifth St/417-423 E. Fifth St - 2003 - 2.jpg"
     },
     {
-     "file": "418-424-e-fifth-st-nov-23-2003.jpg",
-     "original": "418-424 E. Fifth St., Nov. 23, 2003.JPG",
+     "file": "417-423-e-fifth-st-nov-1-2003.jpg",
+     "original": "417-423 E. Fifth St., Nov. 1, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/418-424 E. Fifth St - 2003.jpg"
+     "clean_file": "E. Fifth St/417-423 E. Fifth St - 2003.jpg"
     },
     {
      "file": "418-e-fifth-st-nov-23-2003.jpg",
@@ -3280,6 +3287,13 @@
      "year": "2003",
      "street": "E. Fifth St",
      "clean_file": "E. Fifth St/418 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "418-424-e-fifth-st-nov-23-2003.jpg",
+     "original": "418-424 E. Fifth St., Nov. 23, 2003.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/418-424 E. Fifth St - 2003.jpg"
     }
    ],
    "lat": 39.7570922,
@@ -3297,18 +3311,18 @@
      "clean_file": "E. Fifth St/401-419 E. Fifth St - 2003.jpg"
     },
     {
-     "file": "417-423-e-fifth-st-nov-1-2003.jpg",
-     "original": "417-423 E. Fifth St., Nov. 1, 2003.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/417-423 E. Fifth St - 2003.jpg"
-    },
-    {
      "file": "417-423-e-fifth-st-nov-23-2003.jpg",
      "original": "417-423 E. Fifth St., Nov. 23, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
      "clean_file": "E. Fifth St/417-423 E. Fifth St - 2003 - 2.jpg"
+    },
+    {
+     "file": "417-423-e-fifth-st-nov-1-2003.jpg",
+     "original": "417-423 E. Fifth St., Nov. 1, 2003.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/417-423 E. Fifth St - 2003.jpg"
     },
     {
      "file": "418-424-e-fifth-st-nov-23-2003.jpg",
@@ -3340,18 +3354,18 @@
    "street": "E. Fifth St",
    "photos": [
     {
-     "file": "417-423-e-fifth-st-nov-1-2003.jpg",
-     "original": "417-423 E. Fifth St., Nov. 1, 2003.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/417-423 E. Fifth St - 2003.jpg"
-    },
-    {
      "file": "417-423-e-fifth-st-nov-23-2003.jpg",
      "original": "417-423 E. Fifth St., Nov. 23, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
      "clean_file": "E. Fifth St/417-423 E. Fifth St - 2003 - 2.jpg"
+    },
+    {
+     "file": "417-423-e-fifth-st-nov-1-2003.jpg",
+     "original": "417-423 E. Fifth St., Nov. 1, 2003.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/417-423 E. Fifth St - 2003.jpg"
     },
     {
      "file": "418-424-e-fifth-st-nov-23-2003.jpg",
@@ -3396,11 +3410,11 @@
      "clean_file": "E. Fifth St/422-424 E. Fifth St - 2003.jpg"
     },
     {
-     "file": "423-e-fifth-st-nov-1-2003.jpg",
-     "original": "423 E. Fifth St., Nov. 1 2003.JPG",
+     "file": "423-e-fifth-st-nov-23-2003.jpg",
+     "original": "423 E. Fifth St., Nov. 23, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/423 E. Fifth St - 2003.jpg"
+     "clean_file": "E. Fifth St/423 E. Fifth St - 2003 - 2.jpg"
     },
     {
      "file": "423-e-fifth-st-nov-23-2003-a.jpg",
@@ -3410,11 +3424,11 @@
      "clean_file": "E. Fifth St/423 E. Fifth St - 2003 - a.jpg"
     },
     {
-     "file": "423-e-fifth-st-nov-23-2003.jpg",
-     "original": "423 E. Fifth St., Nov. 23, 2003.JPG",
+     "file": "423-e-fifth-st-nov-1-2003.jpg",
+     "original": "423 E. Fifth St., Nov. 1 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/423 E. Fifth St - 2003 - 2.jpg"
+     "clean_file": "E. Fifth St/423 E. Fifth St - 2003.jpg"
     },
     {
      "file": "422-424-e-fifth-st.jpg",
@@ -3462,11 +3476,11 @@
    "street": "E. Fifth St",
    "photos": [
     {
-     "file": "429-431-e-fifth-st-nov-1-2003.jpg",
-     "original": "429-431 E. Fifth St., Nov. 1, 2003.JPG",
+     "file": "429-431-e-fifth-st-nov-23-2003.jpg",
+     "original": "429-431 E. Fifth St., Nov. 23, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/429-431 E. Fifth St - 2003.jpg"
+     "clean_file": "E. Fifth St/429-431 E. Fifth St - 2003 - 2.jpg"
     },
     {
      "file": "429-431-e-fifth-st-nov-23-2003-a.jpg",
@@ -3483,11 +3497,11 @@
      "clean_file": "E. Fifth St/429-431 E. Fifth St - 2003 - b.jpg"
     },
     {
-     "file": "429-431-e-fifth-st-nov-23-2003.jpg",
-     "original": "429-431 E. Fifth St., Nov. 23, 2003.JPG",
+     "file": "429-431-e-fifth-st-nov-1-2003.jpg",
+     "original": "429-431 E. Fifth St., Nov. 1, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/429-431 E. Fifth St - 2003 - 2.jpg"
+     "clean_file": "E. Fifth St/429-431 E. Fifth St - 2003.jpg"
     },
     {
      "file": "430-e-fifth-st-nov-23-2003-a.jpg",
@@ -3526,11 +3540,11 @@
    "street": "E. Fifth St",
    "photos": [
     {
-     "file": "429-431-e-fifth-st-nov-1-2003.jpg",
-     "original": "429-431 E. Fifth St., Nov. 1, 2003.JPG",
+     "file": "429-431-e-fifth-st-nov-23-2003.jpg",
+     "original": "429-431 E. Fifth St., Nov. 23, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/429-431 E. Fifth St - 2003.jpg"
+     "clean_file": "E. Fifth St/429-431 E. Fifth St - 2003 - 2.jpg"
     },
     {
      "file": "429-431-e-fifth-st-nov-23-2003-a.jpg",
@@ -3547,11 +3561,11 @@
      "clean_file": "E. Fifth St/429-431 E. Fifth St - 2003 - b.jpg"
     },
     {
-     "file": "429-431-e-fifth-st-nov-23-2003.jpg",
-     "original": "429-431 E. Fifth St., Nov. 23, 2003.JPG",
+     "file": "429-431-e-fifth-st-nov-1-2003.jpg",
+     "original": "429-431 E. Fifth St., Nov. 1, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/429-431 E. Fifth St - 2003 - 2.jpg"
+     "clean_file": "E. Fifth St/429-431 E. Fifth St - 2003.jpg"
     },
     {
      "file": "431-e-fifth-st-nov-1-2003.jpg",
@@ -3569,18 +3583,18 @@
    "street": "E. Fifth St",
    "photos": [
     {
-     "file": "432-434-e-fifth-st.jpg",
-     "original": "432-434 E. Fifth St.-1.jpg",
-     "year": null,
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/432-434 E. Fifth St.jpg"
-    },
-    {
      "file": "432-e-fifth-st-nite-owl-coffee-shop.jpg",
      "original": "432 E. Fifth St., Nite Owl Coffee Shop-1.jpg",
      "year": null,
      "street": "E. Fifth St",
      "clean_file": "E. Fifth St/432 E. Fifth St.jpg"
+    },
+    {
+     "file": "432-434-e-fifth-st.jpg",
+     "original": "432-434 E. Fifth St.-1.jpg",
+     "year": null,
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/432-434 E. Fifth St.jpg"
     }
    ],
    "lat": 39.757104,
@@ -3627,13 +3641,6 @@
      "clean_file": "E. Fifth St/436-440 E. Fifth St - 2003.jpg"
     },
     {
-     "file": "440-e-fifth-st-nov-23-2003-aaron-phillips.jpg",
-     "original": "440 E. Fifth St., Nov. 23, 2003 (Aaron Phillips).JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/440 E. Fifth St - 2003.jpg"
-    },
-    {
      "file": "440-e-fifth-st-nov-23-2003-feathers.jpg",
      "original": "440 E. Fifth St., Nov. 23, 2003 (Feathers).JPG",
      "year": "2003",
@@ -3646,6 +3653,13 @@
      "year": "2003",
      "street": "E. Fifth St",
      "clean_file": "E. Fifth St/440 E. Fifth St - 2003 - 3.jpg"
+    },
+    {
+     "file": "440-e-fifth-st-nov-23-2003-aaron-phillips.jpg",
+     "original": "440 E. Fifth St., Nov. 23, 2003 (Aaron Phillips).JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/440 E. Fifth St - 2003.jpg"
     }
    ],
    "lat": 39.7570991,
@@ -3699,13 +3713,6 @@
      "clean_file": "E. Fifth St/450-452 E. Fifth St - 1975.jpg"
     },
     {
-     "file": "452-454-e-fifth-st-nov-23-2003.jpg",
-     "original": "452-454 E. Fifth St., Nov. 23, 2003.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/452-454 E. Fifth St - 2003.jpg"
-    },
-    {
      "file": "452-e-fifth-st-nov-23-2003-a.jpg",
      "original": "452 E. Fifth St., Nov. 23, 2003 a.JPG",
      "year": "2003",
@@ -3725,6 +3732,13 @@
      "year": "2003",
      "street": "E. Fifth St",
      "clean_file": "E. Fifth St/452 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "452-454-e-fifth-st-nov-23-2003.jpg",
+     "original": "452-454 E. Fifth St., Nov. 23, 2003.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/452-454 E. Fifth St - 2003.jpg"
     }
    ],
    "lat": 39.7569948,
@@ -3742,11 +3756,11 @@
      "clean_file": "E. Fifth St/452-454 E. Fifth St - 2003.jpg"
     },
     {
-     "file": "454-e-fifth-st-larry-atkinson-oct-25-2003.jpg",
-     "original": "454 E. Fifth St. (Larry Atkinson.), Oct. 25, 2003.JPG",
+     "file": "454-e-fifth-st-nov-23-2003.jpg",
+     "original": "454 E. Fifth St., Nov. 23, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/454 E. Fifth St - 2003.jpg"
+     "clean_file": "E. Fifth St/454 E. Fifth St - 2003 - 2.jpg"
     },
     {
      "file": "454-e-fifth-st-nov-23-2003-a.jpg",
@@ -3756,11 +3770,11 @@
      "clean_file": "E. Fifth St/454 E. Fifth St - 2003 - a.jpg"
     },
     {
-     "file": "454-e-fifth-st-nov-23-2003.jpg",
-     "original": "454 E. Fifth St., Nov. 23, 2003.JPG",
+     "file": "454-e-fifth-st-larry-atkinson-oct-25-2003.jpg",
+     "original": "454 E. Fifth St. (Larry Atkinson.), Oct. 25, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/454 E. Fifth St - 2003 - 2.jpg"
+     "clean_file": "E. Fifth St/454 E. Fifth St - 2003.jpg"
     }
    ],
    "lat": 39.7569944,
@@ -3815,11 +3829,11 @@
    "street": "E. Fifth St",
    "photos": [
     {
-     "file": "464-e-fifth-st-nov-12-2003.jpg",
-     "original": "464 E. Fifth St., Nov. 12, 2003.JPG",
+     "file": "464-e-fifth-st-nov-23-2003.jpg",
+     "original": "464 E. Fifth St., Nov. 23, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/464 E. Fifth St - 2003.jpg"
+     "clean_file": "E. Fifth St/464 E. Fifth St - 2003 - 2.jpg"
     },
     {
      "file": "464-e-fifth-st-nov-23-2003-a.jpg",
@@ -3829,11 +3843,11 @@
      "clean_file": "E. Fifth St/464 E. Fifth St - 2003 - a.jpg"
     },
     {
-     "file": "464-e-fifth-st-nov-23-2003.jpg",
-     "original": "464 E. Fifth St., Nov. 23, 2003.JPG",
+     "file": "464-e-fifth-st-nov-12-2003.jpg",
+     "original": "464 E. Fifth St., Nov. 12, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/464 E. Fifth St - 2003 - 2.jpg"
+     "clean_file": "E. Fifth St/464 E. Fifth St - 2003.jpg"
     },
     {
      "file": "458-464-e-fifth-st.jpg",
@@ -3850,6 +3864,20 @@
    "address": "500 E. Fifth St",
    "street": "E. Fifth St",
    "photos": [
+    {
+     "file": "500-e-fifth-st-nov-23-2003.jpg",
+     "original": "500 E. Fifth St., Nov. 23, 2003.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500 E. Fifth St - 2003 - 2.jpg"
+    },
+    {
+     "file": "500-e-fifth-st-nov-1-2003.jpg",
+     "original": "500 E. Fifth St., Nov. 1, 2003.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500 E. Fifth St - 2003.jpg"
+    },
     {
      "file": "500-510-e-fifth-st-nov-23-2003-a.jpg",
      "original": "500-510 E. Fifth St., Nov. 23, 2003 a.JPG",
@@ -3879,27 +3907,6 @@
      "clean_file": "E. Fifth St/500-514 E. Fifth St - 2003.jpg"
     },
     {
-     "file": "500-e-fifth-st-nov-1-2003.jpg",
-     "original": "500 E. Fifth St., Nov. 1, 2003.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/500 E. Fifth St - 2003.jpg"
-    },
-    {
-     "file": "500-e-fifth-st-nov-23-2003.jpg",
-     "original": "500 E. Fifth St., Nov. 23, 2003.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/500 E. Fifth St - 2003 - 2.jpg"
-    },
-    {
-     "file": "500-e-fifth-st-gaiety-news-stand.jpg",
-     "original": "500 E. Fifth St., Gaiety News Stand-1.jpg",
-     "year": null,
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/500 E. Fifth St.jpg"
-    },
-    {
      "file": "500-e-fifth-st-the-summit-and-bonnett-s.jpg",
      "original": "500 E. Fifth St., The Summit and Bonnett_s-1.jpg",
      "year": null,
@@ -3912,6 +3919,13 @@
      "year": null,
      "street": "E. Fifth St",
      "clean_file": "E. Fifth St/500 E. Fifth St - 3.jpg"
+    },
+    {
+     "file": "500-e-fifth-st-gaiety-news-stand.jpg",
+     "original": "500 E. Fifth St., Gaiety News Stand-1.jpg",
+     "year": null,
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500 E. Fifth St.jpg"
     }
    ],
    "lat": 39.7569346,
@@ -3950,25 +3964,18 @@
      "clean_file": "E. Fifth St/500-514 E. Fifth St - 2003.jpg"
     },
     {
-     "file": "501-511-e-fifth-st-nov-23-2003.jpg",
-     "original": "501-511 E. Fifth St., Nov. 23, 2003.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/501-511 E. Fifth St - 2003.jpg"
-    },
-    {
-     "file": "501-e-5th-st-oct-19-2003.jpg",
-     "original": "501 E. 5th St., Oct. 19, 2003.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/501 E. Fifth St - 2003.jpg"
-    },
-    {
      "file": "501-e-fifth-st-nov-1-2003.jpg",
      "original": "501 E. Fifth St., Nov. 1, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
      "clean_file": "E. Fifth St/501 E. Fifth St - 2003 - 2.jpg"
+    },
+    {
+     "file": "501-e-fifth-st-nov-23-2003.jpg",
+     "original": "501 E. Fifth St., Nov. 23, 2003.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/501 E. Fifth St - 2003 - 3.jpg"
     },
     {
      "file": "501-e-fifth-st-nov-23-2003-a.jpg",
@@ -3978,11 +3985,18 @@
      "clean_file": "E. Fifth St/501 E. Fifth St - 2003 - a.jpg"
     },
     {
-     "file": "501-e-fifth-st-nov-23-2003.jpg",
-     "original": "501 E. Fifth St., Nov. 23, 2003.JPG",
+     "file": "501-e-5th-st-oct-19-2003.jpg",
+     "original": "501 E. 5th St., Oct. 19, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/501 E. Fifth St - 2003 - 3.jpg"
+     "clean_file": "E. Fifth St/501 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "501-511-e-fifth-st-nov-23-2003.jpg",
+     "original": "501-511 E. Fifth St., Nov. 23, 2003.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/501-511 E. Fifth St - 2003.jpg"
     },
     {
      "file": "501-e-fifth-st-goodwill-1970-s.jpg",
@@ -3999,6 +4013,41 @@
    "address": "502 E. Fifth St",
    "street": "E. Fifth St",
    "photos": [
+    {
+     "file": "500-510-e-fifth-st-2003-a.jpg",
+     "original": "500-510 E. Fifth St - 2003 - a.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-510 E. Fifth St - 2003 - a.jpg"
+    },
+    {
+     "file": "500-510-e-fifth-st-2003-b.jpg",
+     "original": "500-510 E. Fifth St - 2003 - b.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-510 E. Fifth St - 2003 - b.jpg"
+    },
+    {
+     "file": "500-510-e-fifth-st-2003.jpg",
+     "original": "500-510 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-510 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "500-514-e-fifth-st-2003.jpg",
+     "original": "500-514 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-514 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "501-511-e-fifth-st-2003.jpg",
+     "original": "501-511 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/501-511 E. Fifth St - 2003.jpg"
+    },
     {
      "file": "502-510-e-fifth-st-nov-23-2003-a.jpg",
      "original": "502-510 E. Fifth St., Nov. 23, 2003 a.JPG",
@@ -4022,6 +4071,41 @@
    "street": "E. Fifth St",
    "photos": [
     {
+     "file": "500-510-e-fifth-st-2003-a.jpg",
+     "original": "500-510 E. Fifth St - 2003 - a.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-510 E. Fifth St - 2003 - a.jpg"
+    },
+    {
+     "file": "500-510-e-fifth-st-2003-b.jpg",
+     "original": "500-510 E. Fifth St - 2003 - b.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-510 E. Fifth St - 2003 - b.jpg"
+    },
+    {
+     "file": "500-510-e-fifth-st-2003.jpg",
+     "original": "500-510 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-510 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "500-514-e-fifth-st-2003.jpg",
+     "original": "500-514 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-514 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "501-511-e-fifth-st-2003.jpg",
+     "original": "501-511 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/501-511 E. Fifth St - 2003.jpg"
+    },
+    {
      "file": "502-510-e-fifth-st-nov-23-2003-a.jpg",
      "original": "502-510 E. Fifth St., Nov. 23, 2003 a.JPG",
      "year": "2003",
@@ -4043,6 +4127,41 @@
    "address": "506 E. Fifth St",
    "street": "E. Fifth St",
    "photos": [
+    {
+     "file": "500-510-e-fifth-st-2003-a.jpg",
+     "original": "500-510 E. Fifth St - 2003 - a.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-510 E. Fifth St - 2003 - a.jpg"
+    },
+    {
+     "file": "500-510-e-fifth-st-2003-b.jpg",
+     "original": "500-510 E. Fifth St - 2003 - b.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-510 E. Fifth St - 2003 - b.jpg"
+    },
+    {
+     "file": "500-510-e-fifth-st-2003.jpg",
+     "original": "500-510 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-510 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "500-514-e-fifth-st-2003.jpg",
+     "original": "500-514 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-514 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "501-511-e-fifth-st-2003.jpg",
+     "original": "501-511 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/501-511 E. Fifth St - 2003.jpg"
+    },
     {
      "file": "502-510-e-fifth-st-nov-23-2003-a.jpg",
      "original": "502-510 E. Fifth St., Nov. 23, 2003 a.JPG",
@@ -4066,6 +4185,41 @@
    "street": "E. Fifth St",
    "photos": [
     {
+     "file": "500-510-e-fifth-st-2003-a.jpg",
+     "original": "500-510 E. Fifth St - 2003 - a.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-510 E. Fifth St - 2003 - a.jpg"
+    },
+    {
+     "file": "500-510-e-fifth-st-2003-b.jpg",
+     "original": "500-510 E. Fifth St - 2003 - b.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-510 E. Fifth St - 2003 - b.jpg"
+    },
+    {
+     "file": "500-510-e-fifth-st-2003.jpg",
+     "original": "500-510 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-510 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "500-514-e-fifth-st-2003.jpg",
+     "original": "500-514 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-514 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "501-511-e-fifth-st-2003.jpg",
+     "original": "501-511 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/501-511 E. Fifth St - 2003.jpg"
+    },
+    {
      "file": "502-510-e-fifth-st-nov-23-2003-a.jpg",
      "original": "502-510 E. Fifth St., Nov. 23, 2003 a.JPG",
      "year": "2003",
@@ -4087,6 +4241,41 @@
    "address": "510 E. Fifth St",
    "street": "E. Fifth St",
    "photos": [
+    {
+     "file": "500-510-e-fifth-st-2003-a.jpg",
+     "original": "500-510 E. Fifth St - 2003 - a.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-510 E. Fifth St - 2003 - a.jpg"
+    },
+    {
+     "file": "500-510-e-fifth-st-2003-b.jpg",
+     "original": "500-510 E. Fifth St - 2003 - b.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-510 E. Fifth St - 2003 - b.jpg"
+    },
+    {
+     "file": "500-510-e-fifth-st-2003.jpg",
+     "original": "500-510 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-510 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "500-514-e-fifth-st-2003.jpg",
+     "original": "500-514 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/500-514 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "501-511-e-fifth-st-2003.jpg",
+     "original": "501-511 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/501-511 E. Fifth St - 2003.jpg"
+    },
     {
      "file": "502-510-e-fifth-st-nov-23-2003-a.jpg",
      "original": "502-510 E. Fifth St., Nov. 23, 2003 a.JPG",
@@ -4124,18 +4313,18 @@
      "clean_file": "E. Fifth St/501-511 E. Fifth St - 2003.jpg"
     },
     {
-     "file": "511-e-fifth-st-nov-1-2003.jpg",
-     "original": "511 E. Fifth St., Nov. 1, 2003.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/511 E. Fifth St - 2003.jpg"
-    },
-    {
      "file": "511-e-fifth-st-nov-23-2003.jpg",
      "original": "511 E. Fifth St., Nov. 23, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
      "clean_file": "E. Fifth St/511 E. Fifth St - 2003 - 2.jpg"
+    },
+    {
+     "file": "511-e-fifth-st-nov-1-2003.jpg",
+     "original": "511 E. Fifth St., Nov. 1, 2003.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/511 E. Fifth St - 2003.jpg"
     }
    ],
    "lat": 39.7573355,
@@ -4289,13 +4478,6 @@
      "clean_file": "E. Fifth St/517-521 E. Fifth St - 2003.jpg"
     },
     {
-     "file": "520-e-fifth-st-nov-20-2003.jpg",
-     "original": "520 E. Fifth St., Nov. 20, 2003.JPG",
-     "year": "2003",
-     "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/520 E. Fifth St - 2003.jpg"
-    },
-    {
      "file": "520-e-fifth-st-nov-23-2003-a.jpg",
      "original": "520 E. Fifth St., Nov. 23, 2003 a.JPG",
      "year": "2003",
@@ -4308,6 +4490,13 @@
      "year": "2003",
      "street": "E. Fifth St",
      "clean_file": "E. Fifth St/520 E. Fifth St - 2003 - b.jpg"
+    },
+    {
+     "file": "520-e-fifth-st-nov-20-2003.jpg",
+     "original": "520 E. Fifth St., Nov. 20, 2003.JPG",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/520 E. Fifth St - 2003.jpg"
     }
    ],
    "lat": 39.7570442,
@@ -4396,6 +4585,34 @@
      "year": "2003",
      "street": "E. Fifth St",
      "clean_file": "E. Fifth St/601-607 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "601-613-e-fifth-st-2003-2.jpg",
+     "original": "601-613 E. Fifth St - 2003 - 2.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003 - 2.jpg"
+    },
+    {
+     "file": "601-613-e-fifth-st-2003-a.jpg",
+     "original": "601-613 E. Fifth St - 2003 - a.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003 - a.jpg"
+    },
+    {
+     "file": "601-613-e-fifth-st-2003-b.jpg",
+     "original": "601-613 E. Fifth St - 2003 - b.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003 - b.jpg"
+    },
+    {
+     "file": "601-613-e-fifth-st-2003.jpg",
+     "original": "601-613 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003.jpg"
     }
    ],
    "lat": 39.7572288,
@@ -4411,6 +4628,34 @@
      "year": "2003",
      "street": "E. Fifth St",
      "clean_file": "E. Fifth St/601-607 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "601-613-e-fifth-st-2003-2.jpg",
+     "original": "601-613 E. Fifth St - 2003 - 2.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003 - 2.jpg"
+    },
+    {
+     "file": "601-613-e-fifth-st-2003-a.jpg",
+     "original": "601-613 E. Fifth St - 2003 - a.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003 - a.jpg"
+    },
+    {
+     "file": "601-613-e-fifth-st-2003-b.jpg",
+     "original": "601-613 E. Fifth St - 2003 - b.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003 - b.jpg"
+    },
+    {
+     "file": "601-613-e-fifth-st-2003.jpg",
+     "original": "601-613 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003.jpg"
     }
    ],
    "lat": 39.7571941,
@@ -4426,6 +4671,34 @@
      "year": "2003",
      "street": "E. Fifth St",
      "clean_file": "E. Fifth St/601-607 E. Fifth St - 2003.jpg"
+    },
+    {
+     "file": "601-613-e-fifth-st-2003-2.jpg",
+     "original": "601-613 E. Fifth St - 2003 - 2.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003 - 2.jpg"
+    },
+    {
+     "file": "601-613-e-fifth-st-2003-a.jpg",
+     "original": "601-613 E. Fifth St - 2003 - a.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003 - a.jpg"
+    },
+    {
+     "file": "601-613-e-fifth-st-2003-b.jpg",
+     "original": "601-613 E. Fifth St - 2003 - b.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003 - b.jpg"
+    },
+    {
+     "file": "601-613-e-fifth-st-2003.jpg",
+     "original": "601-613 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003.jpg"
     },
     {
      "file": "605-607-e-fifth-st-nov-23-2003.jpg",
@@ -4450,6 +4723,34 @@
      "clean_file": "E. Fifth St/601-607 E. Fifth St - 2003.jpg"
     },
     {
+     "file": "601-613-e-fifth-st-2003-2.jpg",
+     "original": "601-613 E. Fifth St - 2003 - 2.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003 - 2.jpg"
+    },
+    {
+     "file": "601-613-e-fifth-st-2003-a.jpg",
+     "original": "601-613 E. Fifth St - 2003 - a.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003 - a.jpg"
+    },
+    {
+     "file": "601-613-e-fifth-st-2003-b.jpg",
+     "original": "601-613 E. Fifth St - 2003 - b.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003 - b.jpg"
+    },
+    {
+     "file": "601-613-e-fifth-st-2003.jpg",
+     "original": "601-613 E. Fifth St - 2003.jpg",
+     "year": "2003",
+     "street": "E. Fifth St",
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003.jpg"
+    },
+    {
      "file": "605-607-e-fifth-st-nov-23-2003.jpg",
      "original": "605-607 E. Fifth St., Nov. 23, 2003.JPG",
      "year": "2003",
@@ -4465,11 +4766,11 @@
    "street": "E. Fifth St",
    "photos": [
     {
-     "file": "601-613-e-fifth-st-nov-1-2003.jpg",
-     "original": "601-613 E. Fifth St., Nov. 1, 2003.JPG",
+     "file": "601-613-e-fifth-st-nov-23-2003.jpg",
+     "original": "601-613 E. Fifth St., Nov. 23, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003.jpg"
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003 - 2.jpg"
     },
     {
      "file": "601-613-e-fifth-st-nov-23-2003-a.jpg",
@@ -4486,11 +4787,11 @@
      "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003 - b.jpg"
     },
     {
-     "file": "601-613-e-fifth-st-nov-23-2003.jpg",
-     "original": "601-613 E. Fifth St., Nov. 23, 2003.JPG",
+     "file": "601-613-e-fifth-st-nov-1-2003.jpg",
+     "original": "601-613 E. Fifth St., Nov. 1, 2003.JPG",
      "year": "2003",
      "street": "E. Fifth St",
-     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003 - 2.jpg"
+     "clean_file": "E. Fifth St/601-613 E. Fifth St - 2003.jpg"
     },
     {
      "file": "610-e-fifth-st-nov-23-2003.jpg",
@@ -4515,11 +4816,11 @@
      "clean_file": "E. Sixth St/201 E. Sixth St - 1983.jpg"
     },
     {
-     "file": "201-e-sixth-st-may-9-2003-tim-patterson-janet-neu.jpg",
-     "original": "201 E. Sixth St., May 9, 2003 (Tim Patterson & Janet Neu).JPG",
+     "file": "201-e-sixth-st-oct-25-2003.jpg",
+     "original": "201 E. Sixth St., Oct. 25, 2003.JPG",
      "year": "2003",
      "street": "E. Sixth St",
-     "clean_file": "E. Sixth St/201 E. Sixth St - 2003.jpg"
+     "clean_file": "E. Sixth St/201 E. Sixth St - 2003 - 2.jpg"
     },
     {
      "file": "201-e-sixth-st-oct-25-2003-a.jpg",
@@ -4536,11 +4837,11 @@
      "clean_file": "E. Sixth St/201 E. Sixth St - 2003 - b.jpg"
     },
     {
-     "file": "201-e-sixth-st-oct-25-2003.jpg",
-     "original": "201 E. Sixth St., Oct. 25, 2003.JPG",
+     "file": "201-e-sixth-st-may-9-2003-tim-patterson-janet-neu.jpg",
+     "original": "201 E. Sixth St., May 9, 2003 (Tim Patterson & Janet Neu).JPG",
      "year": "2003",
      "street": "E. Sixth St",
-     "clean_file": "E. Sixth St/201 E. Sixth St - 2003 - 2.jpg"
+     "clean_file": "E. Sixth St/201 E. Sixth St - 2003.jpg"
     },
     {
      "file": "201-e-sixth-st.jpg",
@@ -4680,11 +4981,11 @@
      "clean_file": "E. Sixth St/225 E. Sixth St - 1983.jpg"
     },
     {
-     "file": "225-301-e-sixth-st-nov-11-2003.jpg",
-     "original": "225-301 E. Sixth St., Nov. 11, 2003.JPG",
+     "file": "225-e-sixth-st-oct-25-2003-a.jpg",
+     "original": "225 E. Sixth St., Oct. 25, 2003 a.JPG",
      "year": "2003",
      "street": "E. Sixth St",
-     "clean_file": "E. Sixth St/225-301 E. Sixth St - 2003.jpg"
+     "clean_file": "E. Sixth St/225 E. Sixth St - 2003 - a - 2.jpg"
     },
     {
      "file": "225-e-sixth-st-nov-11-2003-a.jpg",
@@ -4694,13 +4995,6 @@
      "clean_file": "E. Sixth St/225 E. Sixth St - 2003 - a.jpg"
     },
     {
-     "file": "225-e-sixth-st-oct-25-2003-a.jpg",
-     "original": "225 E. Sixth St., Oct. 25, 2003 a.JPG",
-     "year": "2003",
-     "street": "E. Sixth St",
-     "clean_file": "E. Sixth St/225 E. Sixth St - 2003 - a - 2.jpg"
-    },
-    {
      "file": "225-e-sixth-st-parking-lot-nov-18-2003.jpg",
      "original": "225 E. Sixth St. parking lot, Nov. 18, 2003.JPG",
      "year": "2003",
@@ -4708,11 +5002,11 @@
      "clean_file": "E. Sixth St/225 E. Sixth St - 2003.jpg"
     },
     {
-     "file": "225-301-e-sixth-st.jpg",
-     "original": "225-301 E. Sixth St.-1.jpg",
-     "year": null,
+     "file": "225-301-e-sixth-st-nov-11-2003.jpg",
+     "original": "225-301 E. Sixth St., Nov. 11, 2003.JPG",
+     "year": "2003",
      "street": "E. Sixth St",
-     "clean_file": "E. Sixth St/225-301 E. Sixth St.jpg"
+     "clean_file": "E. Sixth St/225-301 E. Sixth St - 2003.jpg"
     },
     {
      "file": "225-e-sixth-st.jpg",
@@ -4720,6 +5014,13 @@
      "year": null,
      "street": "E. Sixth St",
      "clean_file": "E. Sixth St/225 E. Sixth St.jpg"
+    },
+    {
+     "file": "225-301-e-sixth-st.jpg",
+     "original": "225-301 E. Sixth St.-1.jpg",
+     "year": null,
+     "street": "E. Sixth St",
+     "clean_file": "E. Sixth St/225-301 E. Sixth St.jpg"
     }
    ],
    "lat": 39.7557988,
@@ -4758,13 +5059,6 @@
      "clean_file": "E. Sixth St/225-301 E. Sixth St - 2003.jpg"
     },
     {
-     "file": "226-e-sixth-st-nov-11-2003.jpg",
-     "original": "226 E. Sixth St., Nov. 11, 2003.JPG",
-     "year": "2003",
-     "street": "E. Sixth St",
-     "clean_file": "E. Sixth St/226 E. Sixth St - 2003.jpg"
-    },
-    {
      "file": "226-e-sixth-st-nov-18-2003.jpg",
      "original": "226 E. Sixth St., Nov. 18, 2003.JPG",
      "year": "2003",
@@ -4777,6 +5071,13 @@
      "year": "2003",
      "street": "E. Sixth St",
      "clean_file": "E. Sixth St/226 E. Sixth St - 2003 - 3.jpg"
+    },
+    {
+     "file": "226-e-sixth-st-nov-11-2003.jpg",
+     "original": "226 E. Sixth St., Nov. 11, 2003.JPG",
+     "year": "2003",
+     "street": "E. Sixth St",
+     "clean_file": "E. Sixth St/226 E. Sixth St - 2003.jpg"
     },
     {
      "file": "225-301-e-sixth-st.jpg",
@@ -5039,18 +5340,18 @@
      "clean_file": "E. Sixth St/412 E. Sixth St - 1983.jpg"
     },
     {
-     "file": "412-e-sixth-st-nov-12-2003-1.jpg",
-     "original": "412 E. Sixth St., Nov. 12, 2003.JPG",
-     "year": "2003",
-     "street": "E. Sixth St",
-     "clean_file": "E. Sixth St/412 E. Sixth St - 2003.jpg"
-    },
-    {
      "file": "412-e-sixth-st-nov-12-2003.jpg",
      "original": "412 E. Sixth St. Nov. 12, 2003.JPG",
      "year": "2003",
      "street": "E. Sixth St",
      "clean_file": "E. Sixth St/412 E. Sixth St - 2003 - 2.jpg"
+    },
+    {
+     "file": "412-e-sixth-st-nov-12-2003-1.jpg",
+     "original": "412 E. Sixth St., Nov. 12, 2003.JPG",
+     "year": "2003",
+     "street": "E. Sixth St",
+     "clean_file": "E. Sixth St/412 E. Sixth St - 2003.jpg"
     },
     {
      "file": "412-e-sixth-st.jpg",
@@ -5068,18 +5369,18 @@
    "street": "E. Sixth St",
    "photos": [
     {
-     "file": "414-418-e-sixth-st-1973-n.jpg",
-     "original": "414-418 E. Sixth St., 1973 n-1.jpg",
-     "year": "1973",
-     "street": "E. Sixth St",
-     "clean_file": "E. Sixth St/414-418 E. Sixth St - 1973 - n.jpg"
-    },
-    {
      "file": "414-e-sixth-st-1973-n.jpg",
      "original": "414 E. Sixth St., 1973 n-1.jpg",
      "year": "1973",
      "street": "E. Sixth St",
      "clean_file": "E. Sixth St/414 E. Sixth St - 1973 - n.jpg"
+    },
+    {
+     "file": "414-418-e-sixth-st-1973-n.jpg",
+     "original": "414-418 E. Sixth St., 1973 n-1.jpg",
+     "year": "1973",
+     "street": "E. Sixth St",
+     "clean_file": "E. Sixth St/414-418 E. Sixth St - 1973 - n.jpg"
     },
     {
      "file": "414-418-e-sixth-st-1983.jpg",
@@ -5097,18 +5398,18 @@
    "street": "E. Sixth St",
    "photos": [
     {
-     "file": "419-e-sixth-st-1973-1-n.jpg",
-     "original": "419 E. Sixth St., 1973(1) n-1.jpg",
-     "year": "1973",
-     "street": "E. Sixth St",
-     "clean_file": "E. Sixth St/419 E. Sixth St - 1973 - n.jpg"
-    },
-    {
      "file": "419-e-sixth-st-1973-2-n.jpg",
      "original": "419 E. Sixth St., 1973(2) n-1.jpg",
      "year": "1973",
      "street": "E. Sixth St",
      "clean_file": "E. Sixth St/419 E. Sixth St - 1973 - n - 2.jpg"
+    },
+    {
+     "file": "419-e-sixth-st-1973-1-n.jpg",
+     "original": "419 E. Sixth St., 1973(1) n-1.jpg",
+     "year": "1973",
+     "street": "E. Sixth St",
+     "clean_file": "E. Sixth St/419 E. Sixth St - 1973 - n.jpg"
     },
     {
      "file": "419-e-sixth-st-1973-s.jpg",
@@ -5118,11 +5419,11 @@
      "clean_file": "E. Sixth St/419 E. Sixth St - 1973 - s.jpg"
     },
     {
-     "file": "419-425-e-sixth-st-feb-1974.jpg",
-     "original": "419-425 E. Sixth St., Feb., 1974-1.jpg",
+     "file": "419-e-sixth-st-feb-1974.jpg",
+     "original": "419 E. Sixth St., Feb., 1974-1.jpg",
      "year": "1974",
      "street": "E. Sixth St",
-     "clean_file": "E. Sixth St/419-425 E. Sixth St - 1974.jpg"
+     "clean_file": "E. Sixth St/419 E. Sixth St - 1974 - 2.jpg"
     },
     {
      "file": "419-e-sixth-st-feb-1974-yard-rear-of-22-34-bro.jpg",
@@ -5132,11 +5433,11 @@
      "clean_file": "E. Sixth St/419 E. Sixth St - 1974.jpg"
     },
     {
-     "file": "419-e-sixth-st-feb-1974.jpg",
-     "original": "419 E. Sixth St., Feb., 1974-1.jpg",
+     "file": "419-425-e-sixth-st-feb-1974.jpg",
+     "original": "419-425 E. Sixth St., Feb., 1974-1.jpg",
      "year": "1974",
      "street": "E. Sixth St",
-     "clean_file": "E. Sixth St/419 E. Sixth St - 1974 - 2.jpg"
+     "clean_file": "E. Sixth St/419-425 E. Sixth St - 1974.jpg"
     },
     {
      "file": "419-e-sixth-st-1983.jpg",
@@ -5144,13 +5445,6 @@
      "year": "1983",
      "street": "E. Sixth St",
      "clean_file": "E. Sixth St/419 E. Sixth St - 1983.jpg"
-    },
-    {
-     "file": "419-e-sixth-st-a.jpg",
-     "original": "419 E. Sixth St. (a)-1.jpg",
-     "year": null,
-     "street": "E. Sixth St",
-     "clean_file": "E. Sixth St/419 E. Sixth St.jpg"
     },
     {
      "file": "419-e-sixth-st-b.jpg",
@@ -5200,6 +5494,13 @@
      "year": null,
      "street": "E. Sixth St",
      "clean_file": "E. Sixth St/419 E. Sixth St - rear.jpg"
+    },
+    {
+     "file": "419-e-sixth-st-a.jpg",
+     "original": "419 E. Sixth St. (a)-1.jpg",
+     "year": null,
+     "street": "E. Sixth St",
+     "clean_file": "E. Sixth St/419 E. Sixth St.jpg"
     }
    ],
    "lat": 39.7564861,
@@ -5238,13 +5539,6 @@
      "clean_file": "E. Sixth St/425 E. Sixth St - 1983.jpg"
     },
     {
-     "file": "425-e-sixth-st-a.jpg",
-     "original": "425 E. Sixth St. (a)-1.jpg",
-     "year": null,
-     "street": "E. Sixth St",
-     "clean_file": "E. Sixth St/425 E. Sixth St.jpg"
-    },
-    {
      "file": "425-e-sixth-st-b.jpg",
      "original": "425 E. Sixth St. (b)-1.jpg",
      "year": null,
@@ -5271,6 +5565,13 @@
      "year": null,
      "street": "E. Sixth St",
      "clean_file": "E. Sixth St/425 E. Sixth St - 5.jpg"
+    },
+    {
+     "file": "425-e-sixth-st-a.jpg",
+     "original": "425 E. Sixth St. (a)-1.jpg",
+     "year": null,
+     "street": "E. Sixth St",
+     "clean_file": "E. Sixth St/425 E. Sixth St.jpg"
     }
    ],
    "lat": 39.7565326,
@@ -5360,18 +5661,18 @@
      "clean_file": "E. Sixth St/430 E. Sixth St - 1983.jpg"
     },
     {
-     "file": "430-432-e-sixth-st-nov-2-2003.jpg",
-     "original": "430-432 E. Sixth St., Nov. 2, 2003.JPG",
-     "year": "2003",
-     "street": "E. Sixth St",
-     "clean_file": "E. Sixth St/430-432 E. Sixth St - 2003.jpg"
-    },
-    {
      "file": "430-e-sixth-st-nov-12-2003.jpg",
      "original": "430 E. Sixth St., Nov. 12, 2003.JPG",
      "year": "2003",
      "street": "E. Sixth St",
      "clean_file": "E. Sixth St/430 E. Sixth St - 2003.jpg"
+    },
+    {
+     "file": "430-432-e-sixth-st-nov-2-2003.jpg",
+     "original": "430-432 E. Sixth St., Nov. 2, 2003.JPG",
+     "year": "2003",
+     "street": "E. Sixth St",
+     "clean_file": "E. Sixth St/430-432 E. Sixth St - 2003.jpg"
     },
     {
      "file": "430-432-e-sixth-st.jpg",
@@ -5760,18 +6061,18 @@
      "clean_file": "E. Sixth St/439-443 E. Sixth St - 1974.jpg"
     },
     {
-     "file": "443-e-sixth-st-1983-1.jpg",
-     "original": "443 E. Sixth St., 1983(1)-1.jpg",
-     "year": "1983",
-     "street": "E. Sixth St",
-     "clean_file": "E. Sixth St/443 E. Sixth St - 1983.jpg"
-    },
-    {
      "file": "443-e-sixth-st-1983-2.jpg",
      "original": "443 E. Sixth St., 1983(2)-1.jpg",
      "year": "1983",
      "street": "E. Sixth St",
      "clean_file": "E. Sixth St/443 E. Sixth St - 1983 - 2.jpg"
+    },
+    {
+     "file": "443-e-sixth-st-1983-1.jpg",
+     "original": "443 E. Sixth St., 1983(1)-1.jpg",
+     "year": "1983",
+     "street": "E. Sixth St",
+     "clean_file": "E. Sixth St/443 E. Sixth St - 1983.jpg"
     },
     {
      "file": "443-e-sixth-st-nov-12-2003-a.jpg",
@@ -5867,13 +6168,6 @@
      "clean_file": "Green St/1 Green St - 1975.jpg"
     },
     {
-     "file": "1-green-st-a-1981.jpg",
-     "original": "1 Green St. a 1981-1.jpg",
-     "year": "1981",
-     "street": "Green St",
-     "clean_file": "Green St/1 Green St - 1981.jpg"
-    },
-    {
      "file": "1-green-st-b-1981.jpg",
      "original": "1 Green St. b 1981-1.jpg",
      "year": "1981",
@@ -5914,6 +6208,13 @@
      "year": "1981",
      "street": "Green St",
      "clean_file": "Green St/1 Green St - 1981 - 7.jpg"
+    },
+    {
+     "file": "1-green-st-a-1981.jpg",
+     "original": "1 Green St. a 1981-1.jpg",
+     "year": "1981",
+     "street": "Green St",
+     "clean_file": "Green St/1 Green St - 1981.jpg"
     },
     {
      "file": "1-green-st-fire-a.jpg",
@@ -5959,18 +6260,18 @@
    "street": "Green St",
    "photos": [
     {
-     "file": "22-green-st-1973-s.jpg",
-     "original": "22 Green St., 1973 s.jpg",
-     "year": "1973",
-     "street": "Green St",
-     "clean_file": "Green St/22 Green St - 1973 - s.jpg"
-    },
-    {
      "file": "22-green-st-july-12-1973-n.jpg",
      "original": "22 Green St., July 12, 1973 n.jpg",
      "year": "1973",
      "street": "Green St",
      "clean_file": "Green St/22 Green St - 1973 - n.jpg"
+    },
+    {
+     "file": "22-green-st-1973-s.jpg",
+     "original": "22 Green St., 1973 s.jpg",
+     "year": "1973",
+     "street": "Green St",
+     "clean_file": "Green St/22 Green St - 1973 - s.jpg"
     }
    ],
    "lat": 39.7540863,
@@ -6080,6 +6381,13 @@
      "year": "1973",
      "street": "Green St",
      "clean_file": "Green St/31-33 Green St - 1973 - s.jpg"
+    },
+    {
+     "file": "30-54-green-st.jpg",
+     "original": "30-54 Green St.jpg",
+     "year": null,
+     "street": "Green St",
+     "clean_file": "Green St/30-54 Green St.jpg"
     }
    ],
    "lat": 39.7543758,
@@ -6102,6 +6410,13 @@
      "year": "1973",
      "street": "Green St",
      "clean_file": "Green St/31-33 Green St - 1973 - s.jpg"
+    },
+    {
+     "file": "30-54-green-st.jpg",
+     "original": "30-54 Green St.jpg",
+     "year": null,
+     "street": "Green St",
+     "clean_file": "Green St/30-54 Green St.jpg"
     }
    ],
    "lat": 39.7543758,
@@ -6514,11 +6829,11 @@
    "street": "Green St",
    "photos": [
     {
-     "file": "53-59-green-st-1973-n.jpg",
-     "original": "53-59 Green St., 1973 n.jpg",
+     "file": "53-green-st-july-12-1973-n.jpg",
+     "original": "53 Green St., July 12, 1973 n.jpg",
      "year": "1973",
      "street": "Green St",
-     "clean_file": "Green St/53-59 Green St - 1973 - n.jpg"
+     "clean_file": "Green St/53 Green St - 1973 - n - 2.jpg"
     },
     {
      "file": "53-green-st-1973-n.jpg",
@@ -6535,11 +6850,11 @@
      "clean_file": "Green St/53 Green St - 1973 - s.jpg"
     },
     {
-     "file": "53-green-st-july-12-1973-n.jpg",
-     "original": "53 Green St., July 12, 1973 n.jpg",
+     "file": "53-59-green-st-1973-n.jpg",
+     "original": "53-59 Green St., 1973 n.jpg",
      "year": "1973",
      "street": "Green St",
-     "clean_file": "Green St/53 Green St - 1973 - n - 2.jpg"
+     "clean_file": "Green St/53-59 Green St - 1973 - n.jpg"
     },
     {
      "file": "53-green-st-1983.jpg",
@@ -6599,6 +6914,13 @@
    "street": "Green St",
    "photos": [
     {
+     "file": "53-59-green-st-1973-n.jpg",
+     "original": "53-59 Green St - 1973 - n.jpg",
+     "year": "1973",
+     "street": "Green St",
+     "clean_file": "Green St/53-59 Green St - 1973 - n.jpg"
+    },
+    {
      "file": "54-56-green-st-1973-s.jpg",
      "original": "54-56 Green St., 1973 s.jpg",
      "year": "1973",
@@ -6611,6 +6933,27 @@
      "year": "1974",
      "street": "Green St",
      "clean_file": "Green St/54-56 Green St - 1974.jpg"
+    },
+    {
+     "file": "30-54-green-st.jpg",
+     "original": "30-54 Green St.jpg",
+     "year": null,
+     "street": "Green St",
+     "clean_file": "Green St/30-54 Green St.jpg"
+    },
+    {
+     "file": "45-65-green-st.jpg",
+     "original": "45-65 Green St.jpg",
+     "year": null,
+     "street": "Green St",
+     "clean_file": "Green St/45-65 Green St.jpg"
+    },
+    {
+     "file": "47-59-green-st.jpg",
+     "original": "47-59 Green St.jpg",
+     "year": null,
+     "street": "Green St",
+     "clean_file": "Green St/47-59 Green St.jpg"
     }
    ],
    "lat": 39.7542387,
@@ -6621,6 +6964,13 @@
    "street": "Green St",
    "photos": [
     {
+     "file": "53-59-green-st-1973-n.jpg",
+     "original": "53-59 Green St - 1973 - n.jpg",
+     "year": "1973",
+     "street": "Green St",
+     "clean_file": "Green St/53-59 Green St - 1973 - n.jpg"
+    },
+    {
      "file": "54-56-green-st-1973-s.jpg",
      "original": "54-56 Green St., 1973 s.jpg",
      "year": "1973",
@@ -6633,6 +6983,20 @@
      "year": "1974",
      "street": "Green St",
      "clean_file": "Green St/54-56 Green St - 1974.jpg"
+    },
+    {
+     "file": "45-65-green-st.jpg",
+     "original": "45-65 Green St.jpg",
+     "year": null,
+     "street": "Green St",
+     "clean_file": "Green St/45-65 Green St.jpg"
+    },
+    {
+     "file": "47-59-green-st.jpg",
+     "original": "47-59 Green St.jpg",
+     "year": null,
+     "street": "Green St",
+     "clean_file": "Green St/47-59 Green St.jpg"
     }
    ],
    "lat": 39.7542453,
@@ -6733,6 +7097,13 @@
      "year": "1983",
      "street": "Green St",
      "clean_file": "Green St/62-64 Green St - 1983.jpg"
+    },
+    {
+     "file": "45-65-green-st.jpg",
+     "original": "45-65 Green St.jpg",
+     "year": null,
+     "street": "Green St",
+     "clean_file": "Green St/45-65 Green St.jpg"
     }
    ],
    "lat": 39.7542387,
@@ -6755,6 +7126,13 @@
      "year": "1983",
      "street": "Green St",
      "clean_file": "Green St/62-64 Green St - 1983.jpg"
+    },
+    {
+     "file": "45-65-green-st.jpg",
+     "original": "45-65 Green St.jpg",
+     "year": null,
+     "street": "Green St",
+     "clean_file": "Green St/45-65 Green St.jpg"
     }
    ],
    "lat": 39.7542387,
@@ -6837,18 +7215,18 @@
    "street": "Green St",
    "photos": [
     {
-     "file": "68-green-st-1973-1-n.jpg",
-     "original": "68 Green St., 1973 1 n.jpg",
-     "year": "1973",
-     "street": "Green St",
-     "clean_file": "Green St/68 Green St - 1973 - n.jpg"
-    },
-    {
      "file": "68-green-st-1973-2-n.jpg",
      "original": "68 Green St., 1973 2 n.jpg",
      "year": "1973",
      "street": "Green St",
      "clean_file": "Green St/68 Green St - 1973 - n - 2.jpg"
+    },
+    {
+     "file": "68-green-st-1973-1-n.jpg",
+     "original": "68 Green St., 1973 1 n.jpg",
+     "year": "1973",
+     "street": "Green St",
+     "clean_file": "Green St/68 Green St - 1973 - n.jpg"
     },
     {
      "file": "68-green-st-1973-s.jpg",
@@ -6901,18 +7279,18 @@
    "street": "Green St",
    "photos": [
     {
-     "file": "71-73-green-st-1973-n.jpg",
-     "original": "71-73 Green St., 1973 n.jpg",
-     "year": "1973",
-     "street": "Green St",
-     "clean_file": "Green St/71-73 Green St - 1973 - n.jpg"
-    },
-    {
      "file": "71-green-st-july-19-1973-n.jpg",
      "original": "71 Green St., July 19, 1973 n.jpg",
      "year": "1973",
      "street": "Green St",
      "clean_file": "Green St/71 Green St - 1973 - n.jpg"
+    },
+    {
+     "file": "71-73-green-st-1973-n.jpg",
+     "original": "71-73 Green St., 1973 n.jpg",
+     "year": "1973",
+     "street": "Green St",
+     "clean_file": "Green St/71-73 Green St - 1973 - n.jpg"
     },
     {
      "file": "71-73-green-st-restoration-1977.jpg",
@@ -7066,18 +7444,18 @@
      "clean_file": "Green St/80 Green St - 1983.jpg"
     },
     {
-     "file": "80-102-green-st-1988.jpg",
-     "original": "80-102 Green St., 1988-1.jpg",
-     "year": "1988",
-     "street": "Green St",
-     "clean_file": "Green St/80-102 Green St - 1988.jpg"
-    },
-    {
      "file": "80-green-st-1988.jpg",
      "original": "80 Green St., 1988-1.jpg",
      "year": "1988",
      "street": "Green St",
      "clean_file": "Green St/80 Green St - 1988.jpg"
+    },
+    {
+     "file": "80-102-green-st-1988.jpg",
+     "original": "80-102 Green St., 1988-1.jpg",
+     "year": "1988",
+     "street": "Green St",
+     "clean_file": "Green St/80-102 Green St - 1988.jpg"
     },
     {
      "file": "80-green-st-restoration-a.jpg",
@@ -7349,6 +7727,13 @@
    "street": "Green St",
    "photos": [
     {
+     "file": "115-green-st-july-12-1973-n.jpg",
+     "original": "115 Green St., July 12, 1973 n.jpg",
+     "year": "1973",
+     "street": "Green St",
+     "clean_file": "Green St/115 Green St - 1973 - n - 2.jpg"
+    },
+    {
      "file": "115-green-st-1973-n.jpg",
      "original": "115 Green St., 1973 n.jpg",
      "year": "1973",
@@ -7361,13 +7746,6 @@
      "year": "1973",
      "street": "Green St",
      "clean_file": "Green St/115 Green St - 1973 - s.jpg"
-    },
-    {
-     "file": "115-green-st-july-12-1973-n.jpg",
-     "original": "115 Green St., July 12, 1973 n.jpg",
-     "year": "1973",
-     "street": "Green St",
-     "clean_file": "Green St/115 Green St - 1973 - n - 2.jpg"
     },
     {
      "file": "110-118-green-st-1977.jpg",
@@ -7518,11 +7896,11 @@
    "street": "Green St",
    "photos": [
     {
-     "file": "222-224-green-st-1973-1-n.jpg",
-     "original": "222-224 Green St., 1973 1 n.jpg",
+     "file": "222-green-st-1973-s.jpg",
+     "original": "222 Green St., 1973 s.jpg",
      "year": "1973",
      "street": "Green St",
-     "clean_file": "Green St/222-224 Green St - 1973 - n.jpg"
+     "clean_file": "Green St/222 Green St - 1973 - s.jpg"
     },
     {
      "file": "222-224-green-st-1973-2-n.jpg",
@@ -7532,11 +7910,11 @@
      "clean_file": "Green St/222-224 Green St - 1973 - n - 2.jpg"
     },
     {
-     "file": "222-green-st-1973-s.jpg",
-     "original": "222 Green St., 1973 s.jpg",
+     "file": "222-224-green-st-1973-1-n.jpg",
+     "original": "222-224 Green St., 1973 1 n.jpg",
      "year": "1973",
      "street": "Green St",
-     "clean_file": "Green St/222 Green St - 1973 - s.jpg"
+     "clean_file": "Green St/222-224 Green St - 1973 - n.jpg"
     },
     {
      "file": "222-228-green-st-1977.jpg",
@@ -7554,18 +7932,18 @@
    "street": "Green St",
    "photos": [
     {
-     "file": "222-224-green-st-1973-1-n.jpg",
-     "original": "222-224 Green St., 1973 1 n.jpg",
-     "year": "1973",
-     "street": "Green St",
-     "clean_file": "Green St/222-224 Green St - 1973 - n.jpg"
-    },
-    {
      "file": "222-224-green-st-1973-2-n.jpg",
      "original": "222-224 Green St., 1973 2 n.jpg",
      "year": "1973",
      "street": "Green St",
      "clean_file": "Green St/222-224 Green St - 1973 - n - 2.jpg"
+    },
+    {
+     "file": "222-224-green-st-1973-1-n.jpg",
+     "original": "222-224 Green St., 1973 1 n.jpg",
+     "year": "1973",
+     "street": "Green St",
+     "clean_file": "Green St/222-224 Green St - 1973 - n.jpg"
     },
     {
      "file": "223-green-st-july-12-1973-n.jpg",
@@ -7698,18 +8076,18 @@
    "street": "Green St",
    "photos": [
     {
-     "file": "231-green-st-1973-1-n.jpg",
-     "original": "231 Green St., 1973 1 n.jpg",
-     "year": "1973",
-     "street": "Green St",
-     "clean_file": "Green St/231 Green St - 1973 - n.jpg"
-    },
-    {
      "file": "231-green-st-1973-2-n.jpg",
      "original": "231 Green St., 1973 2 n.jpg",
      "year": "1973",
      "street": "Green St",
      "clean_file": "Green St/231 Green St - 1973 - n - 2.jpg"
+    },
+    {
+     "file": "231-green-st-1973-1-n.jpg",
+     "original": "231 Green St., 1973 1 n.jpg",
+     "year": "1973",
+     "street": "Green St",
+     "clean_file": "Green St/231 Green St - 1973 - n.jpg"
     },
     {
      "file": "231-green-st-a.jpg",
@@ -7777,18 +8155,18 @@
    "street": "Green St",
    "photos": [
     {
-     "file": "235-green-st-1973-2-n.jpg",
-     "original": "235 Green St., 1973 2 n.jpg",
-     "year": "1973",
-     "street": "Green St",
-     "clean_file": "Green St/235 Green St - 1973 - n.jpg"
-    },
-    {
      "file": "235-green-st-1973-n.jpg",
      "original": "235 Green St., 1973 n.jpg",
      "year": "1973",
      "street": "Green St",
      "clean_file": "Green St/235 Green St - 1973 - n - 2.jpg"
+    },
+    {
+     "file": "235-green-st-1973-2-n.jpg",
+     "original": "235 Green St., 1973 2 n.jpg",
+     "year": "1973",
+     "street": "Green St",
+     "clean_file": "Green St/235 Green St - 1973 - n.jpg"
     },
     {
      "file": "235-green-st-1973-s.jpg",
@@ -7835,18 +8213,18 @@
    "street": "Green St",
    "photos": [
     {
-     "file": "239-green-st-1973-1-n.jpg",
-     "original": "239 Green St., 1973 1 n.jpg",
-     "year": "1973",
-     "street": "Green St",
-     "clean_file": "Green St/239 Green St - 1973 - n.jpg"
-    },
-    {
      "file": "239-green-st-1973-2-n.jpg",
      "original": "239 Green St., 1973 2 n.jpg",
      "year": "1973",
      "street": "Green St",
      "clean_file": "Green St/239 Green St - 1973 - n - 2.jpg"
+    },
+    {
+     "file": "239-green-st-1973-1-n.jpg",
+     "original": "239 Green St., 1973 1 n.jpg",
+     "year": "1973",
+     "street": "Green St",
+     "clean_file": "Green St/239 Green St - 1973 - n.jpg"
     },
     {
      "file": "239-green-st-1973-s.jpg",
@@ -7856,18 +8234,18 @@
      "clean_file": "Green St/239 Green St - 1973 - s.jpg"
     },
     {
-     "file": "239-251-green-st-1974.jpg",
-     "original": "239-251 Green St., 1974-1.jpg",
-     "year": "1974",
-     "street": "Green St",
-     "clean_file": "Green St/239-251 Green St - 1974.jpg"
-    },
-    {
      "file": "239-green-st-1974.jpg",
      "original": "239 Green St., 1974-1.jpg",
      "year": "1974",
      "street": "Green St",
      "clean_file": "Green St/239 Green St - 1974.jpg"
+    },
+    {
+     "file": "239-251-green-st-1974.jpg",
+     "original": "239-251 Green St., 1974-1.jpg",
+     "year": "1974",
+     "street": "Green St",
+     "clean_file": "Green St/239-251 Green St - 1974.jpg"
     },
     {
      "file": "236-244-green-st-1977.jpg",
@@ -8049,6 +8427,13 @@
    "street": "Green St",
    "photos": [
     {
+     "file": "247-green-st-july-19-1973-n.jpg",
+     "original": "247 Green St., July 19, 1973 n.jpg",
+     "year": "1973",
+     "street": "Green St",
+     "clean_file": "Green St/247 Green St - 1973 - n - 2.jpg"
+    },
+    {
      "file": "247-green-st-july-12-1973-n.jpg",
      "original": "247 Green St., July 12, 1973 n.jpg",
      "year": "1973",
@@ -8061,13 +8446,6 @@
      "year": "1973",
      "street": "Green St",
      "clean_file": "Green St/247 Green St - 1973 - s.jpg"
-    },
-    {
-     "file": "247-green-st-july-19-1973-n.jpg",
-     "original": "247 Green St., July 19, 1973 n.jpg",
-     "year": "1973",
-     "street": "Green St",
-     "clean_file": "Green St/247 Green St - 1973 - n - 2.jpg"
     },
     {
      "file": "239-251-green-st-1974.jpg",
@@ -8242,6 +8620,13 @@
    "street": "Jackson St",
    "photos": [
     {
+     "file": "135-131-jackson-st-1977.jpg",
+     "original": "135-131 Jackson St - 1977.jpg",
+     "year": "1977",
+     "street": "Jackson St",
+     "clean_file": "Jackson St/135-131 Jackson St - 1977.jpg"
+    },
+    {
      "file": "131-jackson-st.jpg",
      "original": "131 Jackson St.-1.jpg",
      "year": null,
@@ -8262,6 +8647,13 @@
      "year": "1975",
      "street": "Jackson St",
      "clean_file": "Jackson St/132 Jackson St - 1975.jpg"
+    },
+    {
+     "file": "135-131-jackson-st-1977.jpg",
+     "original": "135-131 Jackson St - 1977.jpg",
+     "year": "1977",
+     "street": "Jackson St",
+     "clean_file": "Jackson St/135-131 Jackson St - 1977.jpg"
     },
     {
      "file": "132-jackson-st-a.jpg",
@@ -8293,11 +8685,32 @@
      "clean_file": "Jackson St/135 Jackson St - 1974.jpg"
     },
     {
+     "file": "135-131-jackson-st-1977.jpg",
+     "original": "135-131 Jackson St - 1977.jpg",
+     "year": "1977",
+     "street": "Jackson St",
+     "clean_file": "Jackson St/135-131 Jackson St - 1977.jpg"
+    },
+    {
+     "file": "135-jackson-st-restoration-a.jpg",
+     "original": "135 Jackson St., restoration a-1.jpg",
+     "year": null,
+     "street": "Jackson St",
+     "clean_file": "Jackson St/135 Jackson St - a - 2.jpg"
+    },
+    {
      "file": "135-jackson-st-a.jpg",
      "original": "135 Jackson St. a-1.jpg",
      "year": null,
      "street": "Jackson St",
      "clean_file": "Jackson St/135 Jackson St - a.jpg"
+    },
+    {
+     "file": "135-jackson-st-restoration-b.jpg",
+     "original": "135 Jackson St., restoration b-1.jpg",
+     "year": null,
+     "street": "Jackson St",
+     "clean_file": "Jackson St/135 Jackson St - b - 2.jpg"
     },
     {
      "file": "135-jackson-st-b.jpg",
@@ -8314,18 +8727,11 @@
      "clean_file": "Jackson St/135 Jackson St - c.jpg"
     },
     {
-     "file": "135-jackson-st-restoration-a.jpg",
-     "original": "135 Jackson St., restoration a-1.jpg",
+     "file": "139-135-jackson-st.jpg",
+     "original": "139-135 Jackson St.jpg",
      "year": null,
      "street": "Jackson St",
-     "clean_file": "Jackson St/135 Jackson St - a - 2.jpg"
-    },
-    {
-     "file": "135-jackson-st-restoration-b.jpg",
-     "original": "135 Jackson St., restoration b-1.jpg",
-     "year": null,
-     "street": "Jackson St",
-     "clean_file": "Jackson St/135 Jackson St - b - 2.jpg"
+     "clean_file": "Jackson St/139-135 Jackson St.jpg"
     }
    ],
    "lat": 39.7561271,
@@ -8341,6 +8747,13 @@
      "year": "1977",
      "street": "Jackson St",
      "clean_file": "Jackson St/139 Jackson St - 1977.jpg"
+    },
+    {
+     "file": "139-135-jackson-st.jpg",
+     "original": "139-135 Jackson St.jpg",
+     "year": null,
+     "street": "Jackson St",
+     "clean_file": "Jackson St/139-135 Jackson St.jpg"
     }
    ],
    "lat": 39.7559717,
@@ -8485,6 +8898,13 @@
    "street": "Pine St",
    "photos": [
     {
+     "file": "101-pine-st-oct-11-2003.jpg",
+     "original": "101 Pine St., Oct. 11, 2003.JPG",
+     "year": "2003",
+     "street": "Pine St",
+     "clean_file": "Pine St/101 Pine St - 2003 - 2.jpg"
+    },
+    {
      "file": "101-pine-st-nov-1-2003-a.jpg",
      "original": "101 Pine St., Nov. 1, 2003 a.JPG",
      "year": "2003",
@@ -8497,13 +8917,6 @@
      "year": "2003",
      "street": "Pine St",
      "clean_file": "Pine St/101 Pine St - 2003.jpg"
-    },
-    {
-     "file": "101-pine-st-oct-11-2003.jpg",
-     "original": "101 Pine St., Oct. 11, 2003.JPG",
-     "year": "2003",
-     "street": "Pine St",
-     "clean_file": "Pine St/101 Pine St - 2003 - 2.jpg"
     }
    ],
    "lat": 39.7581248,
@@ -8529,18 +8942,11 @@
    "street": "S. Patterson Blvd",
    "photos": [
     {
-     "file": "300-306-s-patterson-blvd-oct-25-2003-a.jpg",
-     "original": "300-306 S. Patterson Blvd., Oct. 25, 2003 a.JPG",
+     "file": "300-s-patterson-blvd-oct-25-2003.jpg",
+     "original": "300 S. Patterson Blvd., Oct. 25, 2003.JPG",
      "year": "2003",
      "street": "S. Patterson Blvd",
-     "clean_file": "S. Patterson Blvd/300-306 S. Patterson Blvd - 2003 - a.jpg"
-    },
-    {
-     "file": "300-306-s-patterson-blvd-oct-25-2003.jpg",
-     "original": "300-306 S. Patterson Blvd., Oct. 25, 2003.JPG",
-     "year": "2003",
-     "street": "S. Patterson Blvd",
-     "clean_file": "S. Patterson Blvd/300-306 S. Patterson Blvd - 2003.jpg"
+     "clean_file": "S. Patterson Blvd/300 S. Patterson Blvd - 2003 - 2.jpg"
     },
     {
      "file": "300-s-patterson-blvd-nov-16-2003-a.jpg",
@@ -8557,11 +8963,18 @@
      "clean_file": "S. Patterson Blvd/300 S. Patterson Blvd - 2003.jpg"
     },
     {
-     "file": "300-s-patterson-blvd-oct-25-2003.jpg",
-     "original": "300 S. Patterson Blvd., Oct. 25, 2003.JPG",
+     "file": "300-306-s-patterson-blvd-oct-25-2003-a.jpg",
+     "original": "300-306 S. Patterson Blvd., Oct. 25, 2003 a.JPG",
      "year": "2003",
      "street": "S. Patterson Blvd",
-     "clean_file": "S. Patterson Blvd/300 S. Patterson Blvd - 2003 - 2.jpg"
+     "clean_file": "S. Patterson Blvd/300-306 S. Patterson Blvd - 2003 - a.jpg"
+    },
+    {
+     "file": "300-306-s-patterson-blvd-oct-25-2003.jpg",
+     "original": "300-306 S. Patterson Blvd., Oct. 25, 2003.JPG",
+     "year": "2003",
+     "street": "S. Patterson Blvd",
+     "clean_file": "S. Patterson Blvd/300-306 S. Patterson Blvd - 2003.jpg"
     }
    ],
    "lat": 39.7558453,
@@ -8630,6 +9043,20 @@
    "street": "S. Patterson Blvd",
    "photos": [
     {
+     "file": "322-s-patterson-blvd-oct-25-2003.jpg",
+     "original": "322 S. Patterson Blvd., Oct. 25, 2003.JPG",
+     "year": "2003",
+     "street": "S. Patterson Blvd",
+     "clean_file": "S. Patterson Blvd/322 S. Patterson Blvd - 2003 - 2.jpg"
+    },
+    {
+     "file": "322-s-patterson-blvd-oct-25-2003-a.jpg",
+     "original": "322 S. Patterson Blvd., Oct. 25, 2003 a.JPG",
+     "year": "2003",
+     "street": "S. Patterson Blvd",
+     "clean_file": "S. Patterson Blvd/322 S. Patterson Blvd - 2003 - a - 2.jpg"
+    },
+    {
      "file": "322-s-patterson-blvd-nov-16-2003-a.jpg",
      "original": "322 S. Patterson Blvd., Nov. 16, 2003 a.JPG",
      "year": "2003",
@@ -8649,20 +9076,6 @@
      "year": "2003",
      "street": "S. Patterson Blvd",
      "clean_file": "S. Patterson Blvd/322 S. Patterson Blvd - 2003.jpg"
-    },
-    {
-     "file": "322-s-patterson-blvd-oct-25-2003-a.jpg",
-     "original": "322 S. Patterson Blvd., Oct. 25, 2003 a.JPG",
-     "year": "2003",
-     "street": "S. Patterson Blvd",
-     "clean_file": "S. Patterson Blvd/322 S. Patterson Blvd - 2003 - a - 2.jpg"
-    },
-    {
-     "file": "322-s-patterson-blvd-oct-25-2003.jpg",
-     "original": "322 S. Patterson Blvd., Oct. 25, 2003.JPG",
-     "year": "2003",
-     "street": "S. Patterson Blvd",
-     "clean_file": "S. Patterson Blvd/322 S. Patterson Blvd - 2003 - 2.jpg"
     }
    ],
    "lat": 39.7554066,
@@ -8672,6 +9085,20 @@
    "address": "338 S. Patterson Blvd",
    "street": "S. Patterson Blvd",
    "photos": [
+    {
+     "file": "338-s-patterson-blvd-oct-25-2003.jpg",
+     "original": "338 S. Patterson Blvd., Oct. 25, 2003.JPG",
+     "year": "2003",
+     "street": "S. Patterson Blvd",
+     "clean_file": "S. Patterson Blvd/338 S. Patterson Blvd - 2003 - 2.jpg"
+    },
+    {
+     "file": "338-s-patterson-blvd-oct-25-2003-a.jpg",
+     "original": "338 S. Patterson Blvd., Oct. 25, 2003 a.JPG",
+     "year": "2003",
+     "street": "S. Patterson Blvd",
+     "clean_file": "S. Patterson Blvd/338 S. Patterson Blvd - 2003 - a - 2.jpg"
+    },
     {
      "file": "338-s-patterson-blvd-nov-16-2003-a.jpg",
      "original": "338 S. Patterson Blvd., Nov. 16, 2003 a.JPG",
@@ -8685,20 +9112,6 @@
      "year": "2003",
      "street": "S. Patterson Blvd",
      "clean_file": "S. Patterson Blvd/338 S. Patterson Blvd - 2003.jpg"
-    },
-    {
-     "file": "338-s-patterson-blvd-oct-25-2003-a.jpg",
-     "original": "338 S. Patterson Blvd., Oct. 25, 2003 a.JPG",
-     "year": "2003",
-     "street": "S. Patterson Blvd",
-     "clean_file": "S. Patterson Blvd/338 S. Patterson Blvd - 2003 - a - 2.jpg"
-    },
-    {
-     "file": "338-s-patterson-blvd-oct-25-2003.jpg",
-     "original": "338 S. Patterson Blvd., Oct. 25, 2003.JPG",
-     "year": "2003",
-     "street": "S. Patterson Blvd",
-     "clean_file": "S. Patterson Blvd/338 S. Patterson Blvd - 2003 - 2.jpg"
     }
    ],
    "lat": 39.7550699,
@@ -8709,11 +9122,11 @@
    "street": "S. Patterson Blvd",
    "photos": [
     {
-     "file": "354-356-s-patterso-blvd-nov-16-2003.jpg",
-     "original": "354-356 S. Patterso Blvd., Nov. 16, 2003.JPG",
+     "file": "354-s-patterson-blvd-oct-25-2003.jpg",
+     "original": "354 S. Patterson Blvd., Oct. 25, 2003.JPG",
      "year": "2003",
      "street": "S. Patterson Blvd",
-     "clean_file": "S. Patterson Blvd/354-356 S. Patterson Blvd - 2003.jpg"
+     "clean_file": "S. Patterson Blvd/354 S. Patterson Blvd - 2003.jpg"
     },
     {
      "file": "354-356-s-patterson-blvd-nov-16-2003-a.jpg",
@@ -8723,11 +9136,11 @@
      "clean_file": "S. Patterson Blvd/354-356 S. Patterson Blvd - 2003 - a.jpg"
     },
     {
-     "file": "354-s-patterson-blvd-oct-25-2003.jpg",
-     "original": "354 S. Patterson Blvd., Oct. 25, 2003.JPG",
+     "file": "354-356-s-patterso-blvd-nov-16-2003.jpg",
+     "original": "354-356 S. Patterso Blvd., Nov. 16, 2003.JPG",
      "year": "2003",
      "street": "S. Patterson Blvd",
-     "clean_file": "S. Patterson Blvd/354 S. Patterson Blvd - 2003.jpg"
+     "clean_file": "S. Patterson Blvd/354-356 S. Patterson Blvd - 2003.jpg"
     }
    ],
    "lat": 39.7550676,
@@ -8737,6 +9150,13 @@
    "address": "360 S. Patterson Blvd",
    "street": "S. Patterson Blvd",
    "photos": [
+    {
+     "file": "360-s-patterson-blvd-oct-25-2003-a.jpg",
+     "original": "360 S. Patterson Blvd., Oct. 25, 2003 a.JPG",
+     "year": "2003",
+     "street": "S. Patterson Blvd",
+     "clean_file": "S. Patterson Blvd/360 S. Patterson Blvd - 2003 - a - 2.jpg"
+    },
     {
      "file": "360-s-patterson-blvd-nov-16-2003-a.jpg",
      "original": "360 S. Patterson Blvd., Nov. 16, 2003 a.JPG",
@@ -8750,13 +9170,6 @@
      "year": "2003",
      "street": "S. Patterson Blvd",
      "clean_file": "S. Patterson Blvd/360 S. Patterson Blvd - 2003.jpg"
-    },
-    {
-     "file": "360-s-patterson-blvd-oct-25-2003-a.jpg",
-     "original": "360 S. Patterson Blvd., Oct. 25, 2003 a.JPG",
-     "year": "2003",
-     "street": "S. Patterson Blvd",
-     "clean_file": "S. Patterson Blvd/360 S. Patterson Blvd - 2003 - a - 2.jpg"
     }
    ],
    "lat": 39.7547025,
@@ -8766,20 +9179,6 @@
    "address": "368 S. Patterson Blvd",
    "street": "S. Patterson Blvd",
    "photos": [
-    {
-     "file": "368-patterson-blvd-oct-19-2003.jpg",
-     "original": "368 Patterson Blvd., Oct. 19, 2003.JPG",
-     "year": "2003",
-     "street": "S. Patterson Blvd",
-     "clean_file": "S. Patterson Blvd/368 S. Patterson Blvd - 2003.jpg"
-    },
-    {
-     "file": "368-s-patterson-blvd-nov-16-2003-a.jpg",
-     "original": "368 S. Patterson Blvd., Nov. 16, 2003 a.JPG",
-     "year": "2003",
-     "street": "S. Patterson Blvd",
-     "clean_file": "S. Patterson Blvd/368 S. Patterson Blvd - 2003 - a.jpg"
-    },
     {
      "file": "368-s-patterson-blvd-nov-16-2003.jpg",
      "original": "368 S. Patterson Blvd., Nov. 16, 2003.JPG",
@@ -8795,11 +9194,25 @@
      "clean_file": "S. Patterson Blvd/368 S. Patterson Blvd - 2003 - a - 2.jpg"
     },
     {
+     "file": "368-s-patterson-blvd-nov-16-2003-a.jpg",
+     "original": "368 S. Patterson Blvd., Nov. 16, 2003 a.JPG",
+     "year": "2003",
+     "street": "S. Patterson Blvd",
+     "clean_file": "S. Patterson Blvd/368 S. Patterson Blvd - 2003 - a.jpg"
+    },
+    {
      "file": "368-s-patterson-blvd-oct-25-2003-b.jpg",
      "original": "368 S. Patterson Blvd., Oct. 25, 2003 b.JPG",
      "year": "2003",
      "street": "S. Patterson Blvd",
      "clean_file": "S. Patterson Blvd/368 S. Patterson Blvd - 2003 - b.jpg"
+    },
+    {
+     "file": "368-patterson-blvd-oct-19-2003.jpg",
+     "original": "368 Patterson Blvd., Oct. 19, 2003.JPG",
+     "year": "2003",
+     "street": "S. Patterson Blvd",
+     "clean_file": "S. Patterson Blvd/368 S. Patterson Blvd - 2003.jpg"
     }
    ],
    "lat": 39.7539602,
@@ -8891,6 +9304,13 @@
    "street": "Tecumseh St",
    "photos": [
     {
+     "file": "20-22-tecumseh-st-2003.jpg",
+     "original": "20-22 Tecumseh St - 2003.jpg",
+     "year": "2003",
+     "street": "Tecumseh St",
+     "clean_file": "Tecumseh St/20-22 Tecumseh St - 2003.jpg"
+    },
+    {
      "file": "21-23-tecumseh-st-nov-16-2003.jpg",
      "original": "21-23 Tecumseh St., Nov. 16, 2003.JPG",
      "year": "2003",
@@ -8911,6 +9331,13 @@
      "year": "2003",
      "street": "Tecumseh St",
      "clean_file": "Tecumseh St/20-22 Tecumseh St - 2003.jpg"
+    },
+    {
+     "file": "21-23-tecumseh-st-2003.jpg",
+     "original": "21-23 Tecumseh St - 2003.jpg",
+     "year": "2003",
+     "street": "Tecumseh St",
+     "clean_file": "Tecumseh St/21-23 Tecumseh St - 2003.jpg"
     }
    ],
    "lat": 39.755456,
@@ -8936,18 +9363,18 @@
    "street": "Tecumseh St",
    "photos": [
     {
-     "file": "24-tecumseh-st-nov-11-2003.jpg",
-     "original": "24 Tecumseh St., Nov. 11, 2003.JPG",
-     "year": "2003",
-     "street": "Tecumseh St",
-     "clean_file": "Tecumseh St/24 Tecumseh St - 2003.jpg"
-    },
-    {
      "file": "24-tecumseh-st-nov-12-2003.jpg",
      "original": "24 Tecumseh St., Nov. 12, 2003.JPG",
      "year": "2003",
      "street": "Tecumseh St",
      "clean_file": "Tecumseh St/24 Tecumseh St - 2003 - 2.jpg"
+    },
+    {
+     "file": "24-tecumseh-st-nov-11-2003.jpg",
+     "original": "24 Tecumseh St., Nov. 11, 2003.JPG",
+     "year": "2003",
+     "street": "Tecumseh St",
+     "clean_file": "Tecumseh St/24 Tecumseh St - 2003.jpg"
     }
    ],
    "lat": 39.7553202,
@@ -8973,6 +9400,13 @@
    "street": "Tecumseh St",
    "photos": [
     {
+     "file": "29-tecumseh-st-nov-17-2003.jpg",
+     "original": "29 Tecumseh St., Nov. 17, 2003.JPG",
+     "year": "2003",
+     "street": "Tecumseh St",
+     "clean_file": "Tecumseh St/29 Tecumseh St - 2003 - 2.jpg"
+    },
+    {
      "file": "29-tecumseh-st-mar-19-2003-a.jpg",
      "original": "29 Tecumseh St., Mar. 19, 2003 a.JPG",
      "year": "2003",
@@ -8985,13 +9419,6 @@
      "year": "2003",
      "street": "Tecumseh St",
      "clean_file": "Tecumseh St/29 Tecumseh St - 2003.jpg"
-    },
-    {
-     "file": "29-tecumseh-st-nov-17-2003.jpg",
-     "original": "29 Tecumseh St., Nov. 17, 2003.JPG",
-     "year": "2003",
-     "street": "Tecumseh St",
-     "clean_file": "Tecumseh St/29 Tecumseh St - 2003 - 2.jpg"
     },
     {
      "file": "29-tecumseh-st.jpg",
@@ -9009,6 +9436,13 @@
    "street": "Tecumseh St",
    "photos": [
     {
+     "file": "34-tecumseh-st-nov-12-2003.jpg",
+     "original": "34 Tecumseh St., Nov. 12, 2003.JPG",
+     "year": "2003",
+     "street": "Tecumseh St",
+     "clean_file": "Tecumseh St/34 Tecumseh St - 2003 - 2.jpg"
+    },
+    {
      "file": "34-tecumseh-st-nov-11-2003-a.jpg",
      "original": "34 Tecumseh St., Nov.11, 2003 a.JPG",
      "year": "2003",
@@ -9021,13 +9455,6 @@
      "year": "2003",
      "street": "Tecumseh St",
      "clean_file": "Tecumseh St/34 Tecumseh St - 2003.jpg"
-    },
-    {
-     "file": "34-tecumseh-st-nov-12-2003.jpg",
-     "original": "34 Tecumseh St., Nov. 12, 2003.JPG",
-     "year": "2003",
-     "street": "Tecumseh St",
-     "clean_file": "Tecumseh St/34 Tecumseh St - 2003 - 2.jpg"
     }
    ],
    "lat": 39.7551239,
@@ -9053,18 +9480,18 @@
    "street": "Tecumseh St",
    "photos": [
     {
-     "file": "41-45-tecumseh-st-nov-11-2003-a.jpg",
-     "original": "41-45 Tecumseh St., Nov. 11, 2003 a.JPG",
-     "year": "2003",
-     "street": "Tecumseh St",
-     "clean_file": "Tecumseh St/41-45 Tecumseh St - 2003 - a.jpg"
-    },
-    {
      "file": "41-tecumseh-st-nov-11-2003.jpg",
      "original": "41 Tecumseh St., Nov. 11, 2003.JPG",
      "year": "2003",
      "street": "Tecumseh St",
      "clean_file": "Tecumseh St/41 Tecumseh St - 2003.jpg"
+    },
+    {
+     "file": "41-45-tecumseh-st-nov-11-2003-a.jpg",
+     "original": "41-45 Tecumseh St., Nov. 11, 2003 a.JPG",
+     "year": "2003",
+     "street": "Tecumseh St",
+     "clean_file": "Tecumseh St/41-45 Tecumseh St - 2003 - a.jpg"
     }
    ],
    "lat": 39.7550626,
@@ -9074,6 +9501,13 @@
    "address": "45 Tecumseh St",
    "street": "Tecumseh St",
    "photos": [
+    {
+     "file": "41-45-tecumseh-st-2003-a.jpg",
+     "original": "41-45 Tecumseh St - 2003 - a.jpg",
+     "year": "2003",
+     "street": "Tecumseh St",
+     "clean_file": "Tecumseh St/41-45 Tecumseh St - 2003 - a.jpg"
+    },
     {
      "file": "45-47-tecumseh-st-oct-19-2003.jpg",
      "original": "45-47 Tecumseh St., Oct. 19, 2003.JPG",
@@ -9120,13 +9554,6 @@
    "street": "Van Buren St",
    "photos": [
     {
-     "file": "8-12-van-buren-st-nov-12-2003.jpg",
-     "original": "8-12 Van Buren St., Nov. 12, 2003.JPG",
-     "year": "2003",
-     "street": "Van Buren St",
-     "clean_file": "Van Buren St/8-12 Van Buren St - 2003.jpg"
-    },
-    {
      "file": "8-van-buren-st-nov-12-2003-a.jpg",
      "original": "8 Van Buren St., Nov. 12, 2003 a.JPG",
      "year": "2003",
@@ -9139,6 +9566,13 @@
      "year": "2003",
      "street": "Van Buren St",
      "clean_file": "Van Buren St/8 Van Buren St - 2003.jpg"
+    },
+    {
+     "file": "8-12-van-buren-st-nov-12-2003.jpg",
+     "original": "8-12 Van Buren St., Nov. 12, 2003.JPG",
+     "year": "2003",
+     "street": "Van Buren St",
+     "clean_file": "Van Buren St/8-12 Van Buren St - 2003.jpg"
     }
    ],
    "lat": 39.7558612,

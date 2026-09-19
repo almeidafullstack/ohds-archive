@@ -27,7 +27,7 @@
     --serif:    'Young Serif', Georgia, serif;
     --sans:     'Bitter', Georgia, serif;
     --shadow:   0 1px 3px rgba(0,0,0,.10), 0 6px 20px rgba(0,0,0,.06);
-    --sidebar-w: 310px;
+    --sidebar-w: 340px;
 
     /* Basemap palette */
     --map-bg:    #eceae4;
@@ -139,33 +139,54 @@
   #addr-list::-webkit-scrollbar { width: 8px; }
   #addr-list::-webkit-scrollbar-thumb { background: var(--line); border-radius: 8px; }
 
-  .street-group { border-bottom: 1px solid var(--line); }
-  .street-header {
-    padding: 9px 14px; display: flex; justify-content: space-between; align-items: center;
-    cursor: pointer; user-select: none; background: var(--panel); transition: background .12s;
+  /* Street heading: a sticky label, no longer a collapse control */
+  .street-head {
+    position: sticky; top: 0; z-index: 2;
+    padding: 9px 14px 6px;
+    background: linear-gradient(var(--panel) 72%, rgba(255,255,255,0));
+    display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
   }
-  .street-header:hover { background: var(--surface); }
-  .street-header-left { display: flex; align-items: center; gap: 7px; min-width: 0; }
-  .street-chevron { font-size: .6rem; color: var(--ink-soft); transition: transform .16s; }
-  .street-group.collapsed .street-chevron { transform: rotate(-90deg); }
-  .street-name { font-family: var(--serif); font-size: .92rem; }
-  .street-total { font-size: .68rem; color: var(--ink-soft); }
+  .street-name { font-family: var(--serif); font-size: .95rem; }
   .street-photo-count { font-size: .68rem; color: var(--ink-soft); white-space: nowrap; }
-  .street-group.collapsed .street-addresses { display: none; }
-  .street-addresses { background: var(--surface); }
 
-  .addr-item {
-    padding: 7px 14px 7px 26px;
-    display: flex; justify-content: space-between; align-items: center; gap: 8px;
-    cursor: pointer; font-size: .84rem; border-left: 3px solid transparent;
+  .tile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(138px, 1fr));
+    gap: 8px;
+    padding: 0 12px 16px;
   }
-  .addr-item:hover { background: #ebebe9; }
-  .addr-item.active { background: #fff8dd; border-left-color: var(--accent); font-weight: 600; }
-  .addr-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .addr-meta { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-  .addr-years { font-size: .64rem; color: var(--ink-soft); }
-  .addr-count { font-size: .68rem; background: var(--line); color: var(--ink); border-radius: var(--pill); padding: 1px 7px; font-weight: 600; }
-  .addr-item.active .addr-count { background: var(--accent); }
+  .tile {
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    text-align: left;
+    padding: 0;
+    display: flex; flex-direction: column;
+    transition: border-color .12s, box-shadow .12s, transform .12s;
+  }
+  .tile:hover { border-color: var(--ink-soft); box-shadow: var(--shadow); transform: translateY(-1px); }
+  .tile.active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
+  .tile-img {
+    width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block;
+    background: var(--surface); border-bottom: 1px solid var(--line);
+  }
+  .tile-img.none {
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-soft); font-size: .7rem;
+  }
+  .tile-body { padding: 6px 8px 7px; display: flex; flex-direction: column; gap: 1px; }
+  .tile-addr { font-size: .8rem; font-weight: 600; line-height: 1.2; }
+  .tile-meta { font-size: .66rem; color: var(--ink-soft); }
+  .tile-count {
+    position: absolute; top: 5px; right: 5px;
+    background: rgba(28,28,28,.82); color: #fff;
+    font-size: .64rem; font-weight: 600;
+    border-radius: var(--pill); padding: 1px 7px;
+  }
+  .tile.active .tile-count { background: var(--accent); color: var(--dark); }
 
   .empty-note { padding: 24px 16px; text-align: center; color: var(--ink-soft); font-size: .82rem; line-height: 1.6; }
 
@@ -206,12 +227,15 @@
     stroke-dasharray: 6 5; vector-effect: non-scaling-stroke; pointer-events: none;
   }
 
+  /* Invisible, larger circle under each pin: the actual tap/click target. */
+  .svgmap-hit { fill: transparent; stroke: none; cursor: pointer; }
   .svgmap-pin {
+    pointer-events: none;            /* the hit circle handles it */
     fill: var(--dark); stroke: #fff; stroke-width: 1.5;
     vector-effect: non-scaling-stroke; cursor: pointer;
   }
   .svgmap-pin.big { fill: var(--accent-d); }
-  .svgmap-pin:hover { fill: var(--accent); }
+  .svgmap-pin-g:hover .svgmap-pin { fill: var(--accent); }
   .svgmap-pin.active { fill: var(--accent); stroke: var(--dark); stroke-width: 2; }
 
   .svgmap-popup {
@@ -352,6 +376,7 @@
     .lb-stage.compare { flex-direction: column; }
     .lb-stage.compare .main-pane, .lb-stage.compare .cmp-pane { flex: 1 1 0; max-width: 100%; min-height: 0; }
     .scene-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+    .tile-grid { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); }
     .scene-card img { height: 112px; }
   }
 </style>
@@ -378,7 +403,6 @@
     <div class="sidebar-meta">
       <span id="sidebar-count"></span>
       <span class="sidebar-meta-right">
-        <button class="linkbtn" id="expand-all-btn">Expand all</button>
         <button class="linkbtn" id="list-close" aria-label="Close list">Close ✕</button>
       </span>
     </div>
@@ -420,7 +444,7 @@
 <script src="./map.js"></script>
 <script>
 // ── Config ───────────────────────────────────────────────────────────────────
-const BUILD = '2026-09-19a';   // bump when data.json or basemap.json changes
+const BUILD = '2026-09-22a';   // bump when data.json or basemap.json changes
 const THUMB_URL = './thumbs/';
 const VIEW_URL  = './view/';
 const FULL_URL  = './view/';   // originals stay offline; see README
@@ -555,63 +579,45 @@ function renderSidebar(addresses) {
 
   const grouped = {};
   addresses.forEach(a => (grouped[a.street] ||= []).push(a));
-  const streets = Object.keys(grouped).sort();
-  const openByDefault = !!searchTerm || activeYears.size > 0 || streets.length === 1;
 
-  streets.forEach(street => {
+  const frag = document.createDocumentFragment();
+  Object.keys(grouped).sort().forEach(street => {
     const entries = grouped[street];
     const streetPhotos = entries.reduce((s, a) => s + visiblePhotos(a).length, 0);
 
-    const group = document.createElement('div');
-    group.className = 'street-group' + (openByDefault ? '' : ' collapsed');
-    group.dataset.street = street;
+    const head = document.createElement('div');
+    head.className = 'street-head';
+    head.innerHTML = `<span class="street-name">${street}</span>
+      <span class="street-photo-count">${entries.length} addr · ${streetPhotos} photos</span>`;
+    frag.appendChild(head);
 
-    const header = document.createElement('div');
-    header.className = 'street-header';
-    header.innerHTML = `
-      <div class="street-header-left">
-        <span class="street-chevron">▾</span>
-        <span class="street-name">${street}</span>
-        <span class="street-total">${entries.length}</span>
-      </div>
-      <span class="street-photo-count">${streetPhotos} photos</span>`;
-    header.addEventListener('click', () => { group.classList.toggle('collapsed'); updateExpandBtn(); });
-
-    const addrContainer = document.createElement('div');
-    addrContainer.className = 'street-addresses';
+    const grid = document.createElement('div');
+    grid.className = 'tile-grid';
 
     entries.forEach(entry => {
       const shown = visiblePhotos(entry);
-      const item = document.createElement('div');
-      item.className = 'addr-item' + (entry.address === activeAddress ? ' active' : '');
-      item.dataset.address = entry.address;
-      item.innerHTML = `
-        <span class="addr-name">${entry.address}</span>
-        <span class="addr-meta">
-          <span class="addr-years">${yearRange(shown)}</span>
-          <span class="addr-count">${shown.length}</span>
+      const cover = shown[0];
+      const tile = document.createElement('button');
+      tile.type = 'button';
+      tile.className = 'tile' + (entry.address === activeAddress ? ' active' : '');
+      tile.dataset.address = entry.address;
+      tile.innerHTML = `
+        ${cover
+          ? `<img class="tile-img" src="${thumbSrc(cover)}" alt="" loading="lazy" decoding="async">`
+          : `<div class="tile-img none">no photo</div>`}
+        <span class="tile-count">${shown.length}</span>
+        <span class="tile-body">
+          <span class="tile-addr">${entry.address}</span>
+          <span class="tile-meta">${yearRange(shown)}</span>
         </span>`;
-      item.addEventListener('click', () => selectAddress(entry));
-      addrContainer.appendChild(item);
+      tile.addEventListener('click', () => selectAddress(entry));
+      grid.appendChild(tile);
     });
 
-    group.append(header, addrContainer);
-    list.appendChild(group);
+    frag.appendChild(grid);
   });
-  updateExpandBtn();
+  list.appendChild(frag);
 }
-
-function updateExpandBtn() {
-  const groups = document.querySelectorAll('.street-group');
-  const anyCollapsed = [...groups].some(g => g.classList.contains('collapsed'));
-  document.getElementById('expand-all-btn').textContent = anyCollapsed ? 'Expand all' : 'Collapse all';
-}
-document.getElementById('expand-all-btn').addEventListener('click', () => {
-  const groups = document.querySelectorAll('.street-group');
-  const anyCollapsed = [...groups].some(g => g.classList.contains('collapsed'));
-  groups.forEach(g => g.classList.toggle('collapsed', !anyCollapsed));
-  updateExpandBtn();
-});
 
 // ── Pins ─────────────────────────────────────────────────────────────────────
 function placePins(addresses) {
@@ -650,13 +656,8 @@ function buildPopup(entry) {
 // ── Selection ────────────────────────────────────────────────────────────────
 function setActive(address) {
   activeAddress = address;
-  document.querySelectorAll('.addr-item').forEach(el => el.classList.toggle('active', el.dataset.address === address));
-  const active = document.querySelector('.addr-item.active');
-  if (active) {
-    active.closest('.street-group')?.classList.remove('collapsed');
-    active.scrollIntoView({ block: 'nearest' });
-    updateExpandBtn();
-  }
+  document.querySelectorAll('.tile').forEach(el => el.classList.toggle('active', el.dataset.address === address));
+  document.querySelector('.tile.active')?.scrollIntoView({ block: 'nearest' });
   MAP.setPinState(address, 'active');
 }
 
@@ -840,7 +841,7 @@ document.addEventListener('keydown', e => {
 // ── Map controls ─────────────────────────────────────────────────────────────
 document.getElementById('reset-view').addEventListener('click', () => {
   activeAddress = null;
-  document.querySelectorAll('.addr-item').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tile').forEach(el => el.classList.remove('active'));
   MAP.setPinState(null, null);
   MAP.closePopup();
   MAP.fitWorldRect(HOME_RECT || MAP.pinsBounds(), 30, true);

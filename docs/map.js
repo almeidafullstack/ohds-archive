@@ -114,7 +114,11 @@ function createMap(container, basemap, opts = {}) {
     container.style.setProperty('--k', k);
     // Pin radius is a screen measurement, so it has to undo the world scale.
     const pr = 5.5 / k;
-    for (const p of pins.values()) p.el.setAttribute('r', p.big ? pr * 1.3 : pr);
+    for (const p of pins.values()) {
+      const r = p.big ? pr * 1.3 : pr;
+      p.el.setAttribute('r', r);
+      p.hit.setAttribute('r', Math.max(r * 2.1, 11 / k));   // comfortable tap target
+    }
     for (const { el, rank } of labelEls) {
       el.style.display = (rank === 1 || k > (rank === 2 ? 1.6 : 3.2)) ? '' : 'none';
     }
@@ -168,8 +172,7 @@ function createMap(container, basemap, opts = {}) {
   let dragged = false, pinchStart = null;
 
   svg.addEventListener('pointerdown', e => {
-    svg.setPointerCapture(e.pointerId);
-    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY, ox: e.clientX, oy: e.clientY });
     dragged = false;
     if (pointers.size === 2) {
       const [a, b] = [...pointers.values()];
@@ -191,7 +194,16 @@ function createMap(container, basemap, opts = {}) {
       dragged = true;
       return;
     }
-    if (Math.abs(dx) + Math.abs(dy) > 2) dragged = true;
+    if (!dragged) {
+      // Measured from where the press started, not per-event, so a slow drag still
+      // registers and a shaky click does not. Below the threshold this stays a
+      // click, and the pin under the cursor gets it.
+      if (Math.hypot(e.clientX - p.ox, e.clientY - p.oy) < 4) return;
+      dragged = true;
+      // Capturing retargets the compatibility click event to the <svg>, so it can
+      // only happen once we know this gesture is a drag.
+      try { svg.setPointerCapture(e.pointerId); } catch (_) {}
+    }
     tx += dx; ty += dy; clamp(); apply();
   });
 
@@ -230,20 +242,28 @@ function createMap(container, basemap, opts = {}) {
 
   function addPin(key, lat, lon, { big = false, data = null, onClick } = {}) {
     const [wx, wy] = project(lat, lon);
+    const g = document.createElementNS(SVG_NS, 'g');
+    g.setAttribute('class', 'svgmap-pin-g');
+    const hit = document.createElementNS(SVG_NS, 'circle');
+    hit.setAttribute('class', 'svgmap-hit');
+    hit.setAttribute('cx', wx); hit.setAttribute('cy', wy);
     const el = document.createElementNS(SVG_NS, 'circle');
     el.setAttribute('class', 'svgmap-pin' + (big ? ' big' : ''));
-    el.setAttribute('cx', wx);
-    el.setAttribute('cy', wy);
-    el.setAttribute('r', 1);            // real size comes from --k in CSS
-    const rec = { el, wx, wy, data, big };
-    el.addEventListener('click', ev => {
+    el.setAttribute('cx', wx); el.setAttribute('cy', wy);
+    g.append(hit, el);
+
+    const rec = { g, el, hit, wx, wy, data, big };
+    const r0 = (big ? 1.3 : 1) * 5.5 / k;
+    el.setAttribute('r', r0);
+    hit.setAttribute('r', Math.max(r0 * 2.1, 11 / k));
+
+    g.addEventListener('click', ev => {
       ev.stopPropagation();
       if (dragged) return;              // a drag that ends on a pin is not a click
       onClick && onClick(rec);
     });
-    gPins.appendChild(el);
+    gPins.appendChild(g);
     pins.set(key, rec);
-    el.setAttribute('r', (big ? 1.3 : 1) * 5.5 / k);
     return rec;
   }
 
@@ -253,7 +273,7 @@ function createMap(container, basemap, opts = {}) {
     const p = pins.get(key);
     if (!p) return;
     p.el.classList.add('active');
-    gPins.appendChild(p.el);   // draw the active pin above its neighbours
+    gPins.appendChild(p.g);    // draw the active pin above its neighbours
   }
 
   function pinsBounds() {

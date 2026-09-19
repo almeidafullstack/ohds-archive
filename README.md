@@ -5,11 +5,13 @@ Replacement for the dead `ohds-archives.org/archives/index.asp`, built to embed 
 
 ## What it does
 
-Map-first browser for 1,050 archival photos across 241 addresses in the Oregon
-Historic District, Dayton, Ohio, plus 61 undated-to-2003 streetscape views.
+Map-first browser for 905 archival photos across 241 addresses in the Oregon
+Historic District, Dayton, Ohio, plus 61 undated-to-2003 streetscape views. Photos
+captioned with a span of house numbers are attached to every address in the span,
+so the collection resolves to 1,112 address-photo links.
 
 - **Map** of the district with a pin per address, sized by photo count, framed automatically on the photographed addresses
-- **Sidebar** grouped by street, each address showing its year range and photo count
+- **Sidebar** of address tiles grouped under sticky street headings, each tile showing a cover photo, year range, and photo count
 - **Year filter** across all 11 years in the collection, including an Undated bucket; filters the sidebar, the pins, and the streetscapes together
 - **Search** across address and street
 - **Lightbox** with a thumbnail strip, keyboard navigation, and neighbor preloading
@@ -132,6 +134,23 @@ block. That is a large manual step, and re-uploading any photo breaks its link.
 Use this path only if an outside host is ruled out. GitHub Pages is simpler and
 keeps the photos in version control.
 
+## Range-labelled photos
+
+Many photos are captioned with a span ("100-104 Brown St") because one frame shows
+several buildings. `tools/expand_ranges.py` links each of those to every existing
+address inside the span, recovers photos that no address referenced at all, and
+sorts each address's photos oldest first with undated last. It is additive and safe
+to re-run.
+
+```bash
+python3 tools/expand_ranges.py --dry-run   # report only
+python3 tools/expand_ranges.py             # write docs/data.json
+```
+
+It follows the span literally, so "500-510 E. Fifth St" also attaches to 501 across
+the street. Set `PARITY_STRICT = True` in the script to restrict a span to the
+parity of its endpoints when they agree.
+
 ## Regenerating the basemap
 
 Only needed if the district's streets change or the bbox should move.
@@ -156,12 +175,13 @@ changes, or browsers will serve the old data from cache.
 
 ## Known gaps
 
-- **169 of 1,050 photos carry no year.** The source filenames simply don't have one; this is a limitation of the archive, not a parsing failure. They group under "Undated".
+- **169 of the photos carry no year.** The source filenames simply don't have one; this is a limitation of the archive, not a parsing failure. They group under "Undated".
 - **The basemap is a snapshot.** It reflects OSM as of the build date and will not pick up later edits. Re-run the generator if that matters.
 - **No aerial or satellite imagery is possible offline.** A photographic basemap means tiles, and tiles mean an external service. The vector map is the trade for zero dependencies.
 - **"Full resolution" serves the 1800px derivative,** not the 3336px original. Originals are not committed; shipping them would add 845MB and push the repo near the Pages ceiling.
 - **Geocoding is unverified.** All 241 addresses have coordinates, but nobody has checked them against the real parcels. Worth a spot-check on a sample before this goes public.
-- **Eight photos were flagged as possibly rotated wrong** in `rotation_review.html` and were never resolved. They ship as-is.
+- **Eight photos were flagged as possibly rotated wrong** during an earlier QA pass and were never resolved. They ship as-is.
+- **Span attachment is literal, not parity-aware.** See the range-labelled photos section; a handful of photos land on the address across the street.
 - **The working directory still holds four copies of the source images** (`OHDS Pics/`, `OHDS Historic Photos/`, `widget/photos/`, `widget/photos_organized/`). Only `photos_organized/` was used to build the derivatives. Roughly 2.6GB is reclaimable there once you're confident the rest are redundant. None of it is in this repo.
 
 ## Changelog
