@@ -3,6 +3,10 @@
 Replacement for the dead `ohds-archives.org/archives/index.asp`, built to embed on
 [oregonhistoric.org](https://www.oregonhistoric.org/) (Squarespace).
 
+**New to this project?** Start with [HANDOFF.md](HANDOFF.md): current status, the
+decisions that look odd but are deliberate, the gotchas that already cost time, and
+where the original photography lives (it is not in this repo).
+
 ## What it does
 
 Map-first browser for 905 archival photos across 241 addresses in the Oregon
