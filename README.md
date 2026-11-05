@@ -227,3 +227,4 @@ changes, or browsers will serve the old data from cache.
 - Removed every third-party runtime dependency: replaced Leaflet with a self-written SVG map engine, OSM raster tiles with a static vector basemap generated once from an Overpass extract, and Google Fonts with self-hosted woff2. The widget now makes no network calls outside its own folder.
 - Moved maintainer notes and machine-specific paths and config out of the public repo (scope change).
 - Resolved the rotation QA item: the eight flagged photos were reviewed and are correctly oriented (new data).
+- Hardened the embed snippet against Squarespace Embed blocks and documented the Code-block fix (correction).

@@ -31,6 +31,7 @@ The archive is a full-page app, so it embeds as an iframe. Squarespace needs a
   .ohd-archive-embed {
     /* Tall enough that the map and the address list both breathe, but never
        taller than the window, so the page still scrolls normally around it. */
+    position: relative;
     height: min(80vh, 820px);
     min-height: 520px;
     margin: 0 auto;
@@ -39,10 +40,14 @@ The archive is a full-page app, so it embeds as an iframe. Squarespace needs a
     overflow: hidden;
     background: #eceae4;
   }
+  /* !important because Squarespace's Embed block pins iframes to its own
+     16:9 box and would otherwise override this height. */
   .ohd-archive-embed iframe {
+    position: absolute !important;
+    inset: 0 !important;
     display: block;
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
     border: 0;
   }
   @media (max-width: 760px) {
@@ -74,6 +79,13 @@ The archive is a full-page app, so it embeds as an iframe. Squarespace needs a
 - **Nothing is tracked.** The widget loads no analytics, fonts, tiles or scripts from
   anywhere but its own folder, so it adds no third-party cookies to the page and
   needs no mention in a cookie banner.
+
+## If it appears but is far too tall
+
+The snippet went into an **Embed** block instead of a **Code** block. The Embed block
+forces a 16:9 box and reserves that space even when the frame is the right height,
+leaving a large gap below it. Delete it and paste the same snippet into a Code block.
+In the Fluid Engine editor, drag the block's bottom edge up to fit the frame.
 
 ## If it does not appear
 
