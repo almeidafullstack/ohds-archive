@@ -3,10 +3,6 @@
 Replacement for the dead `ohds-archives.org/archives/index.asp`, built to embed on
 [oregonhistoric.org](https://www.oregonhistoric.org/) (Squarespace).
 
-**New to this project?** Start with [HANDOFF.md](HANDOFF.md): current status, the
-decisions that look odd but are deliberate, the gotchas that already cost time, and
-where the original photography lives (it is not in this repo).
-
 ## What it does
 
 Map-first browser for 905 archival photos across 241 addresses in the Oregon
@@ -75,7 +71,7 @@ second thing to keep in sync.
 
 ## The photo originals live outside this repo
 
-The 3336px originals (845MB, in `photos_organized/` in the working directory) are
+The 3336px originals (845MB) are
 deliberately **not** committed. Only the webp derivatives are. Keep the originals
 backed up somewhere else: this repo is not the archival master.
 
@@ -211,9 +207,8 @@ step; change one and you change both.
 
 ## Regenerating derivatives
 
-`docs/thumbs/` and `docs/view/` are generated from the originals with Pillow. The Homebrew
-`cwebp` on this machine is broken (missing `libtiff.6.dylib`), so the pipeline uses
-Pillow's WebP encoder instead. Bump `BUILD` in `docs/index.html` whenever `data.json` or `basemap.json`
+`docs/thumbs/` and `docs/view/` are generated from the originals with Pillow's WebP encoder
+(480px q72 and 1800px q80), which also strips EXIF metadata. Bump `BUILD` in `docs/index.html` whenever `data.json` or `basemap.json`
 changes, or browsers will serve the old data from cache.
 
 ## Known gaps
@@ -223,11 +218,12 @@ changes, or browsers will serve the old data from cache.
 - **No aerial or satellite imagery is possible offline.** A photographic basemap means tiles, and tiles mean an external service. The vector map is the trade for zero dependencies.
 - **"Full resolution" serves the 1800px derivative,** not the 3336px original. Originals are not committed; shipping them would add 845MB and push the repo near the Pages ceiling.
 - **Geocoding is unverified.** All 241 addresses have coordinates, but nobody has checked them against the real parcels. Worth a spot-check on a sample before this goes public.
-- **Eight photos were flagged as possibly rotated wrong** during an earlier QA pass and were never resolved. They ship as-is.
 - **Span attachment is literal, not parity-aware.** See the range-labelled photos section; a handful of photos land on the address across the street.
-- **The working directory still holds four copies of the source images** (`OHDS Pics/`, `OHDS Historic Photos/`, `widget/photos/`, `widget/photos_organized/`). Only `photos_organized/` was used to build the derivatives. Roughly 2.6GB is reclaimable there once you're confident the rest are redundant. None of it is in this repo.
+- **The originals are not in this repo.** The masters and the untouched source drop are kept separately; they need an off-site backup.
 
 ## Changelog
 
 - Rebuilt the prototype: restyled to match oregonhistoric.org (Young Serif / Bitter / #ffc700), added year filtering, year comparison, the streetscapes gallery, deep links, and a mobile layout; generated webp derivatives so the browser no longer loads 3336px originals; repaired 7 streetscape records whose filenames didn't match what was on disk.
 - Removed every third-party runtime dependency: replaced Leaflet with a self-written SVG map engine, OSM raster tiles with a static vector basemap generated once from an Overpass extract, and Google Fonts with self-hosted woff2. The widget now makes no network calls outside its own folder.
+- Moved maintainer notes and machine-specific paths and config out of the public repo (scope change).
+- Resolved the rotation QA item: the eight flagged photos were reviewed and are correctly oriented (new data).
