@@ -87,7 +87,7 @@ Then open `http://localhost:8767/` for the widget, or
 ## Hosting: GitHub Pages
 
 In **Settings → Pages**, set Source to *Deploy from a branch*, branch `main`, folder
-`/docs`. The site lands at `https://<user>.github.io/<repo>/`.
+`/docs`. The site is served at `https://discover.oregonhistoric.org/` via `docs/CNAME`; the old `github.io` address redirects there.
 
 ```bash
 git remote add origin git@github.com:<user>/<repo>.git
@@ -228,3 +228,4 @@ changes, or browsers will serve the old data from cache.
 - Moved maintainer notes and machine-specific paths and config out of the public repo (scope change).
 - Resolved the rotation QA item: the eight flagged photos were reviewed and are correctly oriented (new data).
 - Hardened the embed snippet against Squarespace Embed blocks and documented the Code-block fix (correction).
+- Moved the site to discover.oregonhistoric.org and pointed the embed snippet at it (scope change).

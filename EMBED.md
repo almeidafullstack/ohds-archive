@@ -20,7 +20,7 @@ The archive is a full-page app, so it embeds as an iframe. Squarespace needs a
 <!-- Oregon Historic District — Photo Archives -->
 <div class="ohd-archive-embed">
   <iframe
-    src="https://almeidafullstack.github.io/ohds-archive/"
+    src="https://discover.oregonhistoric.org/"
     title="Oregon Historic District photo archive: browse historic photos by address, street and year"
     loading="lazy"
     referrerpolicy="no-referrer-when-downgrade"
@@ -75,7 +75,7 @@ The archive is a full-page app, so it embeds as an iframe. Squarespace needs a
   that block if you would rather it stay inside the normal content column.
 - **Linking straight to one address** works by adding the hash, which is useful in a
   newsletter or a blog post:
-  `https://almeidafullstack.github.io/ohds-archive/#a=22%20Brown%20St`
+  `https://discover.oregonhistoric.org/#a=22%20Brown%20St`
 - **Nothing is tracked.** The widget loads no analytics, fonts, tiles or scripts from
   anywhere but its own folder, so it adds no third-party cookies to the page and
   needs no mention in a cookie banner.
