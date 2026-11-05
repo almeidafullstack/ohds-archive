@@ -3,8 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oregon Historic District — Photo Archives</title>
-<meta name="description" content="Browse the Oregon Historic District photo archive by address, street, and year. Dayton, Ohio.">
+<title>Photo Archive · Oregon Historic District</title>
+<meta name="description" content="Browse 905 photos of Dayton's Oregon Historic District, 1973 to 2003, by address, street, and year.">
+<link rel="icon" href="./img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="./img/apple-touch-icon.png">
+<meta name="theme-color" content="#f4f4f3">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Oregon Historic District">
+<meta property="og:title" content="Oregon Historic District Photo Archive">
+<meta property="og:description" content="905 photos of Dayton's Oregon Historic District, 1973 to 2003. Find a building and compare the decades.">
+<meta property="og:url" content="https://discover.oregonhistoric.org/">
+<meta property="og:image" content="https://discover.oregonhistoric.org/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 
 <!-- No external resources. Fonts, map, and data are all served from this folder. -->
 <link rel="stylesheet" href="./fonts.css">
@@ -54,6 +66,32 @@
   button { font-family: inherit; color: inherit; cursor: pointer; border: none; background: none; }
   :focus-visible { outline: 2px solid var(--accent-d); outline-offset: 2px; }
 
+  /* ── Site navigation (mirrors oregonhistoric.org) ── */
+  .site-nav {
+    flex-shrink: 0; position: relative; z-index: 3000;
+    height: 56px; padding: 0 18px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--surface); border-bottom: 1px solid var(--line);
+  }
+  .site-logo { display: block; flex-shrink: 1; min-width: 0; }
+  .site-logo img { display: block; height: 38px; width: auto; max-width: 100%; }
+  .nav-menu { list-style: none; display: flex; align-items: center; gap: 4px; }
+  .nav-menu > li { position: relative; }
+  .nav-menu a, .nav-sub-btn {
+    display: block; padding: 7px 11px; font-family: var(--sans); font-size: .9rem;
+    color: var(--ink); text-decoration: none; border-radius: var(--radius); white-space: nowrap;
+  }
+  .nav-menu a:hover, .nav-sub-btn:hover { background: rgba(0,0,0,.05); }
+  .nav-menu a.current { box-shadow: inset 0 -2px 0 var(--accent); border-radius: 0; }
+  .nav-sub-btn::after { content: ' ▾'; font-size: .7em; color: var(--ink-soft); }
+  .nav-sub {
+    list-style: none; display: none; position: absolute; top: calc(100% + 4px); left: 0;
+    min-width: 180px; padding: 6px; background: var(--panel);
+    border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow);
+  }
+  .has-sub.open .nav-sub { display: block; }
+  .nav-toggle { display: none; padding: 7px 12px; font-size: .9rem; border: 1px solid var(--line); border-radius: var(--pill); background: var(--panel); }
+
   /* ── Toolbar ──────────────────────────────────────── */
   .toolbar {
     flex-shrink: 0;
@@ -73,6 +111,7 @@
     white-space: nowrap;
     margin-right: 2px;
   }
+  h1.brandline { font-weight: 400; }
   .brandline span { color: var(--ink-soft); font-family: var(--sans); font-size: .72rem; font-weight: 400; letter-spacing: .02em; display: block; margin-top: 1px; }
 
   .search-box { position: relative; flex: 1; min-width: 120px; }
@@ -96,7 +135,11 @@
 
   /* The chips scroll; the label and the mode toggle stay pinned either side. */
   .year-row { display: flex; gap: 8px; align-items: center; min-width: 0; }
-  .chiprow { display: flex; gap: 5px; align-items: center; overflow-x: auto; scrollbar-width: thin; padding-bottom: 1px; flex: 1; min-width: 0; }
+  .chiprow { display: flex; gap: 5px; align-items: center; overflow-x: auto; scrollbar-width: thin; padding-bottom: 1px; flex: 1; min-width: 0;
+    /* Fade the right edge so a clipped row reads as scrollable. */
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+            mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent);
+    padding-right: 24px; }
   .chiprow::-webkit-scrollbar { height: 4px; }
   .chiprow::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
   .chip-label {
@@ -128,7 +171,7 @@
   #timeline-lb { display: flex; }
 
   .tl-track {
-    position: relative; flex: 1; height: 26px; cursor: pointer;
+    position: relative; flex: 1; height: 34px; cursor: pointer;
     touch-action: none; min-width: 120px;
   }
   .tl-rail {
@@ -145,6 +188,13 @@
   }
   .tl-tick.has { background: var(--ink-soft); }
   .tl-tick.dim { opacity: .3; }
+  .tl-ticklabel {
+    position: absolute; top: 21px; transform: translateX(-50%);
+    font-size: .6rem; color: var(--ink-soft); white-space: nowrap; pointer-events: none;
+  }
+  .tl-ticklabel.first { transform: none; }
+  .tl-ticklabel.last { transform: translateX(-100%); }
+  .lb-timeline .tl-ticklabel { color: #9a9a9a; }
   .tl-handle {
     position: absolute; top: 4px; width: 17px; height: 17px;
     background: var(--panel); border: 2px solid var(--dark); border-radius: 50%;
@@ -276,7 +326,12 @@
   }
   .tile.active .tile-count { background: var(--accent); color: var(--dark); }
 
-  .empty-note { padding: 24px 16px; text-align: center; color: var(--ink-soft); font-size: .82rem; line-height: 1.6; }
+  .empty-note { padding: 24px 16px 14px; text-align: center; color: var(--ink-soft); font-size: .82rem; line-height: 1.6; }
+  .empty-note strong { display: block; color: var(--ink); font-family: var(--serif); font-weight: 400; font-size: 1rem; margin-bottom: 4px; }
+  .empty-sub { padding: 4px 14px 8px; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); font-weight: 600; }
+  .share-note { margin: 14px 12px 18px; padding: 12px 14px; border: 1px dashed var(--line); border-radius: var(--radius); font-size: .78rem; line-height: 1.5; color: var(--ink-soft); }
+  .share-note a, .share-link { color: var(--ink); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: var(--accent-d); }
+  .share-note a:hover, .share-link:hover { color: var(--accent-d); }
 
   /* ── SVG map ──────────────────────────────────────── */
   #map { flex: 1; position: relative; overflow: hidden; background: var(--map-bg); }
@@ -303,11 +358,11 @@
 
   .svgmap-label {
     font-family: var(--sans); font-weight: 500;
-    fill: #7d7a72; paint-order: stroke; stroke: var(--map-bg); stroke-width: calc(3px / var(--k));
+    fill: #5f5b52; paint-order: stroke; stroke: var(--map-bg); stroke-width: calc(3px / var(--k));
     text-anchor: middle; dominant-baseline: middle; pointer-events: none;
     font-size: calc(10px / var(--k));
   }
-  .svgmap-label.r1 { fill: #6f6a5c; font-weight: 600; font-size: calc(11px / var(--k)); }
+  .svgmap-label.r1 { fill: #48443a; font-weight: 600; font-size: calc(11px / var(--k)); }
 
   .district-boundary {
     fill: #1c1c1c; fill-opacity: .035;
@@ -322,7 +377,8 @@
     fill: var(--dark); stroke: #fff; stroke-width: 1.5;
     vector-effect: non-scaling-stroke; cursor: pointer;
   }
-  .svgmap-pin-g:hover .svgmap-pin { fill: var(--accent); }
+  .svgmap-pin-g:hover .svgmap-pin, .svgmap-pin.hover { fill: var(--accent); }
+  .svgmap-pin.hover:not(.active) { stroke: var(--dark); stroke-width: 2; }
   .svgmap-pin.active { fill: var(--accent); stroke: var(--dark); stroke-width: 2; }
 
   .svgmap-popup {
@@ -407,6 +463,26 @@
   #reset-view { bottom: 26px; right: 14px; }
   #mobile-list-toggle { display: none; bottom: 26px; left: 14px; }
 
+  /* First-visit prompt over the map */
+  .featured {
+    position: absolute; z-index: 650; left: calc(var(--sidebar-w) + 14px); bottom: 26px; width: 330px; max-width: calc(100% - var(--sidebar-w) - 28px);
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 12px 14px 12px;
+  }
+  .featured[hidden] { display: none; }
+  .featured h2 { font-family: var(--serif); font-weight: 400; font-size: 1rem; margin: 0 22px 3px 0; }
+  .featured p { font-size: .76rem; color: var(--ink-soft); line-height: 1.45; margin-bottom: 9px; }
+  .featured-close { position: absolute; top: 6px; right: 8px; font-size: 1.15rem; line-height: 1; color: var(--ink-soft); padding: 2px 6px; }
+  .featured-list { display: flex; gap: 7px; }
+  .featured-item {
+    flex: 1 1 0; min-width: 0; text-align: left; padding: 0;
+    border: 1px solid var(--line); border-radius: 3px; overflow: hidden; background: var(--surface);
+  }
+  .featured-item:hover { border-color: var(--accent-d); }
+  .featured-item img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .featured-item span { display: block; padding: 4px 6px 5px; font-size: .66rem; line-height: 1.25; }
+  .featured-item b { display: block; font-weight: 600; font-size: .7rem; }
+
   /* ── Lightbox ─────────────────────────────────────── */
   #lightbox { display: none; position: fixed; inset: 0; z-index: 4000; background: #141414; flex-direction: column; }
   #lightbox.open { display: flex; }
@@ -469,6 +545,7 @@
   .lb-action { font-size: .73rem; padding: 4px 12px; border-radius: var(--pill); border: 1px solid rgba(255,255,255,.28); color: #fff; white-space: nowrap; text-decoration: none; }
   .lb-action:hover { background: rgba(255,255,255,.14); }
   .lb-action.on { background: var(--accent); color: var(--dark); border-color: var(--accent); font-weight: 600; }
+  .lb-footer .share-link { color: #fff; font-size: .73rem; font-weight: 500; white-space: nowrap; }
 
   .lb-thumbs { flex-shrink: 0; display: flex; gap: 7px; padding: 9px 14px; overflow-x: auto; background: rgba(0,0,0,.4); }
   .lb-thumbs::-webkit-scrollbar { height: 6px; }
@@ -485,6 +562,20 @@
   /* ── Mobile ───────────────────────────────────────── */
   @media (max-width: 760px) {
     .brandline { display: none; }
+    .site-nav { height: 48px; padding: 0 12px; }
+    .site-logo img { height: 28px; }
+    .nav-toggle { display: block; }
+    .nav-menu {
+      display: none; position: fixed; inset: 48px 0 0 0; z-index: 3000;
+      flex-direction: column; align-items: stretch; gap: 0; padding: 8px 12px 24px;
+      background: var(--panel); overflow-y: auto;
+    }
+    body.nav-open .nav-menu { display: flex; }
+    .nav-menu a, .nav-sub-btn { width: 100%; text-align: left; padding: 13px 8px; font-size: 1rem; border-bottom: 1px solid var(--line); border-radius: 0; }
+    .nav-menu a.current { box-shadow: inset 3px 0 0 var(--accent); }
+    .nav-sub { position: static; box-shadow: none; border: none; padding: 0 0 0 14px; }
+    .featured { bottom: 70px; left: 14px; right: 14px; width: auto; max-width: none; }
+    .tl-ticklabel.mid { display: none; }
     :root { --sidebar-w: 100%; }
     #sidebar {
       position: absolute; inset: 0; z-index: 1200;
@@ -511,9 +602,37 @@
 </head>
 <body>
 
+<header class="site-nav">
+  <a class="site-logo" href="https://www.oregonhistoric.org/"><img src="./img/ohds-logo.webp" width="564" height="76" alt="Oregon Historic District, home"></a>
+  <nav aria-label="Oregon Historic District">
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="./" class="current" aria-current="page">Photo Archive</a></li>
+      <li class="has-sub">
+        <button class="nav-sub-btn" aria-expanded="false">Get Involved</button>
+        <ul class="nav-sub">
+          <li><a href="https://www.oregonhistoric.org/membership">Membership</a></li>
+          <li><a href="https://www.oregonhistoric.org/donate">Donate</a></li>
+        </ul>
+      </li>
+      <li><a href="https://www.oregonhistoric.org/calendar">Calendar</a></li>
+      <li class="has-sub">
+        <button class="nav-sub-btn" aria-expanded="false">About</button>
+        <ul class="nav-sub">
+          <li><a href="https://www.oregonhistoric.org/about-ohds">About OHDS</a></li>
+          <li><a href="https://www.oregonhistoric.org/history">History</a></li>
+          <li><a href="https://www.oregonhistoric.org/newcom-park">Newcom Park</a></li>
+        </ul>
+      </li>
+      <li><a href="https://www.oregonhistoric.org/merch">Merch</a></li>
+      <li><a href="https://www.oregonhistoric.org/contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
 <div class="toolbar">
   <div class="toolbar-row">
-    <div class="brandline">Photo Archives<span>Oregon Historic District · Dayton, Ohio</span></div>
+    <h1 class="brandline">Photo Archives<span>Oregon Historic District · Dayton, Ohio</span></h1>
     <div class="search-box">
       <input id="search-input" type="text" placeholder="Search an address or street…" autocomplete="off" aria-label="Search address or street">
       <button id="search-clear" aria-label="Clear search">×</button>
@@ -540,6 +659,12 @@
   <div id="map"></div>
   <button class="map-fab" id="reset-view">Reset view</button>
   <button class="map-fab" id="mobile-list-toggle">☰ List</button>
+  <section class="featured" id="featured" aria-labelledby="featured-title" hidden>
+    <button class="featured-close" id="featured-close" aria-label="Dismiss">×</button>
+    <h2 id="featured-title">See the district change</h2>
+    <p>Click any dot to see that building through the decades. Or start with one of these:</p>
+    <div class="featured-list" id="featured-list"></div>
+  </section>
 </div>
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
@@ -566,6 +691,7 @@
     <span id="lb-counter"></span>
     <button class="lb-action" id="lb-compare">Compare years</button>
     <a class="lb-action" id="lb-full" target="_blank" rel="noopener">Full resolution ↗</a>
+    <a class="share-link" id="lb-share" target="_blank" rel="noopener">Know this building? Share a photo</a>
   </div>
   <div class="lb-thumbs" id="lb-thumbs"></div>
   <div class="lb-timeline"><div class="timeline" id="timeline-lb"></div></div>
@@ -574,10 +700,33 @@
 <script src="./map.js"></script>
 <script>
 // ── Config ───────────────────────────────────────────────────────────────────
-const BUILD = '2026-09-22a';   // bump when data.json or basemap.json changes
+const BUILD = '2026-11-04a';   // bump when data.json or basemap.json changes
 const THUMB_URL = './thumbs/';
 const VIEW_URL  = './view/';
 const FULL_URL  = './view/';   // originals stay offline; see README
+const SHARE_FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSch44UL_60T4-3VaywmjA7WQUN4gPKC16ai3Lg-0J6Ta-3miQ/viewform';
+const UNDATED = 'Date unknown';
+const THIN_YEAR = 10;          // years with fewer photos than this fold into the chip before them
+
+// Buildings offered on first visit: each opens straight into compare mode on
+// the two named photos.
+const FEATURED = [
+  { address: '5 Cass St',   from: 'Cass St/5 Cass St - 1973 - 1.jpg',   to: 'Cass St/5 Cass St - 2003.jpg' },
+  { address: '22 Brown St', from: 'Brown St/22 Brown St - 1973 - 1.jpg', to: 'Brown St/22 Brown St - 1998.jpg' },
+  { address: '11 Cass St',  from: 'Cass St/11 Cass St - 1973 - n.jpg',  to: 'Cass St/11 Cass St - 2003.jpg' },
+];
+
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (_) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (_) {} },
+};
+
+// The "Share a photo" form, run by an OHDS volunteer. It opens in a new tab; this
+// page sends nothing itself. `place` is kept for when the form gains a prefilled
+// address field.
+function shareHref(place) { return SHARE_FORM; }
+const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const captionOf = p => p.caption || (p.original || '').replace(/\.jpe?g$/i, '');
 
 const DISTRICT_BOUNDARY = [
   [39.7567803, -84.1877067], [39.7552889, -84.1880046], [39.7544779, -84.1884901],
@@ -612,14 +761,72 @@ function coverPhoto(photos) {
 const yearsOf = photos => [...new Set(photos.map(p => p.year).filter(Boolean))].sort();
 function yearRange(photos) {
   const y = yearsOf(photos);
-  if (!y.length) return 'undated';
+  if (!y.length) return UNDATED.toLowerCase();
   return y.length === 1 ? y[0] : `${y[0]}–${y[y.length - 1]}`;
+}
+
+// ── Search: forgiving address matching ───────────────────────────────────────
+// People type "22 Brown Street", "east fifth", "5th st", "tecumsh". The data says
+// "22 Brown St" and "E. Fifth St". Both sides go through the same normaliser,
+// every query word must match some word of the entry (any order), and words of
+// four or more letters may be off by one typo (two from seven letters).
+const ABBR = {
+  street: 'st', str: 'st', avenue: 'ave', av: 'ave', boulevard: 'blvd', blv: 'blvd',
+  lane: 'ln', road: 'rd', drive: 'dr', place: 'pl', court: 'ct',
+  east: 'e', west: 'w', north: 'n', south: 's',
+  first: '1st', second: '2nd', third: '3rd', fourth: '4th', fifth: '5th',
+  sixth: '6th', seventh: '7th', eighth: '8th', ninth: '9th', tenth: '10th',
+};
+function tokens(text) {
+  return String(text).toLowerCase()
+    .replace(/['’]/g, '')
+    .replace(/(\d+)\s*[-–]\s*(\d+)/g, '$1~$2')    // keep ranges as one word
+    .split(/[^a-z0-9~]+/).filter(Boolean)
+    .map(t => ABBR[t] || t);
+}
+function editDistance(a, b, max) {
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  let prev = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    const cur = [i];
+    let best = i;
+    for (let j = 1; j <= b.length; j++) {
+      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      best = Math.min(best, cur[j]);
+    }
+    if (best > max) return max + 1;
+    prev = cur;
+  }
+  return prev[b.length];
+}
+function wordMatches(q, w, typing) {
+  if (/^\d+$/.test(q)) {
+    // A house number is matched exactly once the visitor has moved on to the
+    // street name; while it's still the word being typed, "2" may grow into "22".
+    const r = /^(\d+)~(\d+)$/.exec(w);
+    if (r) return (+q >= Math.min(+r[1], +r[2]) && +q <= Math.max(+r[1], +r[2])) || (typing && r[1].startsWith(q));
+    return typing ? w.startsWith(q) : w === q;
+  }
+  if (w.startsWith(q)) return true;
+  if (q.length < 4) return false;
+  const max = q.length >= 7 ? 2 : 1;
+  return editDistance(q, w, max) <= max || editDistance(q, w.slice(0, q.length), max) <= max;
+}
+function textMatches(queryWords, words) {
+  const last = queryWords.length - 1;
+  return queryWords.every((q, i) => words.some(w => wordMatches(q, w, i === last && !queryWords.done)));
+}
+const wordCache = new WeakMap();
+function wordsOf(obj, text) {
+  let w = wordCache.get(obj);
+  if (!w) { w = tokens(text); wordCache.set(obj, w); }
+  return w;
 }
 
 // ── State ────────────────────────────────────────────────────────────────────
 let MAP = null;
 let ALL_ADDRESSES = [], ALL_SCENES = [];
-let activeAddress = null, activeYears = new Set(), searchTerm = '';
+let activeAddress = null, activeYears = new Set(), searchTerm = '', searchWords = [];
 let lbEntry = null;   // the address or scene set the viewer is showing
 let HOME_RECT = null;
 
@@ -644,14 +851,12 @@ async function loadData() {
   MAP.fitWorldRect(HOME_RECT, 30);
 
   restoreFromHash();
+  buildFeatured();
 }
 
 // ── Filtering ────────────────────────────────────────────────────────────────
 function matchesFilters(entry) {
-  if (searchTerm) {
-    const hay = (entry.address + ' ' + entry.street).toLowerCase();
-    if (!hay.includes(searchTerm)) return false;
-  }
+  if (searchWords.length && !textMatches(searchWords, wordsOf(entry, entry.address + ' ' + entry.street))) return false;
   if (activeYears.size) {
     const has = entry.photos.some(p => activeYears.has(p.year) || (activeYears.has('undated') && !p.year));
     if (!has) return false;
@@ -664,9 +869,27 @@ function visiblePhotos(entry) {
 }
 function applyFilters() {
   const filtered = ALL_ADDRESSES.filter(matchesFilters);
-  renderSidebar(filtered);
-  placePins(filtered);
+  const nearby = filtered.length ? [] : nearestAddresses();
+  renderSidebar(filtered, nearby);
+  placePins(filtered.length ? filtered : nearby);
   refreshOpenViewer();
+}
+
+// When a search finds nothing, offer the closest photographed addresses on the
+// street the visitor named, nearest house number first.
+function nearestAddresses() {
+  if (!searchWords.length) return [];
+  const num = searchWords.find(w => /^\d+$/.test(w));
+  const rest = searchWords.filter(w => !/^\d+$/.test(w) && !['st', 'ave', 'blvd', 'ln', 'rd'].includes(w));
+  if (!rest.length) return [];
+  const pool = ALL_ADDRESSES.filter(a => textMatches(rest, tokens(a.street)) && visiblePhotos(a).length);
+  if (!num) return pool.slice(0, 4);
+  const n = +num;
+  return pool
+    .map(a => ({ a, d: Math.abs(+houseNo(a.address) - n) }))
+    .sort((x, y) => x.d - y.d)
+    .slice(0, 4)
+    .map(x => x.a);
 }
 
 // ── Year control: chips and timeline over one shared state ───────────────────
@@ -686,16 +909,24 @@ function buildYearControl() {
   TL_STOPS = ['all', ...ALL_YEARS];
   if (YEAR_COUNTS.undated) TL_STOPS.push('undated');
 
-  const keys = [...ALL_YEARS];
-  if (YEAR_COUNTS.undated) keys.push('undated');
+  const groups = [];
+  ALL_YEARS.forEach(y => {
+    const last = groups[groups.length - 1];
+    if (YEAR_COUNTS[y] < THIN_YEAR && last) last.push(y); else groups.push([y]);
+  });
+  if (YEAR_COUNTS.undated) groups.push(['undated']);
 
-  keys.forEach(k => {
+  groups.forEach(years => {
     const b = document.createElement('button');
     b.className = 'chip';
-    b.dataset.year = k;
-    b.textContent = k === 'undated' ? `Undated (${YEAR_COUNTS[k]})` : `${k} (${YEAR_COUNTS[k]})`;
+    b.dataset.years = years.join(',');
+    const n = years.reduce((t, y) => t + YEAR_COUNTS[y], 0);
+    const label = years[0] === 'undated' ? UNDATED
+      : years.length > 1 ? `${years[0]}–${years[years.length - 1].slice(2)}` : years[0];
+    b.textContent = `${label} (${n})`;
     b.addEventListener('click', () => {
-      activeYears.has(k) ? activeYears.delete(k) : activeYears.add(k);
+      const on = years.every(y => activeYears.has(y));
+      years.forEach(y => on ? activeYears.delete(y) : activeYears.add(y));
       syncYearUI(); applyFilters();
     });
     row.appendChild(b);
@@ -739,6 +970,13 @@ function buildTimeline(host) {
     t.style.left = pctFor(i) + '%';
     t.dataset.stop = stop;
     ticks.appendChild(t);
+    if (stop === 'all') return;
+    const lab = document.createElement('span');
+    const firstYear = i === 1, lastStop = i === TL_STOPS.length - 1;
+    lab.className = 'tl-ticklabel' + (firstYear ? ' first' : lastStop ? ' last' : ' mid');
+    lab.style.left = pctFor(i) + '%';
+    lab.textContent = stop === 'undated' ? '?' : (firstYear || lastStop ? stop : "'" + stop.slice(2));
+    ticks.appendChild(lab);
   });
 
   const pick = clientX => {
@@ -778,8 +1016,8 @@ function setYearStop(stop) {
 
 // Redraw every year control from activeYears.
 function syncYearUI() {
-  document.querySelectorAll('.chip[data-year]').forEach(c =>
-    c.classList.toggle('on', activeYears.has(c.dataset.year)));
+  document.querySelectorAll('.chip[data-years]').forEach(c =>
+    c.classList.toggle('on', c.dataset.years.split(',').every(y => activeYears.has(y))));
   const reset = document.getElementById('chip-reset');
   if (reset) reset.style.display = activeYears.size ? 'block' : 'none';
 
@@ -796,11 +1034,11 @@ function syncYearUI() {
     host.querySelector('.tl-fill').style.width = pctFor(i) + '%';
     host.querySelector('.tl-track').setAttribute('aria-valuenow', i);
     host.querySelector('.tl-track').setAttribute('aria-valuetext',
-      multi ? `${activeYears.size} years selected` : (stop === 'all' ? 'All years' : stop));
+      multi ? `${activeYears.size} years selected` : (stop === 'all' ? 'All years' : (stop === 'undated' ? UNDATED : stop)));
     host.querySelectorAll('.tl-tick').forEach(t =>
       t.classList.toggle('dim', isLb && present && t.dataset.stop !== 'all' && !present.has(t.dataset.stop)));
     host.querySelector('.tl-label').textContent =
-      multi ? `${activeYears.size} years` : (stop === 'all' ? 'All years' : (stop === 'undated' ? 'Undated' : stop));
+      multi ? `${activeYears.size} years` : (stop === 'all' ? 'All years' : (stop === 'undated' ? UNDATED : stop));
     host.querySelector('.tl-count').textContent =
       multi || stop === 'all' ? '' : `${YEAR_COUNTS[stop] || 0} photos`;
   });
@@ -818,7 +1056,7 @@ function lbYears() {
 // ── Sidebar ──────────────────────────────────────────────────────────────────
 const openGroups = new Set();          // streets the user has opened, by name
 
-function renderSidebar(addresses) {
+function renderSidebar(addresses, nearby = []) {
   const list = document.getElementById('addr-list');
   const countEl = document.getElementById('sidebar-count');
   list.innerHTML = '';
@@ -828,11 +1066,25 @@ function renderSidebar(addresses) {
   countEl.textContent =
     `${addresses.length} address${addresses.length !== 1 ? 'es' : ''} · ${totalPhotos} photo${totalPhotos !== 1 ? 's' : ''}`;
 
-  if (!addresses.length && !scenes.length) {
-    list.innerHTML = '<div class="empty-note">Nothing matches this filter.<br>Try another year or clear the search box.</div>';
-    return;
+  if (!addresses.length) {
+    const yearsTxt = activeYears.size ? ` from ${[...activeYears].map(y => y === 'undated' ? UNDATED.toLowerCase() : y).join(', ')}` : '';
+    const what = searchTerm ? `No photos of “${esc(searchTerm)}”${yearsTxt} yet` : `No photos${yearsTxt} yet`;
+    list.innerHTML = `<div class="empty-note"><strong>${what}</strong>
+      ${activeYears.size ? 'Try another year, or clear the year filter.' : 'Check the spelling, or try just the street name.'}</div>`;
+    if (nearby.length) {
+      const sub = document.createElement('div');
+      sub.className = 'empty-sub';
+      sub.textContent = 'Nearest addresses with photos';
+      const grid = document.createElement('div');
+      grid.className = 'tile-grid';
+      nearby.forEach(a => grid.appendChild(makeAddressTile(a, new Map())));
+      list.append(sub, grid);
+    }
+    list.appendChild(shareNote(searchTerm, true));
+    if (!scenes.length) return;
   }
 
+  // (The street loop below is a no-op when no address matched; scenes still render.)
   // A search or year filter is a request to see inside, so groups open then.
   const forceOpen = !!searchTerm || activeYears.size > 0;
   const grouped = {};
@@ -873,7 +1125,7 @@ function renderSidebar(addresses) {
         key: 'scene:' + i,
         cover: sceneAsPhoto(sc),
         title: sc.caption,
-        meta: sc.year || 'Undated',
+        meta: sc.year || UNDATED,
         active: false,
         onClick: () => openViewer({
           title: 'Streetscapes',
@@ -887,6 +1139,16 @@ function renderSidebar(addresses) {
   }
 
   list.appendChild(frag);
+  if (addresses.length) list.appendChild(shareNote());
+}
+
+function shareNote(place = '', missing = false) {
+  const div = document.createElement('div');
+  div.className = 'share-note';
+  div.innerHTML = missing
+    ? `Have a photo of this building? <a href="${shareHref(place)}" target="_blank" rel="noopener">Share it with OHDS</a> and help fill the gap.`
+    : `Have old photos of the district? <a href="${shareHref('')}" target="_blank" rel="noopener">Share them with OHDS</a>.`;
+  return div;
 }
 
 // Consecutive addresses whose cover resolves to the same photo are folded into one
@@ -949,7 +1211,7 @@ function makeCluster(run, cover) {
   head.className = 'tile cluster-head';
   head.setAttribute('aria-expanded', 'false');
   head.innerHTML = `
-    ${cover ? `<img class="tile-img" src="${thumbSrc(cover)}" alt="" loading="lazy" decoding="async">` : ''}
+    ${cover ? `<img class="tile-img" src="${thumbSrc(cover)}" alt="${esc(label)}" loading="lazy" decoding="async">` : ''}
     <span class="tile-span">▭ one shared view</span>
     <span class="tile-body">
       <span class="tile-addr">${label}</span>
@@ -1009,7 +1271,7 @@ function makeTile({ key, cover, title, meta, count, span = null, active, onClick
   tile.dataset.address = key;
   tile.innerHTML = `
     ${cover
-      ? `<img class="tile-img" src="${thumbSrc(cover)}" alt="" loading="lazy" decoding="async">`
+      ? `<img class="tile-img" src="${thumbSrc(cover)}" alt="${esc(title)}" loading="lazy" decoding="async">`
       : `<div class="tile-img none">no photo</div>`}
     ${span ? `<span class="tile-span" title="One wide shot covering ${span}">▭ ${span}</span>` : ''}
     ${count != null ? `<span class="tile-count">${count}</span>` : ''}
@@ -1018,6 +1280,11 @@ function makeTile({ key, cover, title, meta, count, span = null, active, onClick
       <span class="tile-meta">${meta}</span>
     </span>`;
   tile.addEventListener('click', onClick);
+  if (!String(key).startsWith('scene:')) {
+    const on = () => MAP && MAP.hoverPin(key), off = () => MAP && MAP.hoverPin(null);
+    tile.addEventListener('mouseenter', on); tile.addEventListener('focus', on);
+    tile.addEventListener('mouseleave', off); tile.addEventListener('blur', off);
+  }
   return tile;
 }
 
@@ -1029,7 +1296,7 @@ function sceneAsPhoto(s) {
 function filteredScenes() {
   return ALL_SCENES.filter(s => {
     if (activeYears.size && !(activeYears.has(s.year) || (activeYears.has('undated') && !s.year))) return false;
-    if (searchTerm && !s.caption.toLowerCase().includes(searchTerm)) return false;
+    if (searchWords.length && !textMatches(searchWords, wordsOf(s, s.caption))) return false;
     return true;
   });
 }
@@ -1043,7 +1310,7 @@ function placePins(addresses) {
     MAP.addPin(entry.address, entry.lat, entry.lon, {
       weight: shown.length,
       data: entry,
-      onClick: rec => { setActive(entry.address); MAP.openPopup(rec, buildPopup(entry)); },
+      onClick: rec => { hideFeatured(); setActive(entry.address); MAP.openPopup(rec, buildPopup(entry)); },
     });
   });
   if (activeAddress) MAP.setPinState(activeAddress, 'active');
@@ -1057,7 +1324,7 @@ function buildPopup(entry) {
   const desc = (entry.description || '').trim();
 
   div.innerHTML = `
-    ${cover ? `<img class="popup-thumb" src="${thumbSrc(cover)}" alt="${entry.address}" loading="lazy">` : ''}
+    ${cover ? `<img class="popup-thumb" src="${thumbSrc(cover)}" alt="${esc(captionOf(cover))}" loading="lazy">` : ''}
     <div class="popup-body">
       <h3>${entry.address}</h3>
       <div class="popup-meta">${shown.length} photo${shown.length !== 1 ? 's' : ''} · ${yearRange(shown)}</div>
@@ -1073,15 +1340,15 @@ function buildPopup(entry) {
       const b = document.createElement('button');
       b.type = 'button';
       b.className = 'popup-gthumb' + (i === coverIdx ? ' current' : '');
-      b.title = p.year || 'undated';
-      b.innerHTML = `<img src="${thumbSrc(p)}" alt="" loading="lazy"><span>${p.year || '—'}</span>`;
+      b.title = p.year || UNDATED;
+      b.innerHTML = `<img src="${thumbSrc(p)}" alt="${esc(captionOf(p))}" loading="lazy"><span>${p.year || '?'}</span>`;
       b.addEventListener('click', ev => {
         ev.stopPropagation();
         previewIndex = i;
         const big = div.querySelector('.popup-thumb');
         if (big) big.src = thumbSrc(p);
         div.querySelector('.popup-meta').textContent =
-          `${p.year || 'undated'} · photo ${i + 1} of ${shown.length}`;
+          `${p.year || UNDATED.toLowerCase()} · photo ${i + 1} of ${shown.length}`;
         gallery.querySelectorAll('.popup-gthumb').forEach((el, n) => el.classList.toggle('current', n === i));
       });
       gallery.appendChild(b);
@@ -1130,11 +1397,14 @@ function selectAddress(entry) {
 // ── Search ───────────────────────────────────────────────────────────────────
 const searchInput = document.getElementById('search-input');
 searchInput.addEventListener('input', function () {
-  searchTerm = this.value.toLowerCase().trim();
+  searchTerm = this.value.trim();
+  searchWords = tokens(searchTerm);
+  searchWords.done = /\s$/.test(this.value);      // a trailing space means the last word is finished
+  if (searchTerm) hideFeatured();
   applyFilters();
 });
 document.getElementById('search-clear').addEventListener('click', () => {
-  searchInput.value = ''; searchTerm = ''; applyFilters(); searchInput.focus();
+  searchInput.value = ''; searchTerm = ''; searchWords = []; applyFilters(); searchInput.focus();
 });
 
 // ── Lightbox ─────────────────────────────────────────────────────────────────
@@ -1196,6 +1466,7 @@ function openViewer({ title, entry = null, photos, startIndex = 0, subtitle = ''
   compareMode = false; comparePick = null;
   document.getElementById('lb-title').textContent = title;
   document.getElementById('lb-subtitle').textContent = subtitle;
+  document.getElementById('lb-share').href = shareHref(entry && entry.address ? entry.address : '');
 
   const descEl = document.getElementById('lb-desc');
   const desc = ((entry && entry.description) || '').trim();
@@ -1208,8 +1479,23 @@ function openViewer({ title, entry = null, photos, startIndex = 0, subtitle = ''
   document.getElementById('lb-stage').classList.remove('compare');
   buildThumbs();
   showPhoto(lbIndex);
-  document.getElementById('lightbox').classList.add('open');
+  const lb = document.getElementById('lightbox');
+  if (!lb.classList.contains('open')) {
+    lastFocus = document.activeElement;
+    lb.classList.add('open');
+    setBackgroundInert(true);
+    document.getElementById('lb-close').focus();
+  }
   syncYearUI();            // dims the years this entry has nothing from
+}
+
+// While the viewer is open, everything behind it is inert, so Tab stays inside
+// the dialog and screen readers don't wander into the map.
+let lastFocus = null;
+function setBackgroundInert(on) {
+  document.querySelectorAll('.site-nav, .toolbar, .layout').forEach(el => {
+    if (on) el.setAttribute('inert', ''); else el.removeAttribute('inert');
+  });
 }
 
 function buildThumbs() {
@@ -1220,7 +1506,8 @@ function buildThumbs() {
     img.className = 'lb-thumb' + (i === lbIndex ? ' active' : '');
     img.src = thumbSrc(p);
     img.loading = 'lazy';
-    img.title = p.year || 'undated';
+    img.title = p.year || UNDATED;
+    img.alt = captionOf(p);
     img.addEventListener('click', () => compareMode ? setComparePick(i) : showPhoto(i));
     c.appendChild(img);
   });
@@ -1231,12 +1518,12 @@ function showPhoto(index) {
   const p = lbPhotos[index];
   const img = document.getElementById('lb-img');
   img.src = viewSrc(p);
-  img.alt = p.caption || `${document.getElementById('lb-title').textContent} ${p.year || ''}`.trim();
+  img.alt = captionOf(p) || `${document.getElementById('lb-title').textContent} ${p.year || ''}`.trim();
   document.getElementById('lb-counter').textContent = `${index + 1} / ${lbPhotos.length}`;
   document.getElementById('lb-caption').textContent =
-    (p.caption || p.original || '').replace(/\.jpe?g$/i, '') + (p.year ? '' : '  (undated)');
+    captionOf(p) + (p.year ? '' : ` (${UNDATED.toLowerCase()})`);
   document.getElementById('lb-full').href = fullSrc(p);
-  document.getElementById('main-tag').textContent = p.year || 'undated';
+  document.getElementById('main-tag').textContent = p.year || UNDATED;
   document.querySelectorAll('.lb-thumb').forEach((el, i) => el.classList.toggle('active', i === index));
   document.querySelector('.lb-thumb.active')?.scrollIntoView({ inline: 'nearest', block: 'nearest' });
   if (compareMode) updateComparePane();
@@ -1260,13 +1547,13 @@ function updateComparePane() {
   }
   const p = lbPhotos[comparePick];
   document.getElementById('cmp-img').src = viewSrc(p);
-  document.getElementById('cmp-tag').textContent = p.year || 'undated';
+  document.getElementById('cmp-tag').textContent = p.year || UNDATED;
   document.querySelectorAll('.lb-thumb').forEach((el, n) => el.classList.toggle('cmp-pick', n === comparePick));
 }
 document.getElementById('lb-compare').addEventListener('click', function () {
   compareMode = !compareMode;
   this.classList.toggle('on', compareMode);
-  this.textContent = compareMode ? 'Pick from strip ↓' : 'Compare years';
+  this.textContent = compareMode ? 'Choose the second year below' : 'Compare years';
   document.getElementById('lb-stage').classList.toggle('compare', compareMode);
   if (compareMode) updateComparePane();
   else { comparePick = null; document.querySelectorAll('.lb-thumb').forEach(el => el.classList.remove('cmp-pick')); }
@@ -1274,6 +1561,14 @@ document.getElementById('lb-compare').addEventListener('click', function () {
 
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
+  setBackgroundInert(false);
+  if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  // The opener may have gone (a dismissed prompt, a re-rendered list): fall back
+  // to the selected building's tile, then the search box.
+  if (!lastFocus || document.activeElement !== lastFocus) {
+    (document.querySelector('.tile.active') || document.getElementById('search-input')).focus({ preventScroll: true });
+  }
+  lastFocus = null;
   lbEntry = null;
   syncYearUI();
   if (location.hash) history.replaceState(null, '', location.pathname + location.search);
@@ -1287,6 +1582,7 @@ document.getElementById('lightbox').addEventListener('click', e => {
 document.addEventListener('keydown', e => {
   if (!document.getElementById('lightbox').classList.contains('open')) return;
   if (e.key === 'Escape') closeLightbox();
+  if (e.target.closest && e.target.closest('.tl-track')) return;
   if (e.key === 'ArrowRight') showPhoto((lbIndex + 1) % lbPhotos.length);
   if (e.key === 'ArrowLeft') showPhoto((lbIndex - 1 + lbPhotos.length) % lbPhotos.length);
 });
@@ -1301,6 +1597,79 @@ document.getElementById('reset-view').addEventListener('click', () => {
 });
 document.getElementById('mobile-list-toggle').addEventListener('click', () => document.body.classList.add('list-open'));
 document.getElementById('list-close').addEventListener('click', () => document.body.classList.remove('list-open'));
+
+// ── First-visit prompt ───────────────────────────────────────────────────────
+function hideFeatured(remember = false) {
+  const el = document.getElementById('featured');
+  if (!el.hidden) el.hidden = true;
+  if (remember) store.set('ohd-featured-dismissed', '1');
+}
+function openCompare(entry, fromFile, toFile) {
+  const photos = visiblePhotos(entry);
+  const from = Math.max(0, photos.findIndex(p => p.clean_file === fromFile));
+  openLightbox(entry, from);
+  const to = lbPhotos.findIndex(p => p.clean_file === toFile);
+  document.getElementById('lb-compare').click();
+  if (to >= 0) setComparePick(to);
+}
+function buildFeatured() {
+  if (store.get('ohd-featured-dismissed') || location.hash) return;
+  const list = document.getElementById('featured-list');
+  FEATURED.forEach(f => {
+    const entry = ALL_ADDRESSES.find(a => a.address === f.address);
+    const from = entry && entry.photos.find(p => p.clean_file === f.from);
+    const to = entry && entry.photos.find(p => p.clean_file === f.to);
+    if (!from || !to) return;
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'featured-item';
+    b.innerHTML = `<img src="${thumbSrc(from)}" alt="" loading="lazy"><span><b>${esc(entry.address)}</b>${from.year} vs ${to.year}</span>`;
+    b.addEventListener('click', () => {
+      hideFeatured(true);
+      setActive(entry.address);
+      openCompare(entry, f.from, f.to);
+    });
+    list.appendChild(b);
+  });
+  if (list.children.length) document.getElementById('featured').hidden = false;
+}
+document.getElementById('featured-close').addEventListener('click', () => hideFeatured(true));
+
+// ── Site navigation ──────────────────────────────────────────────────────────
+(function siteNav() {
+  const subs = [...document.querySelectorAll('.has-sub')];
+  const closeSubs = except => subs.forEach(li => {
+    if (li === except) return;
+    li.classList.remove('open');
+    li.querySelector('.nav-sub-btn').setAttribute('aria-expanded', 'false');
+  });
+  subs.forEach(li => li.querySelector('.nav-sub-btn').addEventListener('click', e => {
+    e.stopPropagation();
+    const open = li.classList.toggle('open');
+    e.currentTarget.setAttribute('aria-expanded', String(open));
+    closeSubs(li);
+  }));
+  const toggle = document.getElementById('nav-toggle');
+  const setMenu = open => {
+    document.body.classList.toggle('nav-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? 'Close' : 'Menu';
+  };
+  toggle.addEventListener('click', e => { e.stopPropagation(); setMenu(!document.body.classList.contains('nav-open')); });
+  document.addEventListener('click', e => { if (!e.target.closest('.site-nav')) { closeSubs(); setMenu(false); } });
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    const wasOpen = subs.some(li => li.classList.contains('open')) || document.body.classList.contains('nav-open');
+    closeSubs(); setMenu(false);
+    if (wasOpen) toggle.offsetParent ? toggle.focus() : null;
+  });
+})();
+
+// On phones the twelve year chips don't fit; the timeline does.
+if (window.matchMedia && matchMedia('(max-width: 760px)').matches) {
+  document.body.classList.add('timeline-mode');
+  document.getElementById('year-mode').textContent = 'Year chips ▸';
+}
 
 // ── Deep link ────────────────────────────────────────────────────────────────
 function restoreFromHash() {

@@ -159,8 +159,10 @@ function createMap(container, basemap, opts = {}) {
   }
 
   let anim = null;
+  const REDUCE_MOTION = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)');
   function animateTo(nk, nx, ny, ms = 420) {
     cancelAnimationFrame(anim);
+    if (REDUCE_MOTION && REDUCE_MOTION.matches) { setView(nk, nx, ny); return; }
     const k0 = k, x0v = tx, y0v = ty, t0 = performance.now();
     const ease = u => u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
     (function step(now) {
@@ -295,6 +297,15 @@ function createMap(container, basemap, opts = {}) {
     gPins.appendChild(p.g);    // draw the active pin above its neighbours
   }
 
+  // Transient highlight from the sidebar; never fights the active pin.
+  function hoverPin(key) {
+    for (const q of pins.values()) q.el.classList.remove('hover');
+    const p = key != null && pins.get(key);
+    if (!p) return;
+    p.el.classList.add('hover');
+    if (!p.el.classList.contains('active')) gPins.appendChild(p.g);
+  }
+
   function pinsBounds() {
     if (!pins.size) return [0, 0, WORLD_W, WORLD_H];
     let ax = Infinity, ay = Infinity, bx = -Infinity, by = -Infinity;
@@ -351,7 +362,7 @@ function createMap(container, basemap, opts = {}) {
   ro.observe(container);
 
   return {
-    project, addPin, clearPins, setPinState, pinsBounds,
+    project, addPin, clearPins, setPinState, hoverPin, pinsBounds,
     openPopup, closePopup, drawPolygon, fitWorldRect,
     pinFor(key) { return pins.get(key) || null; },
     pinRadius,
