@@ -12,7 +12,7 @@
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
 // Pin sizing, in screen pixels before the zoom counter-scale.
-const PIN_MIN = 3.4, PIN_MAX = 9.2, PIN_CAP = 16;
+const PIN_MIN = 5, PIN_MAX = 12, PIN_CAP = 16;
 
 function createMap(container, basemap, opts = {}) {
   const [S, W, N, E] = basemap.bbox;
@@ -127,7 +127,7 @@ function createMap(container, basemap, opts = {}) {
     for (const p of pins.values()) {
       const r = pinRadius(p.weight) / k;
       p.el.setAttribute('r', r);
-      p.hit.setAttribute('r', Math.max(r * 1.9, 11 / k));   // comfortable tap target
+      p.hit.setAttribute('r', Math.max(r * 1.9, 16 / k));   // comfortable tap target
     }
     for (const { el, rank } of labelEls) {
       el.style.display = (rank === 1 || k > (rank === 2 ? 1.6 : 3.2)) ? '' : 'none';
@@ -261,7 +261,7 @@ function createMap(container, basemap, opts = {}) {
     return PIN_MIN + (PIN_MAX - PIN_MIN) * Math.sqrt(n / PIN_CAP);
   }
 
-  function addPin(key, lat, lon, { weight = 1, data = null, onClick } = {}) {
+  function addPin(key, lat, lon, { weight = 1, data = null, onClick, onHover } = {}) {
     const [wx, wy] = project(lat, lon);
     const g = document.createElementNS(SVG_NS, 'g');
     g.setAttribute('class', 'svgmap-pin-g');
@@ -276,13 +276,18 @@ function createMap(container, basemap, opts = {}) {
     const rec = { g, el, hit, wx, wy, data, weight };
     const r0 = pinRadius(weight) / k;
     el.setAttribute('r', r0);
-    hit.setAttribute('r', Math.max(r0 * 1.9, 11 / k));
+    hit.setAttribute('r', Math.max(r0 * 1.9, 16 / k));
 
     g.addEventListener('click', ev => {
       ev.stopPropagation();
       if (dragged) return;              // a drag that ends on a pin is not a click
       onClick && onClick(rec);
     });
+    // Mouse only: touch has no hover, and a tap already opens the popup.
+    if (onHover) {
+      g.addEventListener('pointerenter', ev => { if (ev.pointerType === 'mouse' && !pointers.size) onHover(rec, true); });
+      g.addEventListener('pointerleave', ev => { if (ev.pointerType === 'mouse') onHover(rec, false); });
+    }
     gPins.appendChild(g);
     pins.set(key, rec);
     return rec;
@@ -365,6 +370,8 @@ function createMap(container, basemap, opts = {}) {
     project, addPin, clearPins, setPinState, hoverPin, pinsBounds,
     openPopup, closePopup, drawPolygon, fitWorldRect,
     pinFor(key) { return pins.get(key) || null; },
+    screenOf(rec) { return { x: rec.wx * k + tx, y: rec.wy * k + ty, r: pinRadius(rec.weight) }; },
+    get popupPin() { return openPin; },
     pinRadius,
     openPopupFor(key, node) {
       const rec = pins.get(key);

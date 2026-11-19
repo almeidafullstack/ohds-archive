@@ -39,7 +39,7 @@
     --serif:    'Young Serif', Georgia, serif;
     --sans:     'Bitter', Georgia, serif;
     --shadow:   0 1px 3px rgba(0,0,0,.10), 0 6px 20px rgba(0,0,0,.06);
-    --sidebar-w: 340px;
+    --sidebar-w: 400px;
 
     /* Basemap palette */
     --map-bg:    #eceae4;
@@ -52,10 +52,13 @@
     --map-rail:  #b4b1aa;
   }
 
+  /* Sized for older eyes: 18px base, nothing on the page below ~14px, and
+     controls at least 40px tall so they are easy to hit. */
+  html { font-size: 18px; }
   html, body { height: 100%; }
   body {
     font-family: var(--sans);
-    font-size: 15px;
+    font-size: 1rem;
     background: var(--bg);
     color: var(--ink);
     display: flex;
@@ -69,16 +72,16 @@
   /* ── Site navigation (mirrors oregonhistoric.org) ── */
   .site-nav {
     flex-shrink: 0; position: relative; z-index: 3000;
-    height: 56px; padding: 0 18px;
+    height: 64px; padding: 0 18px;
     display: flex; align-items: center; justify-content: space-between; gap: 16px;
     background: var(--surface); border-bottom: 1px solid var(--line);
   }
   .site-logo { display: block; flex-shrink: 1; min-width: 0; }
-  .site-logo img { display: block; height: 38px; width: auto; max-width: 100%; }
+  .site-logo img { display: block; height: 42px; width: auto; max-width: 100%; }
   .nav-menu { list-style: none; display: flex; align-items: center; gap: 4px; }
   .nav-menu > li { position: relative; }
   .nav-menu a, .nav-sub-btn {
-    display: block; padding: 7px 11px; font-family: var(--sans); font-size: .9rem;
+    display: block; padding: 10px 13px; font-family: var(--sans); font-size: .95rem;
     color: var(--ink); text-decoration: none; border-radius: var(--radius); white-space: nowrap;
   }
   .nav-menu a:hover, .nav-sub-btn:hover { background: rgba(0,0,0,.05); }
@@ -97,10 +100,10 @@
     flex-shrink: 0;
     background: var(--panel);
     border-bottom: 1px solid var(--line);
-    padding: 10px 14px;
+    padding: 12px 16px;
     display: flex;
     flex-direction: column;
-    gap: 9px;
+    gap: 10px;
   }
   .toolbar-row { display: flex; gap: 9px; align-items: center; }
 
@@ -112,15 +115,15 @@
     margin-right: 2px;
   }
   h1.brandline { font-weight: 400; }
-  .brandline span { color: var(--ink-soft); font-family: var(--sans); font-size: .72rem; font-weight: 400; letter-spacing: .02em; display: block; margin-top: 1px; }
+  .brandline span { color: var(--ink-soft); font-family: var(--sans); font-size: 0.85rem; font-weight: 400; letter-spacing: .02em; display: block; margin-top: 1px; }
 
   .search-box { position: relative; flex: 1; min-width: 120px; }
   #search-input {
     width: 100%;
-    padding: 8px 30px 8px 12px;
+    padding: 11px 44px 11px 16px;
     border: 1px solid var(--line);
     border-radius: var(--pill);
-    font-size: .86rem;
+    font-size: 0.92rem;
     font-family: var(--sans);
     background: var(--surface);
     outline: none;
@@ -129,7 +132,7 @@
   #search-input:focus { border-color: var(--ink); background: #fff; }
   #search-clear {
     position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
-    font-size: 1.05rem; line-height: 1; color: var(--ink-soft); padding: 2px 4px; display: none;
+    font-size: 1.4rem; line-height: 1; color: var(--ink-soft); padding: 6px 10px; display: none;
   }
   #search-input:not(:placeholder-shown) ~ #search-clear { display: block; }
 
@@ -143,26 +146,46 @@
   .chiprow::-webkit-scrollbar { height: 4px; }
   .chiprow::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
   .chip-label {
-    font-size: .68rem; text-transform: uppercase; letter-spacing: .09em;
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: .09em;
     color: var(--ink-soft); font-weight: 600; white-space: nowrap; padding-right: 3px;
   }
   .chip {
-    font-size: .76rem; padding: 4px 11px; border-radius: var(--pill);
+    font-size: 0.92rem; padding: 9px 16px; border-radius: var(--pill);
     border: 1px solid var(--line); background: var(--surface);
     white-space: nowrap; transition: background .12s, border-color .12s; font-weight: 500;
   }
   .chip:hover { border-color: var(--ink-soft); }
   .chip.on { background: var(--accent); border-color: var(--accent); color: var(--dark); font-weight: 600; }
-  .chip-reset { font-size: .74rem; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; padding: 4px 2px; }
-  .chip-reset:hover { color: var(--ink); }
 
+  /* Two-option switch between year buttons and the timeline. The pressed half is
+     the view on screen, so the labels never read backwards. */
   .year-mode {
-    flex-shrink: 0;
-    font-size: .7rem; color: var(--ink-soft);
+    flex-shrink: 0; display: inline-flex;
     border: 1px solid var(--line); border-radius: var(--pill);
-    padding: 3px 10px; white-space: nowrap; background: var(--surface);
+    background: var(--surface); padding: 3px;
   }
-  .year-mode:hover { border-color: var(--ink-soft); color: var(--ink); }
+  .year-mode button {
+    font-size: 0.92rem; padding: 7px 14px; border-radius: var(--pill);
+    white-space: nowrap; color: var(--ink-soft);
+  }
+  .year-mode button:hover { color: var(--ink); }
+  .year-mode button[aria-pressed="true"] { background: var(--dark); color: #fff; font-weight: 600; }
+
+  /* Says what is being shown whenever a filter is on, with one obvious way out. */
+  .filter-bar {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    background: #fff6d6; border: 1px solid var(--accent-d); border-radius: var(--radius);
+    padding: 8px 8px 8px 16px; font-size: 1rem;
+  }
+  .filter-bar[hidden] { display: none; }
+  .filter-bar-text { flex: 1; min-width: 0; }
+  .filter-bar-text b { font-weight: 700; }
+  .btn-clear {
+    flex-shrink: 0; font-size: 1rem; font-weight: 700; color: var(--dark);
+    background: var(--accent); border: 2px solid var(--dark); border-radius: var(--pill);
+    padding: 10px 20px; white-space: nowrap;
+  }
+  .btn-clear:hover { background: var(--accent-d); }
 
   /* ── Timeline ─────────────────────────────────────── */
   .timeline { display: none; align-items: center; gap: 10px; flex: 1; min-width: 0; }
@@ -171,40 +194,42 @@
   #timeline-lb { display: flex; }
 
   .tl-track {
-    position: relative; flex: 1; height: 34px; cursor: pointer;
-    touch-action: none; min-width: 120px;
+    position: relative; flex: 1; height: 48px; cursor: pointer;
+    touch-action: none; min-width: 120px; margin: 0 14px;
   }
   .tl-rail {
-    position: absolute; left: 0; right: 0; top: 11px; height: 3px;
+    position: absolute; left: 0; right: 0; top: 16px; height: 4px;
     background: var(--line); border-radius: 2px;
   }
   .tl-fill {
-    position: absolute; left: 0; top: 11px; height: 3px;
+    position: absolute; left: 0; top: 16px; height: 4px;
     background: var(--accent); border-radius: 2px;
   }
   .tl-tick {
-    position: absolute; top: 7px; width: 2px; height: 11px;
+    position: absolute; top: 11px; width: 2px; height: 14px;
     background: #c3bfb6; transform: translateX(-1px); border-radius: 1px;
   }
   .tl-tick.has { background: var(--ink-soft); }
+  .tl-tick.tl-minor { height: 6px; top: 15px; background: #d9d6cf; }
+  .lb-timeline .tl-tick.tl-minor { background: #3a3a3a; }
   .tl-tick.dim { opacity: .3; }
   .tl-ticklabel {
-    position: absolute; top: 21px; transform: translateX(-50%);
-    font-size: .6rem; color: var(--ink-soft); white-space: nowrap; pointer-events: none;
+    position: absolute; top: 28px; transform: translateX(-50%);
+    font-size: 0.8rem; color: var(--ink-soft); white-space: nowrap; pointer-events: none;
   }
-  .tl-ticklabel.first { transform: none; }
+  .tl-ticklabel.first { transform: translateX(-50%); }
   .tl-ticklabel.last { transform: translateX(-100%); }
   .lb-timeline .tl-ticklabel { color: #9a9a9a; }
   .tl-handle {
-    position: absolute; top: 4px; width: 17px; height: 17px;
-    background: var(--panel); border: 2px solid var(--dark); border-radius: 50%;
-    transform: translateX(-8.5px); box-shadow: var(--shadow); pointer-events: none;
+    position: absolute; top: 5px; width: 26px; height: 26px;
+    background: var(--panel); border: 3px solid var(--dark); border-radius: 50%;
+    transform: translateX(-13px); box-shadow: var(--shadow); pointer-events: none;
   }
   .tl-label {
-    font-size: .74rem; font-weight: 600; min-width: 68px; text-align: right;
+    font-size: 1rem; font-weight: 600; min-width: 92px; text-align: right;
     white-space: nowrap; flex-shrink: 0;
   }
-  .tl-count { font-size: .66rem; color: var(--ink-soft); min-width: 58px; flex-shrink: 0; }
+  .tl-count { font-size: 0.8rem; color: var(--ink-soft); min-width: 80px; flex-shrink: 0; }
 
 
   /* ── Layout ───────────────────────────────────────── */
@@ -218,13 +243,13 @@
     display: flex; flex-direction: column; overflow: hidden;
   }
   .sidebar-meta {
-    padding: 8px 14px; font-size: .73rem; color: var(--ink-soft);
+    padding: 8px 14px; font-size: 0.85rem; color: var(--ink-soft);
     border-bottom: 1px solid var(--line);
     display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;
   }
   .sidebar-meta-right { display: flex; align-items: center; gap: 12px; }
   #list-close { display: none; }
-  .linkbtn { font-size: .72rem; color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+  .linkbtn { font-size: 0.85rem; color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
   .linkbtn:hover { color: var(--accent-d); }
 
   #addr-list { overflow-y: auto; flex: 1; overscroll-behavior: contain; }
@@ -236,7 +261,7 @@
   .street-group { border-bottom: 1px solid var(--line); }
   .street-head {
     position: sticky; top: 0; z-index: 2;
-    width: 100%; padding: 10px 14px;
+    width: 100%; padding: 14px 16px;
     background: var(--panel);
     border: none; text-align: left; cursor: pointer;
     display: flex; justify-content: space-between; align-items: center; gap: 8px;
@@ -245,19 +270,19 @@
   .street-head:hover { background: var(--surface); }
   .street-head-left { display: flex; align-items: center; gap: 8px; min-width: 0; }
   .street-chevron {
-    font-size: .58rem; color: var(--ink-soft); flex-shrink: 0;
+    font-size: 0.8rem; color: var(--ink-soft); flex-shrink: 0;
     transition: transform .16s;
   }
   .street-group.collapsed .street-chevron { transform: rotate(-90deg); }
   .street-group.collapsed .tile-grid { display: none; }
   .street-name { font-family: var(--serif); font-size: .95rem; }
-  .street-photo-count { font-size: .68rem; color: var(--ink-soft); white-space: nowrap; }
+  .street-photo-count { font-size: 0.8rem; color: var(--ink-soft); white-space: nowrap; }
   .street-group.scenes .street-name::before { content: '◈ '; color: var(--accent-d); }
 
   .tile-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(138px, 1fr));
-    gap: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+    gap: 10px;
     padding: 0 12px 16px;
   }
   .tile {
@@ -280,11 +305,11 @@
   }
   .tile-img.none {
     display: flex; align-items: center; justify-content: center;
-    color: var(--ink-soft); font-size: .7rem;
+    color: var(--ink-soft); font-size: 0.85rem;
   }
-  .tile-body { padding: 6px 8px 7px; display: flex; flex-direction: column; gap: 1px; }
-  .tile-addr { font-size: .8rem; font-weight: 600; line-height: 1.2; }
-  .tile-meta { font-size: .66rem; color: var(--ink-soft); }
+  .tile-body { padding: 8px 10px 9px; display: flex; flex-direction: column; gap: 1px; }
+  .tile-addr { font-size: 1rem; font-weight: 600; line-height: 1.2; }
+  .tile-meta { font-size: 0.8rem; color: var(--ink-soft); }
   /* display:contents lets the cluster's head and its member tiles sit directly in
      the parent grid, so nothing has to re-flow when one expands. */
   .cluster { display: contents; }
@@ -297,7 +322,7 @@
 
   .cluster-cta {
     display: block; margin-top: 3px;
-    font-size: .64rem; font-weight: 600; color: var(--accent-d);
+    font-size: 0.8rem; font-weight: 600; color: var(--accent-d);
   }
   /* Expanded, the head steps out of the way: a full-width bar above its members. */
   .cluster:not(.collapsed) .cluster-head {
@@ -315,21 +340,21 @@
   .tile-span {
     position: absolute; top: 5px; left: 5px;
     background: rgba(28,28,28,.72); color: #f3e6bd;
-    font-size: .6rem; font-weight: 600; letter-spacing: .02em;
+    font-size: 0.8rem; font-weight: 600; letter-spacing: .02em;
     border-radius: var(--pill); padding: 1px 6px;
   }
   .tile-count {
     position: absolute; top: 5px; right: 5px;
     background: rgba(28,28,28,.82); color: #fff;
-    font-size: .64rem; font-weight: 600;
+    font-size: 0.8rem; font-weight: 600;
     border-radius: var(--pill); padding: 1px 7px;
   }
   .tile.active .tile-count { background: var(--accent); color: var(--dark); }
 
-  .empty-note { padding: 24px 16px 14px; text-align: center; color: var(--ink-soft); font-size: .82rem; line-height: 1.6; }
+  .empty-note { padding: 24px 16px 14px; text-align: center; color: var(--ink-soft); font-size: 0.92rem; line-height: 1.6; }
   .empty-note strong { display: block; color: var(--ink); font-family: var(--serif); font-weight: 400; font-size: 1rem; margin-bottom: 4px; }
-  .empty-sub { padding: 4px 14px 8px; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); font-weight: 600; }
-  .share-note { margin: 14px 12px 18px; padding: 12px 14px; border: 1px dashed var(--line); border-radius: var(--radius); font-size: .78rem; line-height: 1.5; color: var(--ink-soft); }
+  .empty-sub { padding: 4px 14px 8px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); font-weight: 600; }
+  .share-note { margin: 14px 12px 18px; padding: 12px 14px; border: 1px dashed var(--line); border-radius: var(--radius); font-size: 0.85rem; line-height: 1.5; color: var(--ink-soft); }
   .share-note a, .share-link { color: var(--ink); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: var(--accent-d); }
   .share-note a:hover, .share-link:hover { color: var(--accent-d); }
 
@@ -386,19 +411,19 @@
     transform: translate(-50%, calc(-100% - 12px));
     background: var(--panel); border: 1px solid var(--line);
     border-radius: var(--radius); box-shadow: var(--shadow);
-    width: 268px; overflow: hidden;
+    width: 320px; overflow: hidden;
   }
   .svgmap-popup::after {
     content: ''; position: absolute; left: 50%; bottom: -6px; transform: translateX(-50%) rotate(45deg);
     width: 10px; height: 10px; background: var(--panel);
     border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
   }
-  .popup-thumb { width: 100%; height: 132px; object-fit: cover; display: block; cursor: pointer; background: var(--surface); }
+  .popup-thumb { width: 100%; height: 170px; object-fit: cover; display: block; cursor: pointer; background: var(--surface); }
   .popup-body { padding: 9px 11px 11px; }
-  .popup-body h3 { font-family: var(--serif); font-size: .95rem; font-weight: 400; margin-bottom: 2px; }
-  .popup-meta { font-size: .72rem; color: var(--ink-soft); margin-bottom: 8px; }
+  .popup-body h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; margin-bottom: 2px; }
+  .popup-meta { font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 8px; }
   .popup-desc {
-    font-size: .74rem; line-height: 1.45; color: var(--ink);
+    font-size: 0.85rem; line-height: 1.45; color: var(--ink);
     margin-bottom: 9px; padding-left: 8px; border-left: 2px solid var(--accent);
   }
 
@@ -411,19 +436,34 @@
   .popup-gallery::-webkit-scrollbar-thumb { background: var(--line); border-radius: 5px; }
   .popup-gallery::-webkit-scrollbar-track { background: transparent; }
   .popup-gthumb {
-    position: relative; flex: 0 0 auto; width: 58px; cursor: pointer;
+    position: relative; flex: 0 0 auto; width: 72px; cursor: pointer;
     border: 1px solid var(--line); border-radius: 3px; overflow: hidden; background: var(--surface);
     padding: 0; display: block;
   }
-  .popup-gthumb img { width: 100%; height: 42px; object-fit: cover; display: block; }
+  .popup-gthumb img { width: 100%; height: 52px; object-fit: cover; display: block; }
   .popup-gthumb span {
-    display: block; font-size: .58rem; color: var(--ink-soft);
+    display: block; font-size: 0.8rem; color: var(--ink-soft);
     text-align: center; padding: 1px 0 2px; letter-spacing: .02em;
   }
   .popup-gthumb:hover { border-color: var(--accent-d); }
   .popup-gthumb.current { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
-  .popup-btn { display: block; width: 100%; padding: 7px; background: var(--accent); color: var(--dark); border-radius: var(--pill); font-size: .78rem; font-weight: 600; text-align: center; }
+  .popup-btn { display: block; width: 100%; padding: 12px; background: var(--accent); color: var(--dark); border-radius: var(--pill); font-size: 0.85rem; font-weight: 600; text-align: center; }
   .popup-btn:hover { background: var(--accent-d); }
+
+  /* Hover card: a quick look at a dot before clicking it. */
+  .pin-hover {
+    position: absolute; z-index: 450; pointer-events: none;
+    width: 240px; background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
+    transform: translate(-50%, calc(-100% - 14px));
+  }
+  .pin-hover[hidden] { display: none; }
+  .pin-hover.below { transform: translate(-50%, 14px); }
+  .pin-hover img { display: block; width: 100%; height: 150px; object-fit: cover; background: var(--surface); }
+  .pin-hover-body { padding: 8px 12px 10px; }
+  .pin-hover-body b { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.1rem; }
+  .pin-hover-body span { font-size: .85rem; color: var(--ink-soft); }
+  .pin-hover-body em { display: block; font-style: normal; font-size: .8rem; color: var(--accent-d); font-weight: 600; margin-top: 3px; }
 
   .svgmap-zoom {
     position: absolute; top: 12px; left: 12px; z-index: 400;
@@ -431,18 +471,18 @@
     border: 1px solid var(--line); box-shadow: var(--shadow);
   }
   .svgmap-zoom button {
-    width: 30px; height: 30px; background: var(--panel); font-size: 1.05rem; line-height: 1;
+    width: 44px; height: 44px; background: var(--panel); font-size: 1.5rem; line-height: 1;
     display: flex; align-items: center; justify-content: center;
   }
   .svgmap-zoom button:hover { background: var(--surface); }
   .svgmap-zoom button + button { border-top: 1px solid var(--line); }
 
   .svgmap-legend {
-    position: absolute; top: 12px; left: 52px; z-index: 400;
+    position: absolute; top: 12px; left: 68px; z-index: 400;
     display: flex; align-items: center; gap: 7px;
     background: rgba(255,255,255,.88); border: 1px solid var(--line);
     border-radius: var(--pill); padding: 4px 11px 4px 8px;
-    font-size: .66rem; color: var(--ink-soft); white-space: nowrap;
+    font-size: 0.8rem; color: var(--ink-soft); white-space: nowrap;
   }
   .svgmap-legend svg { display: block; }
   .svgmap-legend circle { fill: var(--dark); stroke: #fff; stroke-width: 1.5; }
@@ -450,14 +490,14 @@
   .svgmap-attrib {
     position: absolute; bottom: 0; right: 0; z-index: 400;
     background: rgba(255,255,255,.82); color: var(--ink-soft);
-    font-size: .64rem; padding: 2px 7px; border-top-left-radius: var(--radius);
+    font-size: 0.8rem; padding: 2px 7px; border-top-left-radius: var(--radius);
   }
 
   .map-fab {
     position: absolute; z-index: 600;
     background: var(--panel); border: 1px solid var(--line);
-    border-radius: var(--pill); padding: 7px 14px;
-    font-size: .78rem; font-weight: 600; box-shadow: var(--shadow);
+    border-radius: var(--pill); padding: 11px 18px;
+    font-size: 0.85rem; font-weight: 600; box-shadow: var(--shadow);
   }
   .map-fab:hover { background: var(--surface); }
   #reset-view { bottom: 26px; right: 14px; }
@@ -465,14 +505,14 @@
 
   /* First-visit prompt over the map */
   .featured {
-    position: absolute; z-index: 650; left: calc(var(--sidebar-w) + 14px); bottom: 26px; width: 330px; max-width: calc(100% - var(--sidebar-w) - 28px);
+    position: absolute; z-index: 650; left: calc(var(--sidebar-w) + 14px); bottom: 26px; width: 380px; max-width: calc(100% - var(--sidebar-w) - 28px);
     background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
     box-shadow: var(--shadow); padding: 12px 14px 12px;
   }
   .featured[hidden] { display: none; }
   .featured h2 { font-family: var(--serif); font-weight: 400; font-size: 1rem; margin: 0 22px 3px 0; }
-  .featured p { font-size: .76rem; color: var(--ink-soft); line-height: 1.45; margin-bottom: 9px; }
-  .featured-close { position: absolute; top: 6px; right: 8px; font-size: 1.15rem; line-height: 1; color: var(--ink-soft); padding: 2px 6px; }
+  .featured p { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.45; margin-bottom: 9px; }
+  .featured-close { position: absolute; top: 4px; right: 6px; font-size: 1.6rem; line-height: 1; color: var(--ink-soft); padding: 6px 10px; }
   .featured-list { display: flex; gap: 7px; }
   .featured-item {
     flex: 1 1 0; min-width: 0; text-align: left; padding: 0;
@@ -480,21 +520,21 @@
   }
   .featured-item:hover { border-color: var(--accent-d); }
   .featured-item img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-  .featured-item span { display: block; padding: 4px 6px 5px; font-size: .66rem; line-height: 1.25; }
-  .featured-item b { display: block; font-weight: 600; font-size: .7rem; }
+  .featured-item span { display: block; padding: 4px 6px 5px; font-size: 0.8rem; line-height: 1.25; }
+  .featured-item b { display: block; font-weight: 600; font-size: 0.85rem; }
 
   /* ── Lightbox ─────────────────────────────────────── */
   #lightbox { display: none; position: fixed; inset: 0; z-index: 4000; background: #141414; flex-direction: column; }
   #lightbox.open { display: flex; }
   .lb-header {
-    padding: 13px 58px 11px 20px; color: #fff; flex-shrink: 0;
+    padding: 14px 120px 12px 20px; color: #fff; flex-shrink: 0;
     display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
     border-bottom: 1px solid rgba(255,255,255,.1);
   }
-  .lb-header h2 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; }
-  .lb-header p { font-size: .76rem; color: #a8a8a8; }
+  .lb-header h2 { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; }
+  .lb-header p { font-size: 0.85rem; color: #a8a8a8; }
   .lb-desc {
-    flex-basis: 100%; font-size: .78rem; line-height: 1.5; color: #d8d8d8;
+    flex-basis: 100%; font-size: 0.85rem; line-height: 1.5; color: #d8d8d8;
     padding-left: 9px; border-left: 2px solid var(--accent); margin-top: 7px; max-width: 70ch;
   }
   .lb-timeline {
@@ -509,15 +549,19 @@
   .lb-timeline .tl-handle { background: #1c1c1c; border-color: var(--accent); }
   .lb-timeline .tl-label { color: #f0f0f0; }
   .lb-timeline .tl-count { color: #9a9a9a; }
-  #lb-close { position: absolute; top: 10px; right: 14px; font-size: 1.7rem; line-height: 1; color: #fff; opacity: .75; padding: 4px 10px; z-index: 10; }
-  #lb-close:hover { opacity: 1; }
+  #lb-close {
+    position: absolute; top: 10px; right: 14px; z-index: 10;
+    font-size: 1rem; font-weight: 600; line-height: 1; color: #fff;
+    padding: 10px 16px; border: 1px solid rgba(255,255,255,.4); border-radius: var(--pill);
+  }
+  #lb-close:hover { background: rgba(255,255,255,.14); }
 
   .lb-stage { flex: 1; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 12px; min-height: 0; }
   #lb-img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 6px 34px rgba(0,0,0,.6); }
   .lb-nav {
     position: absolute; top: 50%; transform: translateY(-50%);
     font-size: 1.7rem; color: #fff; background: rgba(0,0,0,.45); border-radius: 50%;
-    width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; transition: background .12s;
+    width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; transition: background .12s;
   }
   .lb-nav:hover { background: var(--accent); color: var(--dark); }
   #lb-prev { left: 14px; } #lb-next { right: 14px; }
@@ -534,24 +578,29 @@
   .cmp-pane { display: none; flex-direction: column; align-items: center; justify-content: center; flex: 1 1 0; min-width: 0; min-height: 0; height: 100%; gap: 6px; }
   .lb-stage.compare .cmp-pane { display: flex; }
   .cmp-pane img { min-height: 0; flex: 0 1 auto; max-width: 100%; object-fit: contain; box-shadow: 0 6px 34px rgba(0,0,0,.6); }
-  .cmp-tag { font-size: .7rem; color: var(--accent); text-transform: uppercase; letter-spacing: .1em; font-weight: 600; }
+  .cmp-tag { font-size: 0.85rem; color: var(--accent); text-transform: uppercase; letter-spacing: .1em; font-weight: 600; }
 
   .lb-footer {
-    flex-shrink: 0; padding: 9px 20px; color: #c4c4c4; font-size: .76rem;
+    flex-shrink: 0; padding: 9px 20px; color: #c4c4c4; font-size: 0.85rem;
     display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
     border-top: 1px solid rgba(255,255,255,.1);
   }
   .lb-caption { flex: 1; min-width: 140px; color: #e4e4e4; }
-  .lb-action { font-size: .73rem; padding: 4px 12px; border-radius: var(--pill); border: 1px solid rgba(255,255,255,.28); color: #fff; white-space: nowrap; text-decoration: none; }
+  .lb-action { font-size: 0.92rem; padding: 9px 16px; border-radius: var(--pill); border: 1px solid rgba(255,255,255,.28); color: #fff; white-space: nowrap; text-decoration: none; }
   .lb-action:hover { background: rgba(255,255,255,.14); }
-  .lb-action.on { background: var(--accent); color: var(--dark); border-color: var(--accent); font-weight: 600; }
-  .lb-footer .share-link { color: #fff; font-size: .73rem; font-weight: 500; white-space: nowrap; }
+  .lb-action.on { background: var(--accent); color: var(--dark); border-color: var(--dark); font-weight: 700; }
+  .lb-compare-note { color: var(--accent); font-weight: 600; }
+  .lb-compare-note[hidden] { display: none; }
+  .lb-timeline .timeline { flex-wrap: nowrap; }
+  .lb-timeline .btn-clear { padding: 7px 14px; font-size: .92rem; }
+  .lb-timeline .btn-clear[hidden] { display: none; }
+  .lb-footer .share-link { color: #fff; font-size: 0.85rem; font-weight: 500; white-space: nowrap; }
 
   .lb-thumbs { flex-shrink: 0; display: flex; gap: 7px; padding: 9px 14px; overflow-x: auto; background: rgba(0,0,0,.4); }
   .lb-thumbs::-webkit-scrollbar { height: 6px; }
   .lb-thumbs::-webkit-scrollbar-thumb { background: #555; border-radius: 6px; }
   .lb-thumb {
-    height: 54px; width: 76px; object-fit: cover; flex-shrink: 0;
+    height: 72px; width: 100px; object-fit: cover; flex-shrink: 0;
     border: 2px solid transparent; border-radius: 3px; cursor: pointer;
     opacity: .5; transition: opacity .12s; background: #333;
   }
@@ -587,8 +636,10 @@
     body.list-open #mobile-list-toggle { display: none; }
     body.list-open .svgmap-zoom, body.list-open .svgmap-attrib,
     body.list-open .svgmap-legend { display: none; }
-    .svgmap-legend { font-size: .62rem; padding: 3px 9px 3px 6px; gap: 5px; }
-    .lb-header { padding: 11px 50px 9px 14px; }
+    .svgmap-legend { font-size: 0.8rem; padding: 3px 9px 3px 6px; gap: 5px; }
+    .lb-header { padding: 11px 110px 9px 14px; }
+    #lb-close { top: 8px; right: 8px; padding: 9px 12px; }
+    .filter-bar { font-size: .92rem; padding: 6px 6px 6px 12px; }
     .lb-header h2 { font-size: 1rem; }
     .lb-nav { width: 36px; height: 36px; font-size: 1.4rem; }
     #lb-prev { left: 6px; } #lb-next { right: 6px; }
@@ -597,6 +648,8 @@
     .tile-grid { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); }
     body.timeline-mode .year-row { flex-wrap: wrap; row-gap: 4px; }
     body.timeline-mode #timeline-main { order: 3; flex-basis: 100%; }
+    #timeline-main .tl-count { display: none; }
+    #timeline-main .tl-label { min-width: 0; }
   }
 </style>
 </head>
@@ -642,7 +695,14 @@
     <span class="chip-label">Year</span>
     <div class="chiprow" id="year-chips"></div>
     <div class="timeline" id="timeline-main"></div>
-    <button class="year-mode" id="year-mode">Timeline ▸</button>
+    <div class="year-mode" id="year-mode" role="group" aria-label="Choose years with">
+      <button type="button" data-mode="chips" aria-pressed="true">Year buttons</button>
+      <button type="button" data-mode="timeline" aria-pressed="false">Timeline</button>
+    </div>
+  </div>
+  <div class="filter-bar" id="filter-bar" role="status" hidden>
+    <span class="filter-bar-text" id="filter-bar-text"></span>
+    <button type="button" class="btn-clear" id="filter-clear">✕ Clear filter</button>
   </div>
 </div>
 
@@ -668,7 +728,7 @@
 </div>
 
 <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
-  <button id="lb-close" aria-label="Close">×</button>
+  <button id="lb-close" aria-label="Close photo viewer">✕ Close</button>
   <div class="lb-header">
     <h2 id="lb-title"></h2>
     <p id="lb-subtitle"></p>
@@ -688,6 +748,7 @@
   </div>
   <div class="lb-footer">
     <span class="lb-caption" id="lb-caption"></span>
+    <span class="lb-compare-note" id="lb-compare-note" hidden></span>
     <span id="lb-counter"></span>
     <button class="lb-action" id="lb-compare">Compare years</button>
     <a class="lb-action" id="lb-full" target="_blank" rel="noopener">Full resolution ↗</a>
@@ -695,12 +756,13 @@
   </div>
   <div class="lb-thumbs" id="lb-thumbs"></div>
   <div class="lb-timeline"><div class="timeline" id="timeline-lb"></div></div>
+
 </div>
 
 <script src="./map.js"></script>
 <script>
 // ── Config ───────────────────────────────────────────────────────────────────
-const BUILD = '2026-11-04a';   // bump when data.json or basemap.json changes
+const BUILD = '2026-11-18a';   // bump when data.json or basemap.json changes
 const THUMB_URL = './thumbs/';
 const VIEW_URL  = './view/';
 const FULL_URL  = './view/';   // originals stay offline; see README
@@ -837,7 +899,7 @@ async function loadData() {
     fetch('./data.json?v=' + BUILD).then(r => r.json()),
   ]);
 
-  MAP = createMap(document.getElementById('map'), basemap);
+  MAP = createMap(document.getElementById('map'), basemap, { onView: hidePinHover });
   MAP.drawPolygon(DISTRICT_BOUNDARY, 'district-boundary');
 
   ALL_ADDRESSES = data.addresses;
@@ -873,6 +935,7 @@ function applyFilters() {
   renderSidebar(filtered, nearby);
   placePins(filtered.length ? filtered : nearby);
   refreshOpenViewer();
+  syncFilterBar();
 }
 
 // When a search finds nothing, offer the closest photographed addresses on the
@@ -895,7 +958,7 @@ function nearestAddresses() {
 // ── Year control: chips and timeline over one shared state ───────────────────
 // activeYears is the single source of truth. Chips toggle many; the timeline
 // picks one. Both views re-sync from the set, so switching modes never lies.
-let ALL_YEARS = [], YEAR_COUNTS = {}, TL_STOPS = [];
+let ALL_YEARS = [], YEAR_COUNTS = {}, TL_STOPS = [], TL_POS = [];
 
 function buildYearControl() {
   const row = document.getElementById('year-chips');
@@ -906,8 +969,10 @@ function buildYearControl() {
   ALL_SCENES.forEach(s => { const k = s.year || 'undated'; YEAR_COUNTS[k] = (YEAR_COUNTS[k] || 0) + 1; });
 
   ALL_YEARS = Object.keys(YEAR_COUNTS).filter(k => k !== 'undated').sort();
+  // The timeline holds dated photos only; undated ones stay reachable through
+  // "All years" and the Date unknown button.
   TL_STOPS = ['all', ...ALL_YEARS];
-  if (YEAR_COUNTS.undated) TL_STOPS.push('undated');
+  TL_POS = timelinePositions(ALL_YEARS);
 
   const groups = [];
   ALL_YEARS.forEach(y => {
@@ -932,27 +997,39 @@ function buildYearControl() {
     row.appendChild(b);
   });
 
-  const reset = document.createElement('button');
-  reset.className = 'chip-reset';
-  reset.id = 'chip-reset';
-  reset.textContent = 'Clear';
-  reset.addEventListener('click', () => { activeYears.clear(); syncYearUI(); applyFilters(); });
-  row.appendChild(reset);
-
   buildTimeline(document.getElementById('timeline-main'));
-  buildTimeline(document.getElementById('timeline-lb'));
+  buildTimeline(document.getElementById('timeline-lb'), true);
 
-  const modeBtn = document.getElementById('year-mode');
-  modeBtn.addEventListener('click', () => {
-    const on = document.body.classList.toggle('timeline-mode');
-    modeBtn.textContent = on ? 'Year chips ▸' : 'Timeline ▸';
-    syncYearUI();
-  });
+  document.querySelectorAll('#year-mode button').forEach(b =>
+    b.addEventListener('click', () => setYearMode(b.dataset.mode)));
+  document.getElementById('filter-clear').addEventListener('click', clearFilters);
 
   syncYearUI();
 }
 
-function buildTimeline(host) {
+function setYearMode(mode) {
+  document.body.classList.toggle('timeline-mode', mode === 'timeline');
+  document.querySelectorAll('#year-mode button').forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.mode === mode)));
+  syncYearUI();
+}
+
+function clearFilters() {
+  activeYears.clear();
+  searchInput.value = ''; searchTerm = ''; searchWords = [];
+  syncYearUI(); applyFilters();
+}
+
+// Years sit at their true distance from each other, so the 1988 to 1998 gap reads
+// as a gap. "All years" takes the left end; dated years fill the rest.
+const TL_ALL_PCT = 0, TL_FIRST_PCT = 9;
+function timelinePositions(years) {
+  const y0 = +years[0], y1 = +years[years.length - 1];
+  const span = Math.max(1, y1 - y0);
+  return [TL_ALL_PCT, ...years.map(y => TL_FIRST_PCT + (100 - TL_FIRST_PCT) * (+y - y0) / span)];
+}
+
+function buildTimeline(host, inViewer = false) {
   host.innerHTML = `
     <div class="tl-track" role="slider" tabindex="0" aria-label="Filter by year"
          aria-valuemin="0" aria-valuemax="${TL_STOPS.length - 1}">
@@ -960,29 +1037,53 @@ function buildTimeline(host) {
       <div class="tl-ticks"></div><div class="tl-handle"></div>
     </div>
     <span class="tl-label"></span>
-    <span class="tl-count"></span>`;
+    <span class="tl-count"></span>
+    ${inViewer ? '<button type="button" class="btn-clear tl-clear" hidden>✕ All years</button>' : ''}`;
+  if (inViewer) host.querySelector('.tl-clear').addEventListener('click', () => setYearStop('all'));
 
   const track = host.querySelector('.tl-track');
   const ticks = host.querySelector('.tl-ticks');
+
+  // Faint marks for the years nobody photographed, so the gaps are visible.
+  const y0 = +ALL_YEARS[0], y1 = +ALL_YEARS[ALL_YEARS.length - 1];
+  for (let y = y0; y <= y1; y++) {
+    if (YEAR_COUNTS[String(y)]) continue;
+    const t = document.createElement('div');
+    t.className = 'tl-tick tl-minor';
+    t.style.left = (TL_FIRST_PCT + (100 - TL_FIRST_PCT) * (y - y0) / Math.max(1, y1 - y0)) + '%';
+    ticks.appendChild(t);
+  }
+
   TL_STOPS.forEach((stop, i) => {
     const t = document.createElement('div');
     t.className = 'tl-tick' + (stop === 'all' ? '' : ' has');
-    t.style.left = pctFor(i) + '%';
+    t.style.left = TL_POS[i] + '%';
     t.dataset.stop = stop;
     ticks.appendChild(t);
-    if (stop === 'all') return;
+  });
+
+  // Label the ends, then the best-documented years that fit without colliding.
+  const last = TL_STOPS.length - 1;
+  const chosen = [0, 1, last];
+  TL_STOPS.map((stop, i) => i).filter(i => !chosen.includes(i))
+    .sort((a, b) => YEAR_COUNTS[TL_STOPS[b]] - YEAR_COUNTS[TL_STOPS[a]])
+    .forEach(i => { if (chosen.every(j => Math.abs(TL_POS[i] - TL_POS[j]) >= 8)) chosen.push(i); });
+  chosen.sort((a, b) => a - b).forEach(i => {
+    const stop = TL_STOPS[i];
     const lab = document.createElement('span');
-    const firstYear = i === 1, lastStop = i === TL_STOPS.length - 1;
-    lab.className = 'tl-ticklabel' + (firstYear ? ' first' : lastStop ? ' last' : ' mid');
-    lab.style.left = pctFor(i) + '%';
-    lab.textContent = stop === 'undated' ? '?' : (firstYear || lastStop ? stop : "'" + stop.slice(2));
+    lab.className = 'tl-ticklabel' + (i === 0 ? ' first' : i === last ? ' last' : ' mid');
+    lab.style.left = TL_POS[i] + '%';
+    lab.textContent = stop === 'all' ? 'All' : (i === 1 || i === last ? stop : "'" + stop.slice(2));
     ticks.appendChild(lab);
   });
 
+  // Snap to the nearest stop by position, not by index, now that spacing is real.
   const pick = clientX => {
     const r = track.getBoundingClientRect();
-    const frac = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
-    setYearStop(TL_STOPS[Math.round(frac * (TL_STOPS.length - 1))]);
+    const pct = Math.min(100, Math.max(0, (clientX - r.left) / r.width * 100));
+    let best = 0;
+    TL_POS.forEach((p, i) => { if (Math.abs(p - pct) < Math.abs(TL_POS[best] - pct)) best = i; });
+    setYearStop(TL_STOPS[best]);
   };
   let sliding = false;
   track.addEventListener('pointerdown', e => {
@@ -998,8 +1099,6 @@ function buildTimeline(host) {
   });
 }
 
-const pctFor = i => (TL_STOPS.length < 2 ? 0 : (i / (TL_STOPS.length - 1)) * 100);
-
 function currentStopIndex() {
   if (activeYears.size !== 1) return 0;
   const only = [...activeYears][0];
@@ -1014,34 +1113,62 @@ function setYearStop(stop) {
   applyFilters();
 }
 
+// Human description of the active year filter: "1973", "1975–78", "Date unknown".
+function yearsText() {
+  const ys = [...activeYears].filter(y => y !== 'undated').sort();
+  const parts = [];
+  if (ys.length) {
+    const contiguous = ys.every((y, i) => !i || ALL_YEARS.indexOf(y) === ALL_YEARS.indexOf(ys[i - 1]) + 1);
+    if (ys.length === 1) parts.push(ys[0]);
+    else if (contiguous) parts.push(`${ys[0]}–${ys[ys.length - 1].slice(2)}`);
+    else parts.push(ys.join(', '));
+  }
+  if (activeYears.has('undated')) parts.push(UNDATED.toLowerCase());
+  return parts.join(' and ');
+}
+
 // Redraw every year control from activeYears.
 function syncYearUI() {
   document.querySelectorAll('.chip[data-years]').forEach(c =>
     c.classList.toggle('on', c.dataset.years.split(',').every(y => activeYears.has(y))));
-  const reset = document.getElementById('chip-reset');
-  if (reset) reset.style.display = activeYears.size ? 'block' : 'none';
 
   const i = currentStopIndex();
-  const stop = TL_STOPS[i];
-  const multi = activeYears.size > 1;
+  const onTrack = activeYears.size === 1 && TL_STOPS.includes([...activeYears][0]);
+  const label = !activeYears.size ? 'All years' : yearsText().replace(/^./, c => c.toUpperCase());
 
   // While the viewer is open, dim the years this address has nothing from.
   const present = lbYears();
 
   document.querySelectorAll('.timeline').forEach(host => {
     const isLb = host.id === 'timeline-lb';
-    host.querySelector('.tl-handle').style.left = pctFor(i) + '%';
-    host.querySelector('.tl-fill').style.width = pctFor(i) + '%';
-    host.querySelector('.tl-track').setAttribute('aria-valuenow', i);
-    host.querySelector('.tl-track').setAttribute('aria-valuetext',
-      multi ? `${activeYears.size} years selected` : (stop === 'all' ? 'All years' : (stop === 'undated' ? UNDATED : stop)));
-    host.querySelectorAll('.tl-tick').forEach(t =>
+    const pct = onTrack ? TL_POS[i] : 0;
+    host.querySelector('.tl-handle').style.left = pct + '%';
+    host.querySelector('.tl-handle').style.opacity = activeYears.size && !onTrack ? '.35' : '1';
+    host.querySelector('.tl-fill').style.width = pct + '%';
+    host.querySelector('.tl-track').setAttribute('aria-valuenow', onTrack ? i : 0);
+    host.querySelector('.tl-track').setAttribute('aria-valuetext', label);
+    host.querySelectorAll('.tl-tick[data-stop]').forEach(t =>
       t.classList.toggle('dim', isLb && present && t.dataset.stop !== 'all' && !present.has(t.dataset.stop)));
-    host.querySelector('.tl-label').textContent =
-      multi ? `${activeYears.size} years` : (stop === 'all' ? 'All years' : (stop === 'undated' ? UNDATED : stop));
+    host.querySelector('.tl-label').textContent = label;
     host.querySelector('.tl-count').textContent =
-      multi || stop === 'all' ? '' : `${YEAR_COUNTS[stop] || 0} photos`;
+      onTrack ? `${YEAR_COUNTS[TL_STOPS[i]] || 0} photos` : '';
+    const clr = host.querySelector('.tl-clear');
+    if (clr) clr.hidden = !activeYears.size;
   });
+  syncFilterBar();
+}
+
+function syncFilterBar() {
+  const bar = document.getElementById('filter-bar');
+  if (!bar) return;
+  const parts = [];
+  if (activeYears.size) parts.push(`photos from <b>${esc(yearsText())}</b>`);
+  if (searchTerm) parts.push(`matching <b>“${esc(searchTerm)}”</b>`);
+  bar.hidden = !parts.length;
+  if (!parts.length) return;
+  document.getElementById('filter-bar-text').innerHTML = `Showing ${parts.join(' ')}`;
+  document.getElementById('filter-clear').textContent =
+    activeYears.size && !searchTerm ? '✕ Show all years' : '✕ Clear filter';
 }
 
 // Years available for whatever the viewer currently shows, or null when closed.
@@ -1310,11 +1437,38 @@ function placePins(addresses) {
     MAP.addPin(entry.address, entry.lat, entry.lon, {
       weight: shown.length,
       data: entry,
-      onClick: rec => { hideFeatured(); setActive(entry.address); MAP.openPopup(rec, buildPopup(entry)); },
+      onClick: rec => { hidePinHover(); hideFeatured(); setActive(entry.address); MAP.openPopup(rec, buildPopup(entry)); },
+      onHover: (rec, on) => on ? showPinHover(rec, entry) : hidePinHover(),
     });
   });
   if (activeAddress) MAP.setPinState(activeAddress, 'active');
 }
+
+let pinHoverEl = null;
+function showPinHover(rec, entry) {
+  if (MAP.popupPin === rec) return;          // the popup already shows all of this
+  const shown = visiblePhotos(entry);
+  const cover = coverPhoto(shown);
+  if (!pinHoverEl) {
+    pinHoverEl = document.createElement('div');
+    pinHoverEl.className = 'pin-hover';
+    pinHoverEl.setAttribute('aria-hidden', 'true');
+    document.getElementById('map').appendChild(pinHoverEl);
+  }
+  pinHoverEl.innerHTML = `
+    ${cover ? `<img src="${thumbSrc(cover)}" alt="">` : ''}
+    <div class="pin-hover-body">
+      <b>${esc(entry.address)}</b>
+      <span>${shown.length} photo${shown.length !== 1 ? 's' : ''} · ${yearRange(shown)}</span>
+      <em>Click to see the photos</em>
+    </div>`;
+  const { x, y } = MAP.screenOf(rec);
+  pinHoverEl.style.left = Math.min(Math.max(x, 130), document.getElementById('map').clientWidth - 130) + 'px';
+  pinHoverEl.style.top = y + 'px';
+  pinHoverEl.classList.toggle('below', y < 250);   // flip under the dot near the top edge
+  pinHoverEl.hidden = false;
+}
+function hidePinHover() { if (pinHoverEl) pinHoverEl.hidden = true; }
 
 function buildPopup(entry) {
   const shown = visiblePhotos(entry);
@@ -1341,7 +1495,7 @@ function buildPopup(entry) {
       b.type = 'button';
       b.className = 'popup-gthumb' + (i === coverIdx ? ' current' : '');
       b.title = p.year || UNDATED;
-      b.innerHTML = `<img src="${thumbSrc(p)}" alt="${esc(captionOf(p))}" loading="lazy"><span>${p.year || '?'}</span>`;
+      b.innerHTML = `<img src="${thumbSrc(p)}" alt="${esc(captionOf(p))}" loading="lazy"><span>${p.year || 'Undated'}</span>`;
       b.addEventListener('click', ev => {
         ev.stopPropagation();
         previewIndex = i;
@@ -1458,6 +1612,8 @@ function showViewerEmpty() {
   document.getElementById('lb-caption').textContent = 'Nothing here from the selected year.';
   document.getElementById('lb-compare').style.display = 'none';
   document.getElementById('lb-stage').classList.remove('compare');
+  document.getElementById('lb-compare-note').hidden = true;
+  document.getElementById('lb-caption').hidden = false;
 }
 
 function openViewer({ title, entry = null, photos, startIndex = 0, subtitle = '', canCompare = false }) {
@@ -1477,6 +1633,8 @@ function openViewer({ title, entry = null, photos, startIndex = 0, subtitle = ''
   cmpBtn.classList.remove('on');
   cmpBtn.textContent = 'Compare years';
   document.getElementById('lb-stage').classList.remove('compare');
+  document.getElementById('lb-compare-note').hidden = true;
+  document.getElementById('lb-caption').hidden = false;
   buildThumbs();
   showPhoto(lbIndex);
   const lb = document.getElementById('lightbox');
@@ -1548,16 +1706,30 @@ function updateComparePane() {
   const p = lbPhotos[comparePick];
   document.getElementById('cmp-img').src = viewSrc(p);
   document.getElementById('cmp-tag').textContent = p.year || UNDATED;
+  const a = lbPhotos[lbIndex].year || UNDATED.toLowerCase(), b = p.year || UNDATED.toLowerCase();
+  const note = document.getElementById('lb-compare-note');
+  note.textContent = `Comparing ${a} and ${b} · tap a photo below to change the right side`;
+  note.hidden = false;
+  document.getElementById('lb-caption').hidden = true;
   document.querySelectorAll('.lb-thumb').forEach((el, n) => el.classList.toggle('cmp-pick', n === comparePick));
 }
 document.getElementById('lb-compare').addEventListener('click', function () {
-  compareMode = !compareMode;
-  this.classList.toggle('on', compareMode);
-  this.textContent = compareMode ? 'Choose the second year below' : 'Compare years';
-  document.getElementById('lb-stage').classList.toggle('compare', compareMode);
-  if (compareMode) updateComparePane();
-  else { comparePick = null; document.querySelectorAll('.lb-thumb').forEach(el => el.classList.remove('cmp-pick')); }
+  setCompareMode(!compareMode);
 });
+// In compare mode the toggle turns into a yellow exit button, and a line names
+// the two years on screen, so it is always clear how to get back out.
+function setCompareMode(on) {
+  compareMode = on;
+  const btn = document.getElementById('lb-compare');
+  btn.classList.toggle('on', on);
+  btn.textContent = on ? '✕ Exit compare' : 'Compare years';
+  document.getElementById('lb-stage').classList.toggle('compare', on);
+  if (on) { updateComparePane(); return; }
+  comparePick = null;
+  document.querySelectorAll('.lb-thumb').forEach(el => el.classList.remove('cmp-pick'));
+  document.getElementById('lb-compare-note').hidden = true;
+  document.getElementById('lb-caption').hidden = false;
+}
 
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
@@ -1581,7 +1753,7 @@ document.getElementById('lightbox').addEventListener('click', e => {
 });
 document.addEventListener('keydown', e => {
   if (!document.getElementById('lightbox').classList.contains('open')) return;
-  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'Escape') { compareMode ? setCompareMode(false) : closeLightbox(); return; }
   if (e.target.closest && e.target.closest('.tl-track')) return;
   if (e.key === 'ArrowRight') showPhoto((lbIndex + 1) % lbPhotos.length);
   if (e.key === 'ArrowLeft') showPhoto((lbIndex - 1 + lbPhotos.length) % lbPhotos.length);
@@ -1609,7 +1781,7 @@ function openCompare(entry, fromFile, toFile) {
   const from = Math.max(0, photos.findIndex(p => p.clean_file === fromFile));
   openLightbox(entry, from);
   const to = lbPhotos.findIndex(p => p.clean_file === toFile);
-  document.getElementById('lb-compare').click();
+  setCompareMode(true);
   if (to >= 0) setComparePick(to);
 }
 function buildFeatured() {
@@ -1668,7 +1840,8 @@ document.getElementById('featured-close').addEventListener('click', () => hideFe
 // On phones the twelve year chips don't fit; the timeline does.
 if (window.matchMedia && matchMedia('(max-width: 760px)').matches) {
   document.body.classList.add('timeline-mode');
-  document.getElementById('year-mode').textContent = 'Year chips ▸';
+  document.querySelectorAll('#year-mode button').forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.mode === 'timeline')));
 }
 
 // ── Deep link ────────────────────────────────────────────────────────────────
