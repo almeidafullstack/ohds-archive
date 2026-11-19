@@ -5,10 +5,10 @@ Replacement for the dead `ohds-archives.org/archives/index.asp`, built to embed 
 
 ## What it does
 
-Map-first browser for 905 archival photos across 241 addresses in the Oregon
-Historic District, Dayton, Ohio, plus 61 undated-to-2003 streetscape views. Photos
+Map-first browser for 822 archival photos across 241 addresses in the Oregon
+Historic District, Dayton, Ohio, plus 59 undated-to-2003 streetscape views. Photos
 captioned with a span of house numbers are attached to every address in the span,
-so the collection resolves to 1,112 address-photo links.
+so the collection resolves to 1,019 address-photo links.
 
 - **Map** of the district with a pin per address, its area graduated by photo count (square-root scaled, capped at 16 so one outlier does not flatten the rest) against a small legend; framed automatically on the photographed addresses
 - **Sidebar** of address tiles grouped by street, collapsed by default so the whole district scans in one screen; each tile shows a cover photo, year range, and photo count
@@ -54,7 +54,7 @@ docs/                the published site — GitHub Pages serves this folder
   index.html         app shell, styles, and all non-map behaviour
   map.js             the SVG map engine (no dependencies)
   basemap.json       static vector basemap, built once from OSM
-  data.json          241 addresses + 61 scenes
+  data.json          241 addresses + 59 scenes
   fonts.css, fonts/  self-hosted Young Serif + Bitter (4 woff2 files)
   img/               OHDS logo, favicon, and the share-preview image
   favicon.ico        fallback icon for browsers that ask for it by name
@@ -67,6 +67,7 @@ tools/
   build_squarespace.py builds the single-code-block alternative
   clean_captions.py    turns delivered filenames into readable captions; additive
   expand_ranges.py     re-links span-labelled photos; additive
+  dedupe.py            drops the near-duplicates listed in duplicates.json; idempotent
   osm-extract.json     the raw Overpass response the current basemap came from
 squarespace/
   ohd-archive-block.html   one-code-block build, the no-external-host fallback
@@ -107,7 +108,7 @@ Sizes are well inside the limits: 259MB against a 1GB soft cap, largest single f
 795KB against a 100MB cap. No Git LFS, no Actions, no build step.
 
 `docs/.nojekyll` is not optional. GitHub Pages runs Jekyll by default, and Jekyll
-hides any path beginning with an underscore. Without that file all 61 streetscapes
+hides any path beginning with an underscore. Without that file all 59 streetscapes
 under `thumbs/_scenes/` and `view/_scenes/` return 404.
 
 ## Site navigation
@@ -136,7 +137,7 @@ so no font upload is needed.
 
 The photos are what this cannot solve. Squarespace's Custom Files area accepts only
 `.jpg .png .gif .ttf .otf .webp .woff` — no `.js`, no `.json` — and nothing on the
-platform will serve a 1,800-file tree. The 905 photos would have to be bulk-uploaded
+platform will serve a 1,800-file tree. The 822 photos would have to be bulk-uploaded
 into Squarespace galleries and their CDN URLs harvested once via `?format=json`
 (confirmed working on oregonhistoric.org) into a filename-to-URL map baked into the
 block. That is a large manual step, and re-uploading any photo breaks its link.
