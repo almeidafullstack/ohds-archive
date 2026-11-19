@@ -418,9 +418,18 @@
     width: 10px; height: 10px; background: var(--panel);
     border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
   }
+  /* Sits over the photo, so it carries its own background to stay visible. */
+  .popup-close {
+    position: absolute; top: 8px; right: 8px; z-index: 1;
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,.95); color: var(--dark); border: 1px solid var(--line);
+    font-size: 1.1rem; font-weight: 700; line-height: 1; box-shadow: var(--shadow);
+  }
+  .popup-close:hover { background: var(--accent); border-color: var(--dark); }
   .popup-thumb { width: 100%; height: 170px; object-fit: cover; display: block; cursor: pointer; background: var(--surface); }
   .popup-body { padding: 9px 11px 11px; }
-  .popup-body h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; margin-bottom: 2px; }
+  .popup-body h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; margin-bottom: 2px; padding-right: 36px; }
   .popup-meta { font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 8px; }
   .popup-desc {
     font-size: 0.85rem; line-height: 1.45; color: var(--ink);
@@ -1478,6 +1487,7 @@ function buildPopup(entry) {
   const desc = (entry.description || '').trim();
 
   div.innerHTML = `
+    <button type="button" class="popup-close" aria-label="Close">✕</button>
     ${cover ? `<img class="popup-thumb" src="${thumbSrc(cover)}" alt="${esc(captionOf(cover))}" loading="lazy">` : ''}
     <div class="popup-body">
       <h3>${entry.address}</h3>
@@ -1509,6 +1519,7 @@ function buildPopup(entry) {
     });
   }
 
+  div.querySelector('.popup-close').addEventListener('click', ev => { ev.stopPropagation(); MAP.closePopup(); });
   div.querySelector('.popup-btn').addEventListener('click', () => openLightbox(entry));
   const big = div.querySelector('.popup-thumb');
   if (big) {
@@ -1752,7 +1763,10 @@ document.getElementById('lightbox').addEventListener('click', e => {
   if (e.target.id === 'lightbox' || e.target.id === 'lb-stage') closeLightbox();
 });
 document.addEventListener('keydown', e => {
-  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (!document.getElementById('lightbox').classList.contains('open')) {
+    if (e.key === 'Escape' && MAP && MAP.popupPin) MAP.closePopup();
+    return;
+  }
   if (e.key === 'Escape') { compareMode ? setCompareMode(false) : closeLightbox(); return; }
   if (e.target.closest && e.target.closest('.tl-track')) return;
   if (e.key === 'ArrowRight') showPhoto((lbIndex + 1) % lbPhotos.length);

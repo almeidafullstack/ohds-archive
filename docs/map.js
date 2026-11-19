@@ -333,6 +333,24 @@ function createMap(container, basemap, opts = {}) {
     popupEl.hidden = false;
     openPin = rec;
     positionPopup(rec);
+    panPopupIntoView(rec);
+  }
+
+  // The popup hangs above its pin, so a pin near the top or side edge would push
+  // it (and its close button) out of view. Nudge the map just enough to fit it,
+  // favouring the top edge when the popup is taller than the map.
+  function panPopupIntoView(rec) {
+    if (!vw || !vh) return;
+    const M = 12, TIP = 12;
+    const w = popupEl.offsetWidth, h = popupEl.offsetHeight;
+    const px = rec.wx * k + tx, py = rec.wy * k + ty;
+    let dx = 0, dy = 0;
+    if (px - w / 2 < M) dx = M - (px - w / 2);
+    else if (px + w / 2 > vw - M) dx = (vw - M) - (px + w / 2);
+    const top = py - h - TIP;
+    if (top < M) dy = M - top;
+    else if (py > vh - M) dy = (vh - M) - py;
+    if (dx || dy) animateTo(k, tx + dx, ty + dy, 300);
   }
 
   function closePopup() {
