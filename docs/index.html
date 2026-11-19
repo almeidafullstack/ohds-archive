@@ -217,7 +217,8 @@
     position: absolute; top: 28px; transform: translateX(-50%);
     font-size: 0.8rem; color: var(--ink-soft); white-space: nowrap; pointer-events: none;
   }
-  .tl-ticklabel.first { transform: translateX(-50%); }
+  .tl-ticklabel.first { transform: none; }
+  .tl-ticklabel.narrow { display: none; }
   .tl-ticklabel.last { transform: translateX(-100%); }
   .lb-timeline .tl-ticklabel { color: #9a9a9a; }
   .tl-handle {
@@ -405,6 +406,10 @@
   .svgmap-pin-g:hover .svgmap-pin, .svgmap-pin.hover { fill: var(--accent); }
   .svgmap-pin.hover:not(.active) { stroke: var(--dark); stroke-width: 2; }
   .svgmap-pin.active { fill: var(--accent); stroke: var(--dark); stroke-width: 2; }
+  /* Photographed in more than one year: an amber ring marks the then-and-now pairs. */
+  .svgmap-pin.multi:not(.active):not(.hover) { stroke: var(--accent); stroke-width: 2.5; }
+  .svgmap-legend .legend-multi { display: inline-flex; align-items: center; gap: 5px; margin-left: 6px; padding-left: 9px; border-left: 1px solid var(--line); }
+  .svgmap-legend .legend-multi circle { stroke: var(--accent); stroke-width: 2.5; }
 
   .svgmap-popup {
     position: absolute; z-index: 500;
@@ -532,6 +537,11 @@
   .featured-item span { display: block; padding: 4px 6px 5px; font-size: 0.8rem; line-height: 1.25; }
   .featured-item b { display: block; font-weight: 600; font-size: 0.85rem; }
 
+  /* About this archive */
+  .about-note { margin: 14px 12px 4px; font-size: 0.85rem; line-height: 1.55; color: var(--ink-soft); }
+  .about-note summary { cursor: pointer; color: var(--ink); font-weight: 600; padding: 6px 0; }
+  .about-note p { margin-top: 6px; }
+
   /* ── Lightbox ─────────────────────────────────────── */
   #lightbox { display: none; position: fixed; inset: 0; z-index: 4000; background: #141414; flex-direction: column; }
   #lightbox.open { display: flex; }
@@ -609,17 +619,22 @@
   .lb-thumbs::-webkit-scrollbar { height: 6px; }
   .lb-thumbs::-webkit-scrollbar-thumb { background: #555; border-radius: 6px; }
   .lb-thumb {
-    height: 72px; width: 100px; object-fit: cover; flex-shrink: 0;
+    height: 72px; width: 100px; flex-shrink: 0; padding: 0; overflow: hidden;
     border: 2px solid transparent; border-radius: 3px; cursor: pointer;
     opacity: .5; transition: opacity .12s; background: #333;
   }
-  .lb-thumb:hover { opacity: .85; }
+  .lb-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .lb-thumb:hover, .lb-thumb:focus-visible { opacity: .85; }
   .lb-thumb.active { border-color: var(--accent); opacity: 1; }
   .lb-thumb.cmp-pick { border-color: #6ec1ff; opacity: 1; }
 
   /* ── Mobile ───────────────────────────────────────── */
   @media (max-width: 760px) {
-    .brandline { display: none; }
+    .toolbar-row { flex-wrap: wrap; row-gap: 8px; }
+    .brandline { flex-basis: 100%; font-size: 1rem; }
+    .brandline span { display: none; }
+    .tl-ticklabel.wide { display: none; }
+    .tl-ticklabel.narrow { display: block; }
     .site-nav { height: 48px; padding: 0 12px; }
     .site-logo img { height: 28px; }
     .nav-toggle { display: block; }
@@ -633,7 +648,6 @@
     .nav-menu a.current { box-shadow: inset 3px 0 0 var(--accent); }
     .nav-sub { position: static; box-shadow: none; border: none; padding: 0 0 0 14px; }
     .featured { bottom: 70px; left: 14px; right: 14px; width: auto; max-width: none; }
-    .tl-ticklabel.mid { display: none; }
     :root { --sidebar-w: 100%; }
     #sidebar {
       position: absolute; inset: 0; z-index: 1200;
@@ -720,12 +734,13 @@
     <div class="sidebar-meta">
       <span id="sidebar-count"></span>
       <span class="sidebar-meta-right">
+        <button class="linkbtn" id="featured-open" type="button">Featured buildings</button>
         <button class="linkbtn" id="list-close" aria-label="Close list">Close ✕</button>
       </span>
     </div>
     <div id="addr-list"></div>
   </div>
-  <div id="map"></div>
+  <div id="map" role="region" aria-label="Map of photographed addresses. The list holds the same addresses."></div>
   <button class="map-fab" id="reset-view">Reset view</button>
   <button class="map-fab" id="mobile-list-toggle">☰ List</button>
   <section class="featured" id="featured" aria-labelledby="featured-title" hidden>
@@ -760,7 +775,7 @@
     <span class="lb-compare-note" id="lb-compare-note" hidden></span>
     <span id="lb-counter"></span>
     <button class="lb-action" id="lb-compare">Compare years</button>
-    <a class="lb-action" id="lb-full" target="_blank" rel="noopener">Full resolution ↗</a>
+    <a class="lb-action" id="lb-full" target="_blank" rel="noopener">Open image ↗</a>
     <a class="share-link" id="lb-share" target="_blank" rel="noopener">Know this building? Share a photo</a>
   </div>
   <div class="lb-thumbs" id="lb-thumbs"></div>
@@ -776,6 +791,13 @@ const THUMB_URL = './thumbs/';
 const VIEW_URL  = './view/';
 const FULL_URL  = './view/';   // originals stay offline; see README
 const SHARE_FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSch44UL_60T4-3VaywmjA7WQUN4gPKC16ai3Lg-0J6Ta-3miQ/viewform';
+// Entry ID of the form's "Address or location" question (the number after
+// "entry." in the form's prefilled-link template). Set it and every Share link
+// arrives with the building's address already filled in. Empty means no prefill.
+const SHARE_FIELD = '';
+// Who made the photographs and why, in OHDS's words. Shown in the "About this
+// archive" note under the address list; empty renders nothing.
+const PROVENANCE = '';
 const UNDATED = 'Date unknown';
 const THIN_YEAR = 10;          // years with fewer photos than this fold into the chip before them
 
@@ -795,7 +817,10 @@ const store = {
 // The "Share a photo" form, run by an OHDS volunteer. It opens in a new tab; this
 // page sends nothing itself. `place` is kept for when the form gains a prefilled
 // address field.
-function shareHref(place) { return SHARE_FORM; }
+function shareHref(place) {
+  if (!SHARE_FIELD || !place) return SHARE_FORM;
+  return `${SHARE_FORM}?usp=pp_url&entry.${SHARE_FIELD}=${encodeURIComponent(place)}`;
+}
 const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const captionOf = p => p.caption || (p.original || '').replace(/\.jpe?g$/i, '');
 
@@ -828,6 +853,10 @@ function coverPhoto(photos) {
   if (!photos.length) return null;
   return photos.reduce((best, p) => spanWidth(p) < spanWidth(best) ? p : best, photos[0]);
 }
+
+// One photo can be attached to several addresses, so counts dedupe by file.
+const uniqueCount = photos => new Set(photos.map(p => p.clean_file || p.file)).size;
+const isMulti = photos => yearsOf(photos).length > 1;
 
 const yearsOf = photos => [...new Set(photos.map(p => p.year).filter(Boolean))].sort();
 function yearRange(photos) {
@@ -900,6 +929,7 @@ let ALL_ADDRESSES = [], ALL_SCENES = [];
 let activeAddress = null, activeYears = new Set(), searchTerm = '', searchWords = [];
 let lbEntry = null;   // the address or scene set the viewer is showing
 let HOME_RECT = null;
+let ready = false;      // false until the first load and deep link are applied
 
 // ── Load ─────────────────────────────────────────────────────────────────────
 async function loadData() {
@@ -908,21 +938,43 @@ async function loadData() {
     fetch('./data.json?v=' + BUILD).then(r => r.json()),
   ]);
 
-  MAP = createMap(document.getElementById('map'), basemap, { onView: hidePinHover });
+  MAP = createMap(document.getElementById('map'), basemap, { onView: hidePinHover, onPopupClose: () => writeHash() });
+  addLegendMulti();
   MAP.drawPolygon(DISTRICT_BOUNDARY, 'district-boundary');
 
   ALL_ADDRESSES = data.addresses;
   ALL_SCENES = data.scenes || [];
 
   buildYearControl();
+  openDefaultGroup();
   applyFilters();
 
   // Frame on the photographed addresses, which is tighter than the whole basemap.
   HOME_RECT = MAP.pinsBounds();
   MAP.fitWorldRect(HOME_RECT, 30);
 
-  restoreFromHash();
   buildFeatured();
+  ready = true;
+  restoreFromHash(true);
+}
+
+// Desktop only, first load only: open the street with the most then-and-now
+// addresses, so the list shows photos before anyone clicks.
+function openDefaultGroup() {
+  if (location.hash || (window.matchMedia && matchMedia('(max-width: 760px)').matches)) return;
+  const score = {};
+  ALL_ADDRESSES.forEach(a => { if (isMulti(a.photos)) score[a.street] = (score[a.street] || 0) + 1; });
+  const best = Object.keys(score).sort((x, y) => score[y] - score[x])[0];
+  if (best) openGroups.add(best);
+}
+
+function addLegendMulti() {
+  const legend = document.querySelector('.svgmap-legend');
+  if (!legend) return;
+  const s = document.createElement('span');
+  s.className = 'legend-multi';
+  s.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5"></circle></svg>several years';
+  legend.appendChild(s);
 }
 
 // ── Filtering ────────────────────────────────────────────────────────────────
@@ -938,13 +990,35 @@ function visiblePhotos(entry) {
   if (!activeYears.size) return entry.photos;
   return entry.photos.filter(p => activeYears.has(p.year) || (activeYears.has('undated') && !p.year));
 }
-function applyFilters() {
+function applyFilters({ typing = false } = {}) {
   const filtered = ALL_ADDRESSES.filter(matchesFilters);
   const nearby = filtered.length ? [] : nearestAddresses();
   renderSidebar(filtered, nearby);
   placePins(filtered.length ? filtered : nearby);
   refreshOpenViewer();
   syncFilterBar();
+  fitToResults(typing ? 450 : 0);
+  writeHash();
+}
+
+// The map follows the filter: frame whatever matched, or the whole district when
+// nothing is filtered. Search waits for a pause in typing so the map doesn't
+// lurch on every keystroke.
+let fitTimer = null;
+function fitToResults(delay = 0) {
+  if (!ready || !HOME_RECT || lbEntry) return;
+  clearTimeout(fitTimer);
+  fitTimer = setTimeout(() => {
+    if (!document.querySelector('.svgmap-pin')) return;     // nothing matched: leave the view alone
+    if (!activeYears.size && !searchWords.length) { MAP.fitWorldRect(HOME_RECT, 30, true); return; }
+    let [ax, ay, bx, by] = MAP.pinsBounds();
+    // One or two pins make a tiny box; keep at least a block or so around them.
+    const minW = (HOME_RECT[2] - HOME_RECT[0]) * 0.18, minH = (HOME_RECT[3] - HOME_RECT[1]) * 0.18;
+    const cx = (ax + bx) / 2, cy = (ay + by) / 2;
+    if (bx - ax < minW) { ax = cx - minW / 2; bx = cx + minW / 2; }
+    if (by - ay < minH) { ay = cy - minH / 2; by = cy + minH / 2; }
+    MAP.fitWorldRect([ax, ay, bx, by], 40, true);
+  }, delay);
 }
 
 // When a search finds nothing, offer the closest photographed addresses on the
@@ -971,17 +1045,20 @@ let ALL_YEARS = [], YEAR_COUNTS = {}, TL_STOPS = [], TL_POS = [];
 
 function buildYearControl() {
   const row = document.getElementById('year-chips');
-  YEAR_COUNTS = {};
+  // Counted by file, so a wide shot attached to six addresses counts once.
+  const byYear = {};
   ALL_ADDRESSES.forEach(a => a.photos.forEach(p => {
-    const k = p.year || 'undated'; YEAR_COUNTS[k] = (YEAR_COUNTS[k] || 0) + 1;
+    (byYear[p.year || 'undated'] ||= new Set()).add(p.clean_file || p.file);
   }));
-  ALL_SCENES.forEach(s => { const k = s.year || 'undated'; YEAR_COUNTS[k] = (YEAR_COUNTS[k] || 0) + 1; });
+  ALL_SCENES.forEach(s => (byYear[s.year || 'undated'] ||= new Set()).add('scene:' + (s.clean_file || s.original)));
+  YEAR_COUNTS = {};
+  Object.entries(byYear).forEach(([y, set]) => { YEAR_COUNTS[y] = set.size; });
 
   ALL_YEARS = Object.keys(YEAR_COUNTS).filter(k => k !== 'undated').sort();
-  // The timeline holds dated photos only; undated ones stay reachable through
-  // "All years" and the Date unknown button.
-  TL_STOPS = ['all', ...ALL_YEARS];
-  TL_POS = timelinePositions(ALL_YEARS);
+  // "All years" takes the left end, dated years the middle, and undated photos a
+  // stop of their own at the right end, so phones (timeline only) can reach them.
+  TL_STOPS = ['all', ...ALL_YEARS, ...(YEAR_COUNTS.undated ? ['undated'] : [])];
+  TL_POS = timelinePositions(ALL_YEARS, !!YEAR_COUNTS.undated);
 
   const groups = [];
   ALL_YEARS.forEach(y => {
@@ -1031,11 +1108,15 @@ function clearFilters() {
 
 // Years sit at their true distance from each other, so the 1988 to 1998 gap reads
 // as a gap. "All years" takes the left end; dated years fill the rest.
-const TL_ALL_PCT = 0, TL_FIRST_PCT = 9;
-function timelinePositions(years) {
-  const y0 = +years[0], y1 = +years[years.length - 1];
-  const span = Math.max(1, y1 - y0);
-  return [TL_ALL_PCT, ...years.map(y => TL_FIRST_PCT + (100 - TL_FIRST_PCT) * (+y - y0) / span)];
+const TL_ALL_PCT = 0, TL_FIRST_PCT = 9, TL_LAST_PCT = 84, TL_UNDATED_PCT = 100;
+let tlLastPct = 100;
+function yearPct(y) {
+  const y0 = +ALL_YEARS[0], y1 = +ALL_YEARS[ALL_YEARS.length - 1];
+  return TL_FIRST_PCT + (tlLastPct - TL_FIRST_PCT) * (+y - y0) / Math.max(1, y1 - y0);
+}
+function timelinePositions(years, withUndated) {
+  tlLastPct = withUndated ? TL_LAST_PCT : 100;
+  return [TL_ALL_PCT, ...years.map(yearPct), ...(withUndated ? [TL_UNDATED_PCT] : [])];
 }
 
 function buildTimeline(host, inViewer = false) {
@@ -1059,7 +1140,7 @@ function buildTimeline(host, inViewer = false) {
     if (YEAR_COUNTS[String(y)]) continue;
     const t = document.createElement('div');
     t.className = 'tl-tick tl-minor';
-    t.style.left = (TL_FIRST_PCT + (100 - TL_FIRST_PCT) * (y - y0) / Math.max(1, y1 - y0)) + '%';
+    t.style.left = yearPct(y) + '%';
     ticks.appendChild(t);
   }
 
@@ -1072,19 +1153,27 @@ function buildTimeline(host, inViewer = false) {
   });
 
   // Label the ends, then the best-documented years that fit without colliding.
+  // Two sets: a wide one for desktop and a sparser one for phones.
   const last = TL_STOPS.length - 1;
-  const chosen = [0, 1, last];
-  TL_STOPS.map((stop, i) => i).filter(i => !chosen.includes(i))
-    .sort((a, b) => YEAR_COUNTS[TL_STOPS[b]] - YEAR_COUNTS[TL_STOPS[a]])
-    .forEach(i => { if (chosen.every(j => Math.abs(TL_POS[i] - TL_POS[j]) >= 8)) chosen.push(i); });
-  chosen.sort((a, b) => a - b).forEach(i => {
-    const stop = TL_STOPS[i];
-    const lab = document.createElement('span');
-    lab.className = 'tl-ticklabel' + (i === 0 ? ' first' : i === last ? ' last' : ' mid');
-    lab.style.left = TL_POS[i] + '%';
-    lab.textContent = stop === 'all' ? 'All' : (i === 1 || i === last ? stop : "'" + stop.slice(2));
-    ticks.appendChild(lab);
-  });
+  const lastYear = TL_STOPS.lastIndexOf(ALL_YEARS[ALL_YEARS.length - 1]);
+  const labelSet = (seed, gap, cls) => {
+    const chosen = [...seed];
+    TL_STOPS.map((stop, i) => i).filter(i => !chosen.includes(i) && TL_STOPS[i] !== 'undated')
+      .sort((a, b) => YEAR_COUNTS[TL_STOPS[b]] - YEAR_COUNTS[TL_STOPS[a]])
+      .forEach(i => { if (chosen.every(j => Math.abs(TL_POS[i] - TL_POS[j]) >= gap)) chosen.push(i); });
+    chosen.sort((a, b) => a - b).forEach(i => {
+      const stop = TL_STOPS[i];
+      const lab = document.createElement('span');
+      lab.className = `tl-ticklabel ${cls}` + (i === 0 ? ' first' : i === last ? ' last' : '');
+      lab.style.left = TL_POS[i] + '%';
+      lab.textContent = stop === 'all' ? 'All'
+        : stop === 'undated' ? (cls === 'wide' ? 'Undated' : '?')
+        : (i === 1 || i === lastYear ? stop : "'" + stop.slice(2));
+      ticks.appendChild(lab);
+    });
+  };
+  labelSet([...new Set([0, 1, lastYear, last])], 8, 'wide');
+  labelSet([...new Set([0, lastYear, last])], 22, 'narrow');
 
   // Snap to the nearest stop by position, not by index, now that spacing is real.
   const pick = clientX => {
@@ -1198,7 +1287,7 @@ function renderSidebar(addresses, nearby = []) {
   list.innerHTML = '';
 
   const scenes = filteredScenes();
-  const totalPhotos = addresses.reduce((s, a) => s + visiblePhotos(a).length, 0);
+  const totalPhotos = uniqueCount(addresses.flatMap(visiblePhotos)) + scenes.length;
   countEl.textContent =
     `${addresses.length} address${addresses.length !== 1 ? 'es' : ''} · ${totalPhotos} photo${totalPhotos !== 1 ? 's' : ''}`;
 
@@ -1238,7 +1327,7 @@ function renderSidebar(addresses, nearby = []) {
 
   Object.keys(grouped).sort().forEach(street => {
     const entries = grouped[street];
-    const n = entries.reduce((s, a) => s + visiblePhotos(a).length, 0);
+    const n = uniqueCount(entries.flatMap(visiblePhotos));
     frag.appendChild(makeGroup({
       key: street,
       title: street,
@@ -1269,13 +1358,29 @@ function renderSidebar(addresses, nearby = []) {
           photos: scenes.map(sceneAsPhoto),
           startIndex: i,
           subtitle: `${scenes.length} view${scenes.length !== 1 ? 's' : ''} · Oregon Historic District`,
-        }),
+        }) || pushViewerState(),
       })),
     }));
   }
 
   list.appendChild(frag);
   if (addresses.length) list.appendChild(shareNote());
+  list.appendChild(aboutNote());
+}
+
+// What the collection is, from the data itself, plus OHDS's own account of it
+// when PROVENANCE is filled in.
+function aboutNote() {
+  const d = document.createElement('details');
+  d.className = 'about-note';
+  const all = ALL_ADDRESSES.flatMap(a => a.photos);
+  const total = uniqueCount(all) + ALL_SCENES.length;
+  const multi = ALL_ADDRESSES.filter(a => isMulti(a.photos)).length;
+  d.innerHTML = `<summary>About this archive</summary>
+    ${PROVENANCE ? `<p>${esc(PROVENANCE)}</p>` : ''}
+    <p>${total} photographs of the Oregon Historic District in Dayton, Ohio, taken between ${ALL_YEARS[0]} and ${ALL_YEARS[ALL_YEARS.length - 1]}: ${uniqueCount(all)} of buildings at ${ALL_ADDRESSES.length} addresses and ${ALL_SCENES.length} streetscapes. ${multi} addresses were photographed in more than one year; they carry an amber ring on the map and open into Compare years.</p>
+    <p>A photo that shows a row of buildings is listed under each address in it, so some photos appear more than once. Locations are approximate.</p>`;
+  return d;
 }
 
 function shareNote(place = '', missing = false) {
@@ -1446,7 +1551,8 @@ function placePins(addresses) {
     MAP.addPin(entry.address, entry.lat, entry.lon, {
       weight: shown.length,
       data: entry,
-      onClick: rec => { hidePinHover(); hideFeatured(); setActive(entry.address); MAP.openPopup(rec, buildPopup(entry)); },
+      className: isMulti(shown) ? 'multi' : '',
+      onClick: rec => { hidePinHover(); hideFeatured(); setActive(entry.address); MAP.openPopup(rec, buildPopup(entry)); writeHash(); },
       onHover: (rec, on) => on ? showPinHover(rec, entry) : hidePinHover(),
     });
   });
@@ -1469,7 +1575,7 @@ function showPinHover(rec, entry) {
     <div class="pin-hover-body">
       <b>${esc(entry.address)}</b>
       <span>${shown.length} photo${shown.length !== 1 ? 's' : ''} · ${yearRange(shown)}</span>
-      <em>Click to see the photos</em>
+      <em>${isMulti(shown) ? 'Several years · click to compare' : 'Click to see the photos'}</em>
     </div>`;
   const { x, y } = MAP.screenOf(rec);
   pinHoverEl.style.left = Math.min(Math.max(x, 130), document.getElementById('map').clientWidth - 130) + 'px';
@@ -1490,9 +1596,9 @@ function buildPopup(entry) {
     <button type="button" class="popup-close" aria-label="Close">✕</button>
     ${cover ? `<img class="popup-thumb" src="${thumbSrc(cover)}" alt="${esc(captionOf(cover))}" loading="lazy">` : ''}
     <div class="popup-body">
-      <h3>${entry.address}</h3>
+      <h3>${esc(entry.address)}</h3>
       <div class="popup-meta">${shown.length} photo${shown.length !== 1 ? 's' : ''} · ${yearRange(shown)}</div>
-      ${desc ? `<div class="popup-desc">${desc}</div>` : ''}
+      ${desc ? `<div class="popup-desc">${esc(desc)}</div>` : ''}
       ${shown.length > 1 ? '<div class="popup-gallery"></div>' : ''}
       <button class="popup-btn">View all photos</button>
     </div>`;
@@ -1553,7 +1659,7 @@ function selectAddress(entry) {
   document.body.classList.remove('list-open');
   if (entry.lat && entry.lon) {
     MAP.flyToLatLon(entry.lat, entry.lon, Math.max(MAP.zoom, 6));
-    setTimeout(() => MAP.openPopupFor(entry.address, buildPopup(entry)), 440);
+    setTimeout(() => { MAP.openPopupFor(entry.address, buildPopup(entry)); writeHash(); }, 440);
   } else {
     openLightbox(entry);
   }
@@ -1566,7 +1672,7 @@ searchInput.addEventListener('input', function () {
   searchWords = tokens(searchTerm);
   searchWords.done = /\s$/.test(this.value);      // a trailing space means the last word is finished
   if (searchTerm) hideFeatured();
-  applyFilters();
+  applyFilters({ typing: true });
 });
 document.getElementById('search-clear').addEventListener('click', () => {
   searchInput.value = ''; searchTerm = ''; searchWords = []; applyFilters(); searchInput.focus();
@@ -1585,7 +1691,7 @@ function openLightbox(entry, startIndex = 0) {
     subtitle: `${shown.length} photo${shown.length !== 1 ? 's' : ''} · ${yearRange(shown)} · ${entry.street}`,
     canCompare: yearsOf(shown).length > 1,
   });
-  location.hash = 'a=' + encodeURIComponent(entry.address);
+  pushViewerState();
 }
 
 // The year control stays live while the viewer is open, so re-run the open entry
@@ -1671,14 +1777,18 @@ function buildThumbs() {
   const c = document.getElementById('lb-thumbs');
   c.innerHTML = '';
   lbPhotos.forEach((p, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'lb-thumb' + (i === lbIndex ? ' active' : '');
+    b.title = p.year || UNDATED;
+    b.setAttribute('aria-label', `${p.year || UNDATED}: ${captionOf(p)}`);
     const img = document.createElement('img');
-    img.className = 'lb-thumb' + (i === lbIndex ? ' active' : '');
     img.src = thumbSrc(p);
     img.loading = 'lazy';
-    img.title = p.year || UNDATED;
-    img.alt = captionOf(p);
-    img.addEventListener('click', () => compareMode ? setComparePick(i) : showPhoto(i));
-    c.appendChild(img);
+    img.alt = '';
+    b.appendChild(img);
+    b.addEventListener('click', () => compareMode ? setComparePick(i) : showPhoto(i));
+    c.appendChild(b);
   });
 }
 
@@ -1693,7 +1803,10 @@ function showPhoto(index) {
     captionOf(p) + (p.year ? '' : ` (${UNDATED.toLowerCase()})`);
   document.getElementById('lb-full').href = fullSrc(p);
   document.getElementById('main-tag').textContent = p.year || UNDATED;
-  document.querySelectorAll('.lb-thumb').forEach((el, i) => el.classList.toggle('active', i === index));
+  document.querySelectorAll('.lb-thumb').forEach((el, i) => {
+    el.classList.toggle('active', i === index);
+    el.setAttribute('aria-current', i === index ? 'true' : 'false');
+  });
   document.querySelector('.lb-thumb.active')?.scrollIntoView({ inline: 'nearest', block: 'nearest' });
   if (compareMode) updateComparePane();
   [index - 1, index + 1].forEach(i => { if (lbPhotos[i]) new Image().src = viewSrc(lbPhotos[i]); });
@@ -1722,7 +1835,10 @@ function updateComparePane() {
   note.textContent = `Comparing ${a} and ${b} · tap a photo below to change the right side`;
   note.hidden = false;
   document.getElementById('lb-caption').hidden = true;
-  document.querySelectorAll('.lb-thumb').forEach((el, n) => el.classList.toggle('cmp-pick', n === comparePick));
+  document.querySelectorAll('.lb-thumb').forEach((el, n) => {
+    el.classList.toggle('cmp-pick', n === comparePick);
+    el.setAttribute('aria-pressed', String(n === comparePick));
+  });
 }
 document.getElementById('lb-compare').addEventListener('click', function () {
   setCompareMode(!compareMode);
@@ -1737,12 +1853,27 @@ function setCompareMode(on) {
   document.getElementById('lb-stage').classList.toggle('compare', on);
   if (on) { updateComparePane(); return; }
   comparePick = null;
-  document.querySelectorAll('.lb-thumb').forEach(el => el.classList.remove('cmp-pick'));
+  document.querySelectorAll('.lb-thumb').forEach(el => { el.classList.remove('cmp-pick'); el.removeAttribute('aria-pressed'); });
   document.getElementById('lb-compare-note').hidden = true;
   document.getElementById('lb-caption').hidden = false;
 }
 
+// Opening the viewer adds a history entry, so the Back button closes it. The Close
+// button and Escape go back through that same entry when there is one.
+let viewerPushed = false;
+function pushViewerState() {
+  if (restoring) return;
+  if (!viewerPushed) { history.pushState({ viewer: true }, '', hashURL()); viewerPushed = true; }
+  else writeHash();
+}
 function closeLightbox() {
+  if (viewerPushed && history.state && history.state.viewer) { history.back(); return; }   // popstate closes it
+  closeViewerUI();
+  writeHash();
+}
+function closeViewerUI() {
+  viewerPushed = false;
+  if (!document.getElementById('lightbox').classList.contains('open')) { lbEntry = null; return; }
   document.getElementById('lightbox').classList.remove('open');
   setBackgroundInert(false);
   if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
@@ -1754,14 +1885,12 @@ function closeLightbox() {
   lastFocus = null;
   lbEntry = null;
   syncYearUI();
-  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
 }
 document.getElementById('lb-close').addEventListener('click', closeLightbox);
 document.getElementById('lb-prev').addEventListener('click', () => showPhoto((lbIndex - 1 + lbPhotos.length) % lbPhotos.length));
 document.getElementById('lb-next').addEventListener('click', () => showPhoto((lbIndex + 1) % lbPhotos.length));
-document.getElementById('lightbox').addEventListener('click', e => {
-  if (e.target.id === 'lightbox' || e.target.id === 'lb-stage') closeLightbox();
-});
+// No click-outside-to-close: with photos filling the stage, a slightly missed click
+// on the arrows would end the visit. Close and Escape are the ways out.
 document.addEventListener('keydown', e => {
   if (!document.getElementById('lightbox').classList.contains('open')) {
     if (e.key === 'Escape' && MAP && MAP.popupPin) MAP.closePopup();
@@ -1798,8 +1927,12 @@ function openCompare(entry, fromFile, toFile) {
   setCompareMode(true);
   if (to >= 0) setComparePick(to);
 }
+function showFeatured() {
+  document.body.classList.remove('list-open');
+  if (document.getElementById('featured-list').children.length) document.getElementById('featured').hidden = false;
+}
+document.getElementById('featured-open').addEventListener('click', showFeatured);
 function buildFeatured() {
-  if (store.get('ohd-featured-dismissed') || location.hash) return;
   const list = document.getElementById('featured-list');
   FEATURED.forEach(f => {
     const entry = ALL_ADDRESSES.find(a => a.address === f.address);
@@ -1817,7 +1950,8 @@ function buildFeatured() {
     });
     list.appendChild(b);
   });
-  if (list.children.length) document.getElementById('featured').hidden = false;
+  if (!list.children.length) document.getElementById('featured-open').hidden = true;
+  else if (!store.get('ohd-featured-dismissed') && !location.hash) showFeatured();
 }
 document.getElementById('featured-close').addEventListener('click', () => hideFeatured(true));
 
@@ -1859,13 +1993,61 @@ if (window.matchMedia && matchMedia('(max-width: 760px)').matches) {
 }
 
 // ── Deep link ────────────────────────────────────────────────────────────────
-function restoreFromHash() {
-  const m = /a=([^&]+)/.exec(location.hash);
-  if (!m) return;
-  const addr = decodeURIComponent(m[1]);
-  const entry = ALL_ADDRESSES.find(a => a.address === addr);
-  if (entry) { setActive(addr); openLightbox(entry); }
+// The URL carries the whole view: #a=<address in the viewer>, #p=<address with its
+// map popup open>, #v=scenes, #y=<years>, #q=<search>. Old #a= links still work.
+let restoring = false;
+function hashURL() {
+  const h = new URLSearchParams();
+  if (lbEntry && lbEntry.address) h.set('a', lbEntry.address);
+  else if (lbEntry) h.set('v', 'scenes');
+  else if (MAP && MAP.popupPin && MAP.popupPin.data) h.set('p', MAP.popupPin.data.address);
+  if (activeYears.size) h.set('y', [...activeYears].sort().join(','));
+  if (searchTerm) h.set('q', searchTerm);
+  const s = h.toString().replace(/\+/g, '%20');
+  return location.pathname + location.search + (s ? '#' + s : '');
 }
+function writeHash() {
+  if (!ready || restoring) return;
+  const url = hashURL();
+  if (url !== location.pathname + location.search + location.hash) history.replaceState(history.state, '', url);
+}
+function restoreFromHash(initial = false) {
+  const h = new URLSearchParams(location.hash.slice(1));
+  restoring = true;
+  const find = k => h.get(k) && ALL_ADDRESSES.find(a => a.address === h.get(k));
+  const viewer = find('a'), popup = find('p');
+  if (!viewer && h.get('v') !== 'scenes' && document.getElementById('lightbox').classList.contains('open')) closeViewerUI();
+
+  // Re-filter only when the filter itself changed, so Back out of the viewer keeps
+  // the map where the visitor left it.
+  const years = new Set((h.get('y') || '').split(',').filter(y => y === 'undated' || ALL_YEARS.includes(y)));
+  const q = h.get('q') || '';
+  const changed = q !== searchTerm || years.size !== activeYears.size || [...years].some(y => !activeYears.has(y));
+  if (changed || initial) {
+    activeYears = years;
+    searchTerm = q;
+    searchInput.value = q;
+    searchWords = tokens(q);
+    searchWords.done = true;
+    syncYearUI();
+    applyFilters();
+  }
+  if (viewer) { clearTimeout(fitTimer); setActive(viewer.address); openLightbox(viewer); }
+  else if (h.get('v') === 'scenes' && filteredScenes().length) {
+    const scenes = filteredScenes();
+    openViewer({ title: 'Streetscapes', entry: { photos: scenes.map(sceneAsPhoto), description: '' },
+      photos: scenes.map(sceneAsPhoto), subtitle: `${scenes.length} views · Oregon Historic District` });
+  } else if (popup) {
+    clearTimeout(fitTimer);
+    selectAddress(popup);
+  }
+  restoring = false;
+}
+// Back and Forward replay the URL. Leaving a viewer entry closes the viewer.
+window.addEventListener('popstate', () => {
+  viewerPushed = !!(history.state && history.state.viewer);
+  restoreFromHash();
+});
 
 loadData();
 </script>

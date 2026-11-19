@@ -14,6 +14,10 @@ const SVG_NS = 'http://www.w3.org/2000/svg';
 // Pin sizing, in screen pixels before the zoom counter-scale.
 const PIN_MIN = 5, PIN_MAX = 12, PIN_CAP = 16;
 
+// Tap target radius in screen pixels: 44px across on touch screens, 32px with a mouse.
+const COARSE = window.matchMedia && matchMedia('(pointer: coarse)').matches;
+const HIT_MIN = COARSE ? 22 : 16;
+
 function createMap(container, basemap, opts = {}) {
   const [S, W, N, E] = basemap.bbox;
   const WORLD_W = basemap.width, WORLD_H = basemap.height;
@@ -34,7 +38,7 @@ function createMap(container, basemap, opts = {}) {
   // ── DOM ────────────────────────────────────────────────────────────────────
   container.classList.add('svgmap');
   container.innerHTML = `
-    <svg class="svgmap-canvas" xmlns="${SVG_NS}">
+    <svg class="svgmap-canvas" xmlns="${SVG_NS}" aria-hidden="true">
       <g class="svgmap-world">
         <g class="svgmap-base"></g>
         <g class="svgmap-overlay"></g>
@@ -127,7 +131,7 @@ function createMap(container, basemap, opts = {}) {
     for (const p of pins.values()) {
       const r = pinRadius(p.weight) / k;
       p.el.setAttribute('r', r);
-      p.hit.setAttribute('r', Math.max(r * 1.9, 16 / k));   // comfortable tap target
+      p.hit.setAttribute('r', Math.max(r * 1.9, HIT_MIN / k));   // comfortable tap target
     }
     for (const { el, rank } of labelEls) {
       el.style.display = (rank === 1 || k > (rank === 2 ? 1.6 : 3.2)) ? '' : 'none';
@@ -261,7 +265,7 @@ function createMap(container, basemap, opts = {}) {
     return PIN_MIN + (PIN_MAX - PIN_MIN) * Math.sqrt(n / PIN_CAP);
   }
 
-  function addPin(key, lat, lon, { weight = 1, data = null, onClick, onHover } = {}) {
+  function addPin(key, lat, lon, { weight = 1, data = null, className = '', onClick, onHover } = {}) {
     const [wx, wy] = project(lat, lon);
     const g = document.createElementNS(SVG_NS, 'g');
     g.setAttribute('class', 'svgmap-pin-g');
@@ -269,19 +273,22 @@ function createMap(container, basemap, opts = {}) {
     hit.setAttribute('class', 'svgmap-hit');
     hit.setAttribute('cx', wx); hit.setAttribute('cy', wy);
     const el = document.createElementNS(SVG_NS, 'circle');
-    el.setAttribute('class', 'svgmap-pin');
+    el.setAttribute('class', 'svgmap-pin' + (className ? ' ' + className : ''));
     el.setAttribute('cx', wx); el.setAttribute('cy', wy);
     g.append(hit, el);
 
-    const rec = { g, el, hit, wx, wy, data, weight };
+    const rec = { g, el, hit, wx, wy, data, weight, onClick };
     const r0 = pinRadius(weight) / k;
     el.setAttribute('r', r0);
-    hit.setAttribute('r', Math.max(r0 * 1.9, 16 / k));
+    hit.setAttribute('r', Math.max(r0 * 1.9, HIT_MIN / k));
 
     g.addEventListener('click', ev => {
       ev.stopPropagation();
       if (dragged) return;              // a drag that ends on a pin is not a click
-      onClick && onClick(rec);
+      // Tap targets overlap in dense blocks, and the topmost one is not always the
+      // dot the finger was aimed at. Give the click to the nearest pin instead.
+      const target = nearestPin(ev.clientX, ev.clientY) || rec;
+      target.onClick && target.onClick(target);
     });
     // Mouse only: touch has no hover, and a tap already opens the popup.
     if (onHover) {
@@ -291,6 +298,18 @@ function createMap(container, basemap, opts = {}) {
     gPins.appendChild(g);
     pins.set(key, rec);
     return rec;
+  }
+
+  function nearestPin(clientX, clientY) {
+    const r = container.getBoundingClientRect();
+    const sx = clientX - r.left, sy = clientY - r.top;
+    let best = null, bestD = Infinity;
+    for (const p of pins.values()) {
+      const d = Math.hypot(p.wx * k + tx - sx, p.wy * k + ty - sy);
+      const reach = Math.max(pinRadius(p.weight) * 1.9, HIT_MIN);
+      if (d <= reach && d < bestD) { best = p; bestD = d; }
+    }
+    return best;
   }
 
   function setPinState(key, state) {
@@ -354,9 +373,11 @@ function createMap(container, basemap, opts = {}) {
   }
 
   function closePopup() {
+    const was = openPin;
     popupEl.hidden = true;
     popupEl.textContent = '';
     openPin = null;
+    if (was && opts.onPopupClose) opts.onPopupClose();
   }
 
   svg.addEventListener('click', e => { if (!dragged && e.target === svg) closePopup(); });

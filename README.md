@@ -5,24 +5,28 @@ Replacement for the dead `ohds-archives.org/archives/index.asp`, built to embed 
 
 ## What it does
 
-Map-first browser for 822 archival photos across 241 addresses in the Oregon
-Historic District, Dayton, Ohio, plus 59 undated-to-2003 streetscape views. Photos
-captioned with a span of house numbers are attached to every address in the span,
-so the collection resolves to 1,019 address-photo links.
+Map-first browser for 822 archival photos of the Oregon Historic District, Dayton,
+Ohio: 763 of buildings at 241 addresses, plus 59 streetscape views. Photos captioned
+with a span of house numbers are attached to every address in the span, so the
+collection resolves to 1,019 address-photo links. Every count on the page is of
+unique photos, so the visitor sees 822 everywhere.
 
-- **Map** of the district with a pin per address, its area graduated by photo count (square-root scaled, capped at 16 so one outlier does not flatten the rest) against a small legend; framed automatically on the photographed addresses
-- **Sidebar** of address tiles grouped by street, collapsed by default so the whole district scans in one screen; each tile shows a cover photo, year range, and photo count
+- **Map** of the district with a pin per address, its area graduated by photo count (square-root scaled, capped at 16 so one outlier does not flatten the rest) against a small legend; framed automatically on the photographed addresses, and re-framed on whatever a search or year filter leaves
+- **Amber-ringed pins** mark the 120 addresses photographed in more than one year, the ones that open into Compare years
+- **Tap targets** are 44px on touch screens, and a tap goes to the nearest dot, so dense blocks stay usable
+- **Sidebar** of address tiles grouped by street, collapsed so the whole district scans in one screen, except that on desktop the street with the most then-and-now addresses opens on first load; each tile shows a cover photo, year range, and photo count
+- **About this archive** note at the foot of the list, built from the data, with a `PROVENANCE` slot in `docs/index.html` for OHDS's own account of who made the photos
 - **Streetscapes** appear as their own group in the sidebar, alongside the streets
-- **Year filter** (thin years fold into the chip before them, e.g. "1977–81"; undated photos are labelled "Date unknown") in two interchangeable forms, switched by the toggle at the right of the year row: multi-select chips, or a timeline slider that snaps to the years the collection actually holds. The timeline stays live inside the photo viewer, where years the open address has nothing from are dimmed
+- **Year filter** (thin years fold into the chip before them, e.g. "1977–81"; undated photos are labelled "Date unknown") in two interchangeable forms, switched by the toggle at the right of the year row: multi-select chips, or a timeline slider that snaps to the years the collection actually holds, with a final stop for undated photos. The timeline stays live inside the photo viewer, where years the open address has nothing from are dimmed
 - **Site navigation** mirroring oregonhistoric.org's header, so the archive reads as part of the society's site and always has a way back
 - **Forgiving search** across address, street, and streetscape captions: "22 Brown Street", "east fifth", "5th st", "tecumsh" and "brown 22" all find their match. A miss names what was searched, offers the nearest photographed addresses on that street, and invites the visitor to share a photo
-- **First-visit prompt** with three featured buildings that open straight into Compare years
-- **Share a photo** links (sidebar, empty state, viewer) open the OHDS submission form (a Google Form, `SHARE_FORM` in `docs/index.html`) in a new tab; nothing is sent from the page itself
+- **First-visit prompt** with three featured buildings that open straight into Compare years; a "Featured buildings" link above the list brings it back after it is dismissed
+- **Share a photo** links (sidebar, empty state, viewer) open the OHDS submission form (a Google Form, `SHARE_FORM` in `docs/index.html`) in a new tab; nothing is sent from the page itself. Set `SHARE_FIELD` to the entry ID of the form's address question and each link arrives with the building's address filled in
 - **Map popups** carrying a cover image, a scrollable thumbnail gallery of everything at that address, an optional description, and a link into the full viewer
-- **Lightbox** with a thumbnail strip, keyboard navigation, and neighbor preloading
+- **Lightbox** with a thumbnail strip of real buttons, keyboard navigation, and neighbor preloading; it closes with Close, Escape, or the browser's Back button, never on a stray click beside the photo
 - **Compare years** side by side for the 118 addresses photographed in more than one year; it defaults to the widest time gap available and any second photo can be picked from the strip
-- **Deep links** via `#a=<address>` so a specific address can be shared
-- Responsive down to phone width, where the navigation collapses to a Menu button, the year filter defaults to the timeline, the sidebar becomes a drawer, and Compare stacks vertically
+- **Deep links** carry the whole view: `#a=` (address open in the viewer), `#p=` (address with its map popup open), `#v=scenes`, `#y=` (years), `#q=` (search). Opening the viewer adds a history entry so Back closes it
+- Responsive down to phone width, where the navigation collapses to a Menu button, the page title stays visible, the year filter defaults to the timeline, the sidebar becomes a drawer, and Compare stacks vertically
 - **Accessibility:** the viewer takes focus, makes the page behind it inert, and returns focus on close; images carry their captions as alt text; animations respect reduced-motion settings
 
 ## No external dependencies
@@ -249,6 +253,8 @@ changes, or browsers will serve the old data from cache.
 - **Geocoding is unverified.** All 241 addresses have coordinates, but nobody has checked them against the real parcels. Worth a spot-check on a sample before this goes public.
 - **Span attachment is literal, not parity-aware.** See the range-labelled photos section; a handful of photos land on the address across the street.
 - **The n / s codes on 1973 photos are unexplained.** They appear on 218 address-photo links; OHDS may know what they mean (negative and slide is one guess). Captions omit them until confirmed.
+- **The Squarespace block is behind.** `squarespace/ohd-archive-block.html` predates the deep-link and history changes. Those write to the URL, which inside a Squarespace page is the host site's URL, so check that before regenerating it.
+- **0 of 241 descriptions and no provenance text yet.** The slots exist (`description` in `data.json`, `PROVENANCE` in `index.html`); the words need to come from OHDS.
 - **The site navigation is a copy.** It won't follow changes to the Squarespace menu on its own.
 - **No usage data.** GitHub Pages provides no visitor stats and the page loads no analytics by design.
 - **The originals are not in this repo.** The masters and the untouched source drop are kept separately; they need an off-site backup.
@@ -262,3 +268,4 @@ changes, or browsers will serve the old data from cache.
 - Hardened the embed snippet against Squarespace Embed blocks and documented the Code-block fix (correction).
 - Moved the site to discover.oregonhistoric.org and pointed the embed snippet at it (scope change).
 - Ran with the standalone subdomain: added the site navigation, forgiving search with a useful empty state, featured buildings, share-a-photo links, cleaned captions, grouped year chips, a phone-first year control, pin highlight on tile hover, labelled timelines, viewer focus handling, reduced-motion support, alt text, favicon and share preview (scope change).
+- UX audit fixes: map re-frames on search and year filters, amber ring for multi-year addresses, nearest-dot tapping with 44px touch targets, unique-photo counts (822) everywhere, undated stop on the timeline, full-state deep links with Back closing the viewer, keyboard-operable viewer thumbnails, About note and provenance slot, share-form address prefill hook, "Open image" in place of "Full resolution", visible title on phones, escaped descriptions, no close on stray clicks (scope change).
