@@ -682,7 +682,10 @@
     .nav-menu a, .nav-sub-btn { width: 100%; text-align: left; padding: 13px 8px; font-size: 1rem; border-bottom: 1px solid var(--line); border-radius: 0; }
     .nav-menu a.current { box-shadow: inset 3px 0 0 var(--accent); }
     .nav-sub { position: static; box-shadow: none; border: none; padding: 0 0 0 14px; }
-    .featured { bottom: 70px; left: 14px; right: 14px; width: auto; max-width: none; }
+    /* On short phones the prompt is taller than the map: cap it to the space
+       above the map buttons and let it scroll, so its close button stays in reach. */
+    .featured { bottom: 70px; left: 14px; right: 14px; width: auto; max-width: none;
+                max-height: calc(100% - 84px); overflow-y: auto; overscroll-behavior: contain; }
     :root { --sidebar-w: 100%; }
     #sidebar {
       position: absolute; inset: 0; z-index: 1200;
@@ -820,6 +823,9 @@
 
 <script src="./map.js"></script>
 <script>
+// iOS Safari shows :active press states only when the page listens for touches.
+document.addEventListener('touchstart', function () {}, { passive: true });
+
 // ── Config ───────────────────────────────────────────────────────────────────
 const BUILD = '2026-11-18a';   // bump when data.json or basemap.json changes
 const THUMB_URL = './thumbs/';
