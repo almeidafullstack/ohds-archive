@@ -33,6 +33,9 @@
     --line:     #d2d2d0;
     --accent:   #ffc700;
     --accent-d: #d9a800;
+    /* Amber dark enough to carry text and focus rings on every light surface
+       (4.7:1 or better against --bg, --surface, --panel and the map). */
+    --accent-t: #7a5d00;
     --dark:     #1c1c1c;
     --radius:   4px;
     --pill:     999px;
@@ -67,7 +70,9 @@
     -webkit-font-smoothing: antialiased;
   }
   button { font-family: inherit; color: inherit; cursor: pointer; border: none; background: none; }
-  :focus-visible { outline: 2px solid var(--accent-d); outline-offset: 2px; }
+  :focus-visible { outline: 2px solid var(--accent-t); outline-offset: 2px; }
+  /* The photo viewer is dark, where the bright amber is the legible one. */
+  #lightbox :focus-visible { outline-color: var(--accent); }
 
   /* ── Site navigation (mirrors oregonhistoric.org) ── */
   .site-nav {
@@ -152,7 +157,7 @@
   .chip {
     font-size: 0.92rem; padding: 9px 16px; border-radius: var(--pill);
     border: 1px solid var(--line); background: var(--surface);
-    white-space: nowrap; transition: background .12s, border-color .12s; font-weight: 500;
+    white-space: nowrap; transition: background .12s, border-color .12s, transform .12s; font-weight: 500;
   }
   .chip:hover { border-color: var(--ink-soft); }
   .chip.on { background: var(--accent); border-color: var(--accent); color: var(--dark); font-weight: 600; }
@@ -251,7 +256,7 @@
   .sidebar-meta-right { display: flex; align-items: center; gap: 12px; }
   #list-close { display: none; }
   .linkbtn { font-size: 0.85rem; color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
-  .linkbtn:hover { color: var(--accent-d); }
+  .linkbtn:hover { color: var(--accent-t); }
 
   #addr-list { overflow-y: auto; flex: 1; overscroll-behavior: contain; }
   #addr-list::-webkit-scrollbar { width: 8px; }
@@ -278,7 +283,7 @@
   .street-group.collapsed .tile-grid { display: none; }
   .street-name { font-family: var(--serif); font-size: .95rem; }
   .street-photo-count { font-size: 0.8rem; color: var(--ink-soft); white-space: nowrap; }
-  .street-group.scenes .street-name::before { content: '◈ '; color: var(--accent-d); }
+  .street-group.scenes .street-name::before { content: '◈ '; color: var(--accent-t); }
 
   .tile-grid {
     display: grid;
@@ -323,7 +328,7 @@
 
   .cluster-cta {
     display: block; margin-top: 3px;
-    font-size: 0.8rem; font-weight: 600; color: var(--accent-d);
+    font-size: 0.8rem; font-weight: 600; color: var(--accent-t);
   }
   /* Expanded, the head steps out of the way: a full-width bar above its members. */
   .cluster:not(.collapsed) .cluster-head {
@@ -357,7 +362,7 @@
   .empty-sub { padding: 4px 14px 8px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); font-weight: 600; }
   .share-note { margin: 14px 12px 18px; padding: 12px 14px; border: 1px dashed var(--line); border-radius: var(--radius); font-size: 0.85rem; line-height: 1.5; color: var(--ink-soft); }
   .share-note a, .share-link { color: var(--ink); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; text-decoration-color: var(--accent-d); }
-  .share-note a:hover, .share-link:hover { color: var(--accent-d); }
+  .share-note a:hover, .share-link:hover { color: var(--accent-t); }
 
   /* ── SVG map ──────────────────────────────────────── */
   #map { flex: 1; position: relative; overflow: hidden; background: var(--map-bg); }
@@ -477,7 +482,7 @@
   .pin-hover-body { padding: 8px 12px 10px; }
   .pin-hover-body b { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.1rem; }
   .pin-hover-body span { font-size: .85rem; color: var(--ink-soft); }
-  .pin-hover-body em { display: block; font-style: normal; font-size: .8rem; color: var(--accent-d); font-weight: 600; margin-top: 3px; }
+  .pin-hover-body em { display: block; font-style: normal; font-size: .8rem; color: var(--accent-t); font-weight: 600; margin-top: 3px; }
 
   .svgmap-zoom {
     position: absolute; top: 12px; left: 12px; z-index: 400;
@@ -628,6 +633,36 @@
   .lb-thumb.active { border-color: var(--accent); opacity: 1; }
   .lb-thumb.cmp-pick { border-color: #6ec1ff; opacity: 1; }
 
+
+  /* ── Press feedback ───────────────────────────────── */
+  /* Every control answers a press within a frame. Colour carries the cue for
+     everyone; the small scale is added only when motion is welcome. */
+  .year-mode button, .btn-clear, .popup-btn, .lb-action, .lb-nav, .nav-toggle,
+  .svgmap-zoom button, .map-fab, .featured-item, .featured-close, #search-clear {
+    transition-property: background-color, color, border-color, transform;
+    transition-duration: .12s; transition-timing-function: ease-out;
+  }
+  .nav-menu a:active, .nav-sub-btn:active { background: rgba(0,0,0,.1); }
+  .chip:active:not(.on) { background: var(--line); }
+  .year-mode button:active:not([aria-pressed="true"]) { background: var(--line); color: var(--ink); }
+  .year-mode button[aria-pressed="true"]:active { background: #3a3a3a; }
+  .btn-clear:active, .popup-btn:active { background: var(--accent-d); }
+  .linkbtn:active, .share-link:active, .share-note a:active { opacity: .7; }
+  .street-head:active { background: var(--line); }
+  .tile:active { border-color: var(--ink); box-shadow: none; }
+  .svgmap-zoom button:active, .map-fab:active, .nav-toggle:active { background: var(--line); }
+  .featured-item:active { border-color: var(--accent-t); }
+  .featured-close:active, #search-clear:active { color: var(--ink); }
+  .lb-action:active { background: rgba(255,255,255,.24); }
+  .lb-nav:active { background: var(--accent-d); color: var(--dark); }
+  @media (prefers-reduced-motion: no-preference) {
+    .chip:active, .year-mode button:active, .btn-clear:active, .popup-btn:active,
+    .lb-action:active, .nav-toggle:active, .svgmap-zoom button:active,
+    .map-fab:active, .featured-close:active { transform: scale(.96); }
+    .tile:active, .featured-item:active { transform: scale(.98); }
+    .lb-nav:active { transform: translateY(-50%) scale(.96); }
+  }
+
   /* ── Mobile ───────────────────────────────────────── */
   @media (max-width: 760px) {
     .toolbar-row { flex-wrap: wrap; row-gap: 8px; }
@@ -647,7 +682,10 @@
     .nav-menu a, .nav-sub-btn { width: 100%; text-align: left; padding: 13px 8px; font-size: 1rem; border-bottom: 1px solid var(--line); border-radius: 0; }
     .nav-menu a.current { box-shadow: inset 3px 0 0 var(--accent); }
     .nav-sub { position: static; box-shadow: none; border: none; padding: 0 0 0 14px; }
-    .featured { bottom: 70px; left: 14px; right: 14px; width: auto; max-width: none; }
+    /* On short phones the prompt is taller than the map: cap it to the space
+       above the map buttons and let it scroll, so its close button stays in reach. */
+    .featured { bottom: 70px; left: 14px; right: 14px; width: auto; max-width: none;
+                max-height: calc(100% - 84px); overflow-y: auto; overscroll-behavior: contain; }
     :root { --sidebar-w: 100%; }
     #sidebar {
       position: absolute; inset: 0; z-index: 1200;
@@ -785,6 +823,9 @@
 
 <script src="./map.js"></script>
 <script>
+// iOS Safari shows :active press states only when the page listens for touches.
+document.addEventListener('touchstart', function () {}, { passive: true });
+
 // ── Config ───────────────────────────────────────────────────────────────────
 const BUILD = '2026-11-18a';   // bump when data.json or basemap.json changes
 const THUMB_URL = './thumbs/';
